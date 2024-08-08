@@ -22,7 +22,7 @@ This repository is designed to simplify the evaluation process of vision-languag
 
 Install the package: 
 ```
-pip install git+https://github.com/fairinternal/unibench
+pip install git+https://github.com/facebookresearch/unibench.git
 ```
 
 <details > 
