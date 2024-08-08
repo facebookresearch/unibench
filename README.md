@@ -6,8 +6,8 @@
 <p align="center">
   <a href="#getting-started">Getting Started</a> •
   <a href="#usage">Usage</a> •
-  <a href="#sparkles-supported-models-and-benchmarks">benchmarks & Models</a> •
-  <a href="#credit_card-citation">Credit & citation</a>
+  <a href="#sparkles-supported-models-and-benchmarks">Benchmarks & Models</a> •
+  <a href="#credit_card-citation">Credit & Citation</a>
 </p>
 
 # Vision-Language Model Evaluation Repository
