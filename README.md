@@ -1,7 +1,7 @@
 
 | ![header](./assets/header.png "header") | 
 |:--:| 
-| *[Arxiv link]* |
+| *[[Arxiv link](https://arxiv.org/abs/2408.04810)]* |
 
 <p align="center">
   <a href="#getting-started">Getting Started</a> •
@@ -331,10 +331,14 @@ The majority of UniBench is licensed under [CC-BY-NC](LICENSE), however portions
 If you use this repository in your research, please cite it as follows:
 
 ```bibtex
-@inproceedings{unibench,
-  title={UniBench: Visual Reasoning Requires Rethinking Vision-Language Beyond Scaling},
-  author={Haider Al-Tahan and Quentin Garrido and Randall Balestriero and Diane Bouchacourt and Caner Hazirbas and Mark Ibrahim},
-  year={2024},
+@inproceedings{altahan2024unibenchvisualreasoningrequires,
+      title={UniBench: Visual Reasoning Requires Rethinking Vision-Language Beyond Scaling}, 
+      author={Haider Al-Tahan and Quentin Garrido and Randall Balestriero and Diane Bouchacourt and Caner Hazirbas and Mark Ibrahim},
+      year={2024},
+      eprint={2408.04810},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2408.04810}, 
 }
 ```
 
