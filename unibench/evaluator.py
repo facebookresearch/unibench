@@ -236,7 +236,7 @@ class Evaluator(object):
                         continue
 
                     if model is None:
-                        load_model(
+                        model = load_model(
                             model_name=model_name,
                             batch_per_gpu=batch_per_gpu,
                             face_blur=face_blur,
