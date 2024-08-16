@@ -47,7 +47,7 @@ def df_to_table(
 
     for index, value_list in enumerate(pandas_dataframe.values.tolist()):
         row = [str(pandas_dataframe.index.to_list()[index])] if show_index else []
-        row += [str(round(x, 2)) for x in value_list]
+        row += [str(round(float(x), 2)) for x in value_list]
         rich_table.add_row(*row)
 
     rich_table.row_styles = ["none", "dim"]
