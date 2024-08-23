@@ -14,6 +14,9 @@ import open_clip
 import clip
 from git import Repo
 import sys
+import torch
+
+from unibench.models_zoo.wrappers.vlm import Chameleon, LVLModel, LlavaNext, PaliGemma
 
 
 def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs):
@@ -41,6 +44,250 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
         norm_std=timm.data.constants.OPENAI_CLIP_STD,
         use_itm_head=True,
         input_resolution=image_size,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma_3b(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoTokenizer
+    from transformers import AutoProcessor
+
+    name = "google/paligemma-3b-pt-224"
+    tokenizer = AutoTokenizer.from_pretrained(name)
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name)
+    kwargs['batch_per_gpu'] = 2
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        tokenizer=tokenizer,
+        prompt='Describe the following image:',
+        processor=processor,
+        use_norm=False,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size['width'],
+        **kwargs
+    )
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def llava_1_5_7b(model_name, **kwargs):
+    from transformers import LlavaForConditionalGeneration
+    from transformers import AutoTokenizer
+    from transformers import AutoProcessor
+
+    name = "llava-hf/llava-1.5-7b-hf"
+    tokenizer = AutoTokenizer.from_pretrained(name)
+    model = LlavaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name)
+    kwargs['batch_per_gpu'] = 2
+
+    return LVLModel(
+        model=model,
+        model_name=model_name,
+        tokenizer=tokenizer,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size['width'],
+        **kwargs
+    )
+    
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def llava_1_5_13b(model_name, **kwargs):
+    from transformers import LlavaForConditionalGeneration
+    from transformers import AutoTokenizer
+    from transformers import AutoProcessor
+
+    name = "llava-hf/llava-1.5-13b-hf"
+    tokenizer = AutoTokenizer.from_pretrained(name)
+    model = LlavaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name)
+    kwargs['batch_per_gpu'] = 2
+
+    return LVLModel(
+        model=model,
+        model_name=model_name,
+        tokenizer=tokenizer,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size['width'],
+        **kwargs
+    )
+    
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def llava_1_7b(model_name, **kwargs):
+    from transformers import LlavaForConditionalGeneration
+    from transformers import AutoTokenizer
+    from transformers import AutoProcessor
+
+    name = "llava-hf/bakLlava-v1-hf"
+    tokenizer = AutoTokenizer.from_pretrained(name)
+    model = LlavaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name)
+    kwargs['batch_per_gpu'] = 2
+
+    return LVLModel(
+        model=model,
+        model_name=model_name,
+        tokenizer=tokenizer,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size['width'],
+        **kwargs
+    )
+    
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def llava_next_1_6_7b_vicuna(model_name, **kwargs):
+    from transformers import LlavaNextForConditionalGeneration
+    from transformers import AutoTokenizer
+    from transformers import AutoProcessor
+
+    name = "llava-hf/llama3-llava-next-8b-hf"
+    tokenizer = AutoTokenizer.from_pretrained(name)
+    model = LlavaNextForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name)
+    kwargs['batch_per_gpu'] = 1
+
+    return LlavaNext(
+        model=model,
+        model_name=model_name,
+        tokenizer=tokenizer,
+        processor=processor,
+        use_norm=False,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size['width'],
+        **kwargs
+    )
+    
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Chameleon",
+    },
+)
+def chameleon_7b(model_name, **kwargs):
+    from transformers import ChameleonForConditionalGeneration
+    from transformers import AutoTokenizer
+    from transformers import AutoProcessor
+
+    name = "facebook/chameleon-7b"
+    tokenizer = AutoTokenizer.from_pretrained(name)
+    model = ChameleonForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name)
+    kwargs['batch_per_gpu'] = 2
+
+    return Chameleon(
+        model=model,
+        model_name=model_name,
+        tokenizer=tokenizer,
+        processor=processor,
+        use_norm=False,
+        prompt='What do you see in this image?<image>',
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size['width'],
+        **kwargs
+    )
+    
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Chameleon",
+    },
+)
+def blip2_7b(model_name, **kwargs):
+    from transformers import Blip2ForConditionalGeneration
+    from transformers import AutoTokenizer
+    from transformers import AutoProcessor
+
+    name = "Salesforce/blip2-opt-6.7b"
+    tokenizer = AutoTokenizer.from_pretrained(name)
+    model = Blip2ForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name)
+    kwargs['batch_per_gpu'] = 2
+
+    return LVLModel(
+        model=model,
+        model_name=model_name,
+        tokenizer=tokenizer,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size['width'],
         **kwargs
     )
 

@@ -301,6 +301,7 @@ class Evaluator(object):
                         progress.update(pg_benchmark, advance=1)
                     progress.update(pg_benchmark, visible=False)
                     self.outputhandler.save_csv(model_name, benchmark_name)
+                    self.outputhandler.save_aggregate_results(model_name, benchmark_name)
                     progress.update(pg_benchmarks, advance=1)
                 progress.update(pg_models, advance=1)
 

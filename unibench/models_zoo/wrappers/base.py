@@ -4,6 +4,7 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+
 from abc import ABC, abstractmethod
 from typing import List, Union
 
@@ -61,8 +62,9 @@ class AbstractModel(ABC):
         self.device = device
         self.tokenizer = tokenizer
 
-        self.model = self.model.to(device)
-        self.model.eval()
+        if self.model is not None:
+            self.model = self.model.to(device)
+            self.model.eval()
 
         self.zeroshot_weights = None
         self.classes = None
@@ -105,6 +107,7 @@ class AbstractModel(ABC):
         )
 
     def get_preprocess_transforms(self):
+
         scale_size = int(math.floor(self.input_resolution / self.crop_pct))
         transforms = [
             Resize(scale_size, interpolation=self.interpolation),
