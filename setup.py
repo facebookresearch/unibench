@@ -13,7 +13,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name="unibench",
-    version="0.2.0",
+    version="0.3.0",
     author="Haider Al-Tahan",
     author_email="haideraltahan@meta.com",
     description="This repository is designed to simplify the evaluation process of vision-language models. It provides a comprehensive set of tools and scripts for evaluating VLM models and benchmarks.",

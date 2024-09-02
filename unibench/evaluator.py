@@ -10,7 +10,6 @@ import os
 
 import fire
 import torch
-from tqdm.auto import tqdm
 import pandas as pd
 from rich.progress import Progress
 from torch.utils.data import Dataset
@@ -39,6 +38,55 @@ from rich.table import Table
 
 
 class Evaluator(object):
+    """
+    The Evaluator class is responsible for evaluating machine learning models on various benchmarks.
+    It provides methods to update the list of models and benchmarks, download benchmarks, add new models and benchmarks,
+    generate aggregate results, and evaluate models.
+
+    Attributes:
+        seed (int): Random seed for reproducibility.
+        num_workers (int): Number of workers for data loading.
+        models (Union[List[str], str]): List of models to evaluate or "all" to evaluate all available models.
+        benchmarks (Union[List[str], str]): List of benchmarks to evaluate or "all" to evaluate all available benchmarks.
+        model_id (Union[int, None]): Specific model ID to evaluate.
+        benchmark_id (Union[int, None]): Specific benchmark ID to evaluate.
+        output_dir (str): Directory to save evaluation results.
+        benchmarks_dir (str): Directory containing benchmark data.
+        download_aggregate_precomputed (bool): Whether to download aggregate precomputed results. Used for minor analysis and fast loading.
+        download_all_precomputed (bool): Whether to download all precomputed results. Used for slow loading and comprehensive analysis.
+
+    Methods:
+        update_benchmark_list(benchmarks, benchmark_id=None):
+            Updates the list of benchmarks to evaluate.
+
+        update_model_list(models, model_id=None):
+            Updates the list of models to evaluate.
+
+        download_benchmarks():
+            Downloads the specified benchmarks.
+
+        list_models():
+            Lists all available models.
+
+        add_benchmark(benchmark, handler, meta_data={}):
+            Adds a new benchmark to the list of benchmarks.
+
+        generate_aggregate_results():
+            Generates aggregate results from the evaluation.
+
+        list_benchmarks():
+            Lists all available benchmarks.
+
+        add_model(model, meta_data={}):
+            Adds a new model to the list of models.
+
+        show_results():
+            Displays the evaluation results.
+
+        evaluate(save_freq=1000, face_blur=False, device="cuda" if torch.cuda.is_available() else "cpu", batch_per_gpu=32):
+            Evaluates the models on the benchmarks and saves the results.
+    """
+
     def __init__(
         self,
         seed: int = 1337,
@@ -189,17 +237,10 @@ class Evaluator(object):
         Evaluate models on benchmarks and return and saving the results.
 
         Args:
-            models (list or str): The models to evaluate. Defaults to "all".
-            benchmarks (list or str): The benchmarks to evaluate. Defaults to "all".
-            model_id (int): The index of the specific model to evaluate. Defaults to None.
-            benchmark_id (int): The index of the specific benchmark to evaluate. Defaults to None.
-            model_types (str): The types of models to evaluate. Defaults to "all".
-            benchmark_types (str): The types of benchmarks to evaluate. Defaults to "all".
             save_freq (int): The frequency at which to save results. Defaults to 1000.
             face_blur (bool): Whether to use face blurring during evaluation. Defaults to False.
             device (str): The device to use for evaluation. Defaults to "cuda" if available otherwise "cpu".
             batch_per_gpu (int): The batch size per GPU. Defaults to 32.
-            use_data_parallel (bool): Whether to use data parallelism. Defaults to torch.cuda.device_count() > 1.
 
         Returns:
             query results: The results of the query for the specified benchmarks and models.
@@ -301,6 +342,7 @@ class Evaluator(object):
                         progress.update(pg_benchmark, advance=1)
                     progress.update(pg_benchmark, visible=False)
                     self.outputhandler.save_csv(model_name, benchmark_name)
+                    self.outputhandler.save_aggregate_results(model_name, benchmark_name)
                     progress.update(pg_benchmarks, advance=1)
                 progress.update(pg_models, advance=1)
 
