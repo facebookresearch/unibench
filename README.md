@@ -22,7 +22,7 @@ This repository is designed to simplify the evaluation process of vision-languag
 
 Install the package: 
 ```
-pip install git+https://github.com/facebookresearch/unibench.git
+pip install unibench -U
 ```
 
 <details > 
@@ -73,17 +73,27 @@ evaluator.evaluate()
 
 ```console
 Args:
-    num_workers (int): Number of CPU cores to use to load data. Default to 80.
-    models (list or str): The models to evaluate. Defaults to "all".
-    benchmarks (list or str): The benchmarks to evaluate. Defaults to "all".
-    model_id (int): The index of the specific model to evaluate. Defaults to None.
-    dataset_id (int): The index of the specific dataset to evaluate. Defaults to None.
-    model_types (str): The types of models to evaluate. Defaults to "all".
-    dataset_types (str): The types of benchmarks to evaluate. Defaults to "all".
     save_freq (int): The frequency at which to save results. Defaults to 1000.
     face_blur (bool): Whether to use face blurring during evaluation. Defaults to False.
     device (str): The device to use for evaluation. Defaults to "cuda" if available otherwise "cpu".
-    batch_per_gpu (int): Evaluation batch size per gpu. Defaults to 32.
+    batch_per_gpu (int): Evaluation batch size per GPU. Defaults to 32.
+```
+
+
+The `Evaluator` class takes the following arguments:
+
+```console
+Args:
+    seed (int): Random seed for reproducibility.
+    num_workers (int): Number of workers for data loading.
+    models (Union[List[str], str]): List of models to evaluate or "all" to evaluate all available models.
+    benchmarks (Union[List[str], str]): List of benchmarks to evaluate or "all" to evaluate all available benchmarks.
+    model_id (Union[int, None]): Specific model ID to evaluate.
+    benchmark_id (Union[int, None]): Specific benchmark ID to evaluate.
+    output_dir (str): Directory to save evaluation results.
+    benchmarks_dir (str): Directory containing benchmark data.
+    download_aggregate_precomputed (bool): Whether to download aggregate precomputed results.
+    download_all_precomputed (bool): Whether to download all precomputed results.
 ```
 
 ### Example

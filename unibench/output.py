@@ -44,6 +44,7 @@ class OutputHandler(object):
         self._local_csv = pd.DataFrame()
 
     def check_if_computed(self, model_name, benchmark_name, **kwargs):
+        self.load_aggregate_results()
         res = self.query(
             df=self._aggregate,
             **{"model_name": model_name, "benchmark_name": benchmark_name}
@@ -78,7 +79,6 @@ class OutputHandler(object):
             model_folder = self.output_dir.joinpath(model)
             for benchmark in benchmark_name:
                 file = model_folder.joinpath(benchmark + ".f")
-                print("Loading file: ", file)
                 if file.exists():
                     try:
                         dfs.append(pd.read_feather(file))
@@ -128,19 +128,15 @@ class OutputHandler(object):
         if len(kwargs) == 0:
             return df
 
-        def create_compare(k, v):
-            return k + "=='" + v + "'" if isinstance(v, str) else k + "==" + str(v)
+        mask = pd.Series([True] * len(df))
 
-        expr = ""
-        for i, (k, v) in enumerate(kwargs.items()):
+        for k, v in kwargs.items():
             if isinstance(v, list):
-                expr += "(" + " or ".join(create_compare(k, v_) for v_ in v) + ")"
+                mask &= df[k].isin(v)
             else:
-                expr += create_compare(k, v)
-            if i < len(kwargs.items()) - 1:
-                expr += " and "
+                mask &= (df[k] == v)
 
-        return df.query(expr)
+        return df[mask]
 
     def delete_rows(self, model_name, benchmark_name, **kwargs):
         # file_name = str(OUTPUT_DIR.joinpath(model_name + ".f"))
@@ -172,19 +168,37 @@ class OutputHandler(object):
 
     @lockutils.synchronized(name="aggregate", external=True, fair=True)
     def load_aggregate_results(self):
-        self._aggregate = pd.read_feather(self.output_dir.joinpath("aggregate.f"))
+        file = self.output_dir.joinpath("aggregate.f")
+        if file.exists():
+            self._aggregate = pd.read_feather(file)
 
     @lockutils.synchronized(name="aggregate", external=True, fair=True)
-    def generate_aggregate_results(self):
+    def save_aggregate_results(self, model_name, benchmark_name):
+        file_dir = self.output_dir.joinpath("aggregate.f")
+        if file_dir.exists():
+            self._aggregate = pd.read_feather(file_dir)
+
+        df = self.query(
+            self._model_csv,
+            **{"model_name": [model_name], "benchmark_name": [benchmark_name]}
+        )
+
         df = (
-            self._model_csv.groupby(["model_name", "benchmark_name"])["correctness"]
+            df.groupby(["model_name", "benchmark_name"])["correctness"]
             .mean()
             .reset_index()
         )
 
-        df.to_feather(self.output_dir.joinpath("aggregate.f"))
+        df = (
+            pd.concat([self._aggregate, df])
+            .drop_duplicates(subset=["model_name", "benchmark_name"], keep="last")
+            .reset_index(drop=True)
+        )
+
+        df.to_feather(file_dir)
 
     def print_dataframe(self, **kwargs):
+        self.load_aggregate_results()
         df = self.query(df=self._aggregate, **kwargs)
         benchmark_mappings = self._get_benchmark_mappings("benchmark_type")
         df["benchmark_type"] = df["benchmark_name"].map(benchmark_mappings)
