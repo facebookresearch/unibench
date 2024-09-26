@@ -1,6 +1,6 @@
 
-| ![header](./assets/header.png "header") | 
-|:--:| 
+|      ![header](./assets/header.png "header")       |
+| :------------------------------------------------: |
 | *[[Arxiv link](https://arxiv.org/abs/2408.04810)]* |
 
 <p align="center">
@@ -34,7 +34,7 @@ pip install unibench -U
     - Option 2, updating your conda env with required libraries: `conda env update --file environment.yml --prune`
 2. Activate the environment: `conda activate unibench`
 3. Install Spacy english language model: `python -m spacy download en_core_web_sm`
-4. Install the package: `pip install git+https://github.com/fairinternal/unibench`
+4. Install the package: `pip install git+https://github.com/facebookresearch/unibench`
   
 </details> 
 
@@ -125,34 +125,34 @@ unibench list_benchmarks
 ### Sample Models
 
 
-|                                 |   Dataset Size (Million) |   Number of Parameters (Million) | Learning Objective          | Architecture   | Model Name               |
-|:--------------------------------|---------------:|-------------:|:----------------------------|:---------------|:-------------------|
-| blip_vitB16_14m                 |             14 |           86 | BLIP                        | vit            | BLIP ViT B 16      |
-| blip_vitL16_129m                |            129 |          307 | BLIP                        | vit            | BLIP ViT L 16      |
-| blip_vitB16_129m                |            129 |           86 | BLIP                        | vit            | BLIP ViT B 16      |
-| blip_vitB16_coco                |            129 |           86 | BLIP                        | vit            | BLIP ViT B 16      |
-| blip_vitB16_flickr              |            129 |           86 | BLIP                        | vit            | BLIP ViT B 16      |
+|                    | Dataset Size (Million) | Number of Parameters (Million) | Learning Objective | Architecture | Model Name    |
+| :----------------- | ---------------------: | -----------------------------: | :----------------- | :----------- | :------------ |
+| blip_vitB16_14m    |                     14 |                             86 | BLIP               | vit          | BLIP ViT B 16 |
+| blip_vitL16_129m   |                    129 |                            307 | BLIP               | vit          | BLIP ViT L 16 |
+| blip_vitB16_129m   |                    129 |                             86 | BLIP               | vit          | BLIP ViT B 16 |
+| blip_vitB16_coco   |                    129 |                             86 | BLIP               | vit          | BLIP ViT B 16 |
+| blip_vitB16_flickr |                    129 |                             86 | BLIP               | vit          | BLIP ViT B 16 |
 
 
 ### Sample benchmarks
-|                     | benchmark   | benchmark_type   |
-|:--------------------|:------------|:---------------|
-| clevr_distance      | zero-shot   | vtab           |
-| fgvc_aircraft       | zero-shot   | transfer       |
-| objectnet           | zero-shot   | robustness     |
-| winoground          | relation    | relation       |
-| imagenetc           | zero-shot   | corruption     |
+|                | benchmark | benchmark_type |
+| :------------- | :-------- | :------------- |
+| clevr_distance | zero-shot | vtab           |
+| fgvc_aircraft  | zero-shot | transfer       |
+| objectnet      | zero-shot | robustness     |
+| winoground     | relation  | relation       |
+| imagenetc      | zero-shot | corruption     |
 
 ### benchmarks Overview
 
-|  benchmark type     | number of benchmarks   |
-|:--------------------|:------------:|
-| ImageNet            | 1   |
-| vtab                | 18   |
-| transfer           | 7   |
-| robustness          | 6    |
-| relation          | 6    |
-| corruption           | 1   |
+| benchmark type | number of benchmarks |
+| :------------- | :------------------: |
+| ImageNet       |          1           |
+| vtab           |          18          |
+| transfer       |          7           |
+| robustness     |          6           |
+| relation       |          6           |
+| corruption     |          1           |
 
 <!-- ## :sparkles: Features/Objectives
 
@@ -330,11 +330,11 @@ eval.evaluate()
 
 The majority of UniBench is licensed under [CC-BY-NC](LICENSE), however portions of the project are available under separate license terms: 
 
-|  License     | Libraries   |
-|:--------------------|:------------:|
-| MIT license            | zipp, tabulate, rich, openai-clip, latextable, gdown   |
-| Apache 2.0 license            | transformers, timm, opencv-python, open-clip-torch, ftfy, fire, debtcollector, datasets, oslo.concurrency   |
-| BSD license            | torchvision, torch, seaborn, scipy, scikit-learn, fairscale, cycler, contourpy, click, GitPython    |
+| License            |                                                 Libraries                                                 |
+| :----------------- | :-------------------------------------------------------------------------------------------------------: |
+| MIT license        |                           zipp, tabulate, rich, openai-clip, latextable, gdown                            |
+| Apache 2.0 license | transformers, timm, opencv-python, open-clip-torch, ftfy, fire, debtcollector, datasets, oslo.concurrency |
+| BSD license        |     torchvision, torch, seaborn, scipy, scikit-learn, fairscale, cycler, contourpy, click, GitPython      |
 
 ## Citation
 
