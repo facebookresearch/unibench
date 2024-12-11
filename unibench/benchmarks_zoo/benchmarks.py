@@ -1424,7 +1424,7 @@ def dspr_x_position(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "vtab",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
