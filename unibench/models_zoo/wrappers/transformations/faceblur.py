@@ -35,13 +35,3 @@ class FaceBlur(torch.nn.Module):
                 )
                 image_c[y:h, x:w] = roi
         return Image.fromarray(image_c)
-
-
-class GrayScale2RGB(torch.nn.Module):
-    def __init__(self):
-        super(GrayScale2RGB, self).__init__()
-
-    def forward(self, image):
-        if image.shape[0] == 1:
-            image = image.repeat(3, 1, 1)
-        return image

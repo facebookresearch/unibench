@@ -20,7 +20,7 @@ from torchvision.transforms import (
     InterpolationMode,
 )
 
-from .transformations import FaceBlur, GrayScale2RGB
+from .transformations.grayscale2rgb import GrayScale2RGB
 
 
 class AbstractModel(ABC):
@@ -112,6 +112,7 @@ class AbstractModel(ABC):
         ]
 
         if self.face_blur:
+            from .transformations.faceblur import FaceBlur
             transforms.append(FaceBlur(input_resolution=self.input_resolution))
 
         transforms.append(ToTensor())
