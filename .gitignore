@@ -3,6 +3,7 @@
 
 basic_test.py
 dataset_builder/
+test_*
 
 ### Python ###
 .vscode/

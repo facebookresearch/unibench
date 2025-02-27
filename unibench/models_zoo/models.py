@@ -821,8 +821,67 @@ def siglip_vitL16(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 2000,
+        "model_size": 86,
+        "learning_objective": "Contrastive",
+        "architecture": "vit",
+        "name": "Roberta ViT B 32",
+    },
+)
+def roberta_vitB32(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "roberta-ViT-B-32", pretrained="laion2b_s12b_b32k"
+    )
+
+    tokenizer = open_clip.get_tokenizer("roberta-ViT-B-32")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
         norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
         norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 86,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP ViT B 16",
+    },
+)
+def siglip_vitB16(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-16-SigLIP", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-B-16-SigLIP")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -837,7 +896,7 @@ def siglip_vitL16(model_name, **kwargs):
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
-        "name": "SigLIP ViT B 16",
+        "name": "SigLIP ViT B 16 256",
     },
 )
 def siglip_vitB16(model_name, **kwargs):
@@ -851,8 +910,608 @@ def siglip_vitB16(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 86,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP ViT B 16 384",
+    },
+)
+def siglip_vitB16_384(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-16-SigLIP-384", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-B-16-SigLIP-384")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 86,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP ViT B 16 512",
+    },
+)
+def siglip_vitB16_512(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-16-SigLIP-512", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-B-16-SigLIP-512")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 307,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP ViT L 16 384",
+    },
+)
+def siglip_vitL16_384(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-L-16-SigLIP-384", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-L-16-SigLIP-384")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP So400 14",
+    },
+)
+def siglip_so400_14(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-14-SigLIP", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-14-SigLIP")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=16,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP So400 14 378",
+    },
+)
+def siglip_so400_14_378(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-14-SigLIP-378", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-14-SigLIP-378")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=16,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP So400 14 384",
+    },
+)
+def siglip_so400_14_384(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-14-SigLIP-384", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-14-SigLIP-384")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=16,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP 2 So400 16 512",
+    },
+)
+def siglip2_so400_16_512(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-16-SigLIP2-512", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-16-SigLIP2-512")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP 2 So400 16 512",
+    },
+)
+def siglip2_so400_16_512(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-16-SigLIP2-512", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-16-SigLIP2-512")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP 2 So400 16 384",
+    },
+)
+def siglip2_so400_16_384(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-16-SigLIP2-384", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-16-SigLIP2-384")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP 2 So400 16 256",
+    },
+)
+def siglip2_so400_16_256(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-16-SigLIP2-256", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-16-SigLIP2-256")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP 2 So400 14 378",
+    },
+)
+def siglip2_so400_14_378(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-14-SigLIP2-378", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-14-SigLIP2-378")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 400,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "So400",
+        "name": "SigLIP 2 So400 14",
+    },
+)
+def siglip2_so400_14(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-SO400M-14-SigLIP2", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-SO400M-14-SigLIP2")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 307,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP 2 ViT L 16 512",
+    },
+)
+def siglip2_vitL16_512(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-L-16-SigLIP2-512", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-L-16-SigLIP2-512")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 307,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP 2 ViT L 16 384",
+    },
+)
+def siglip2_vitL16_384(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-L-16-SigLIP2-384", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-L-16-SigLIP2-384")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 307,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP 2 ViT L 16 256",
+    },
+)
+def siglip2_vitL16_256(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-L-16-SigLIP2-256", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-L-16-SigLIP2-256")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 86,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP 2 ViT B 16 512",
+    },
+)
+def siglip2_vitB16_512(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-16-SigLIP2-512", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-B-16-SigLIP2-512")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 86,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP 2 ViT B 16 384",
+    },
+)
+def siglip2_vitB16_384(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-16-SigLIP2-384", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-B-16-SigLIP2-384")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 86,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP 2 ViT B 16 256",
+    },
+)
+def siglip2_vitB16_256(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-16-SigLIP2-256", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-B-16-SigLIP2-256")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 86,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP 2 ViT B 16",
+    },
+)
+def siglip2_vitB16(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-16-SigLIP2", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-B-16-SigLIP2")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        input_resolution=model.visual.image_size[0],
+        logit_scale=model.logit_scale,
+        context_length=64,
+        **kwargs
+    )
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 10000,
+        "model_size": 86,
+        "learning_objective": "Contrastive (sigmoid-based)",
+        "architecture": "vit",
+        "name": "SigLIP 2 ViT B 32 256",
+    },
+)
+def siglip2_vitB32_256(model_name, **kwargs):
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-32-SigLIP2-256", pretrained="webli"
+    )
+
+    tokenizer = open_clip.get_tokenizer("ViT-B-32-SigLIP2-256")
+
+    return ClipModel(
+        model,
+        model_name,
+        tokenizer=tokenizer,
+        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
+        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
