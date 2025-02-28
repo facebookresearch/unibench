@@ -19,9 +19,9 @@ setuptools.setup(
     description="This repository is designed to simplify the evaluation process of vision-language models. It provides a comprehensive set of tools and scripts for evaluating VLM models and benchmarks.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/fairinternal/unibench",
+    url="https://github.com/facebookresearch/unibench",
     project_urls={
-        "Bug Tracker": "https://github.com/fairinternal/unibench/issues",
+        "Bug Tracker": "https://github.com/facebookresearch/unibench/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
