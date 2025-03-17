@@ -1,20 +1,12 @@
 # Updates
 
-## October 2024 - v1.5.0
-- Initial release of the project.
-- Added core functionalities and basic features.
-- Added core functionalities and basic features.
-- Added core functionalities and basic features.
-- Added core functionalities and basic features.
+## September 15, 2024 - v0.3.1
+- Fixes type expectation in utils to print models by @marksibrahim
 
-## October 2023 - v1.1.0
-- Initial release of the project.
-- Added core functionalities and basic features.
+## September 3, 2024 - v0.3.0
+- Add long descripton to setup.py for pypi by @hazirbas
+- Fix type error in reading data frame by @hazirbas
+- Update 0.3.0
 
-## November 2023 - v1.0.1
-- Improved performance and fixed minor bugs.
-- Updated documentation and added more examples.
-
-## December 2023 - - v1.0.2
-- Introduced new features based on user feedback.
-- Enhanced security and optimized codebase.
+## August 15, 2024 - v0.2.0
+- Initial release
