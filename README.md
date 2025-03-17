@@ -18,9 +18,8 @@ This repository is designed to simplify the evaluation process of vision-languag
 
 For the latest news and updates, see the snippet below.
 
-#### October 2023 - v1.1.0
-- Initial release of the project.
-- Added core functionalities and basic features.
+#### September 15, 2024 - v0.3.1
+- Fixes type expectation in utils to print models by @marksibrahim
   
 For full details, refer to the [UPDATES.md](./assets/UPDATES.md) file.
 
