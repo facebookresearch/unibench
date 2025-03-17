@@ -12,7 +12,16 @@
 
 # Vision-Language Model Evaluation Repository
 
-This repository is designed to simplify the evaluation process of vision-language models. It provides a comprehensive set of tools and scripts for evaluating VLM models and benchmarks. We offer 60 VLMs, inclusive of recent large-scale models like EVACLIP, with scales reaching up to 4.3B parameters and 12.8B training samples. Additionally, we provide implementations for 40 evaluation benchmarks.
+This repository is designed to simplify the evaluation process of vision-language models. It provides a comprehensive set of tools and scripts for evaluating VLM models and benchmarks. We offer 60+ VLMs, inclusive of recent large-scale models like EVACLIP, with scales reaching up to 4.3B parameters and 12.8B training samples. Additionally, we provide implementations for 40+ evaluation benchmarks.
+
+## News and Updates
+
+For the latest news and updates, see the snippet below.
+
+#### September 15, 2024 - v0.3.1
+- Fixes type expectation in utils to print models by @marksibrahim
+  
+For full details, refer to the [UPDATES.md](./assets/UPDATES.md) file.
 
 ## Coming Soon
 
