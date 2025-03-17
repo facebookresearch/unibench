@@ -4,12 +4,13 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+
 from abc import abstractmethod
 import itertools
 from torch.distributions import Categorical
 from torch import softmax
 import torch
-
+import random
 
 class BenchmarkHandler:
     def __init__(self, benchmark_name, benchmark):
@@ -90,7 +91,7 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
             _, pred = pred.topk(self.topx, 1, True, True)
             pred = pred.t()
             correct = pred.eq(targets.view(1, -1).expand_as(pred)).int().sum(0)
-            
+
             if len(self.classes) < 5:
                 top5 = targets
                 correct_top5 = [1] * len(targets)
@@ -118,7 +119,7 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
             "predictions_top5": top5,
             "confidence": confidence,
         }
-        
+
         if len(batch) > 2:
             res["image_name"] = sample_id
 
@@ -195,5 +196,48 @@ class RelationBenchmarkHandler(BenchmarkHandler):
             if "\n" in attribute[0]:
                 attribute = [x.split("\n") for x in attribute]
             res["attribute"] = attribute
+
+        return res
+
+class TextClassificationBenchmarkHandler(BenchmarkHandler):
+    def __init__(self, benchmark_name, benchmark, class_names, prompt='What type of object is in this photo? Choose one from {class_names}', num_classes=-1):
+        BenchmarkHandler.__init__(self, benchmark_name, benchmark)
+        self.class_names = class_names
+        self.prompt = prompt
+        self.num_classes = num_classes
+
+    def eval_batch(self, model, batch):
+        split = ""
+        if len(batch) == 4:
+            images, targets, sample_id, split = batch
+        elif len(batch) == 3:
+            images, targets, sample_id = batch
+        else:
+            images, targets = batch
+            
+        targets_names = [self.class_names[i - 1] for i in targets]
+        prompts = []
+        for target in targets_names:
+            if self.num_classes == -1:
+                prompts.append(self.prompt.format(class_names=", ".join(self.class_names)))
+            else:
+                random_classes = [target]
+                random_classes += random.sample([cls for cls in self.class_names if cls != target], self.num_classes - 1)
+                random.shuffle(random_classes)
+                prompts.append(self.prompt.format(class_names=", ".join(random_classes)))
+
+        text_outputs = model.get_text_from_image(images, prompts)
+        
+        correct = [1 if target in text_output else 0 for text_output, target in zip(text_outputs, targets_names)]
+
+        res = {
+            "image_class": targets,
+            "split": split,
+            "benchmark_name": self.benchmark_name,
+            "correctness": correct,
+        }
+
+        if len(batch) > 2:
+            res["image_name"] = sample_id
 
         return res

@@ -7,13 +7,7 @@ LICENSE file in the root directory of this source tree.
 
 import torch
 from .base import AbstractModel
-import inspect
 
-import re
-from transformers import CLIPVisionModel
-from llava.conversation import conv_templates, SeparatorStyle
-from llava.mm_utils import KeywordsStoppingCriteria
-from nltk.tokenize import sent_tokenize, word_tokenize
 import transformers
 
 from transformers import AutoTokenizer
@@ -24,11 +18,13 @@ class LVLModel(AbstractModel):
         self,
         model,
         model_name,
-        prompt='Fill in the Blank: This is a photo of a {}.',
+        prompt="Fill in the Blank: This is a photo of a {}.",
         processor=None,
         **kwargs,
     ):
-        super(LVLModel, self).__init__(model, model_name, **kwargs)
+        super(LVLModel, self).__init__(
+            model, model_name, use_transforms=False, **kwargs
+        )
         self.prompt = prompt
         self.processor = processor
 
@@ -55,6 +51,34 @@ class LVLModel(AbstractModel):
         self.zeroshot_weights = torch.stack(zeroshot_weights).T
 
     @torch.no_grad()
+    def get_text_from_image(self, images, prompts):
+        res = []
+        for image, prompt in zip(images, prompts):
+            conversation = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "image"},
+                        {"type": "text", "text": prompt},
+                    ],
+                },
+            ]
+
+            if self.processor.chat_template is not None:
+                prompt = self.processor.apply_chat_template(
+                    conversation, add_generation_prompt=True
+                )
+
+            inputs = self.processor(
+                text=prompt, images=image, padding=True, return_tensors="pt"
+            ).to("cuda")
+            output = self.model.generate(**inputs, max_new_tokens=77)
+            gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
+            res.append(gen_res[0].split("ASSISTANT:")[-1].strip().replace("\n", "").lower())
+
+        return res
+
+    @torch.no_grad()
     def get_image_embeddings(self, images):
         conversation = [
             {
@@ -65,16 +89,18 @@ class LVLModel(AbstractModel):
                 ],
             },
         ]
-        
+
         if self.processor.chat_template is not None:
             prompt = self.processor.apply_chat_template(
                 conversation, add_generation_prompt=True
-            )            
+            )
         else:
             prompt = self.prompt
 
         prompts = [prompt] * len(images)
-        inputs = self.processor(text=prompts, padding=True, return_tensors="pt").to("cuda")
+        inputs = self.processor(text=prompts, padding=True, return_tensors="pt").to(
+            "cuda"
+        )
         inputs["pixel_values"] = images.to("cuda")
         output = self.model.generate(**inputs, max_new_tokens=77)
         gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
@@ -101,6 +127,34 @@ class LVLModel(AbstractModel):
 
 class LlavaNext(LVLModel):
     @torch.no_grad()
+    def get_text_from_image(self, images, prompt):
+        conversation = [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "image"},
+                    {"type": "text", "text": prompt},
+                ],
+            },
+        ]
+
+        if self.processor.chat_template is not None:
+            prompt = self.processor.apply_chat_template(
+                conversation, add_generation_prompt=True
+            )
+
+        res = []
+        for image in images:
+            inputs = self.processor(
+                text=prompt, images=image, padding=True, return_tensors="pt"
+            ).to("cuda")
+            output = self.model.generate(**inputs, max_new_tokens=77)
+            gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
+            res.append(gen_res[0].split("ASSISTANT:")[-1].strip().replace("\n", ""))
+
+        return res
+
+    @torch.no_grad()
     def get_image_embeddings(self, images):
         conversation = [
             {
@@ -111,45 +165,56 @@ class LlavaNext(LVLModel):
                 ],
             },
         ]
-        
+
         if self.processor.chat_template is not None:
             prompt = self.processor.apply_chat_template(
                 conversation, add_generation_prompt=True
-            )            
+            )
         else:
             prompt = self.prompt
-            
+
         res = []
         for image in images:
-            inputs = self.processor(text=prompt, images=image,  padding=True, return_tensors="pt").to("cuda")
+            inputs = self.processor(
+                text=prompt, images=image, padding=True, return_tensors="pt"
+            ).to("cuda")
             output = self.model.generate(**inputs, max_new_tokens=77)
             gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
             res.append(gen_res[0].split("ASSISTANT:")[-1].strip().replace("\n", ""))
 
         return self.get_text_embeddings(res).unsqueeze(1)
-    
+
+
 class PaliGemma(LVLModel):
     @torch.no_grad()
-    def get_image_embeddings(self, images):            
+    def get_image_embeddings(self, images):
         res = []
         for image in images:
-            inputs = self.processor(text=[self.prompt], images=image,  padding=True, return_tensors="pt").to("cuda")
+            inputs = self.processor(
+                text=[self.prompt], images=image, padding=True, return_tensors="pt"
+            ).to("cuda")
             output = self.model.generate(**inputs, max_new_tokens=77)
             gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
             res.append(gen_res[0].split(self.prompt)[-1].strip().replace("\n", ""))
 
         return self.get_text_embeddings(res).unsqueeze(1)
-    
-    
+
+
 class Chameleon(LVLModel):
     @torch.no_grad()
-    def get_image_embeddings(self, images):            
+    def get_image_embeddings(self, images):
         res = []
         for image in images:
-            inputs = self.processor(text=[self.prompt], images=image,  padding=True, return_tensors="pt").to("cuda")
+            inputs = self.processor(
+                text=[self.prompt], images=image, padding=True, return_tensors="pt"
+            ).to("cuda")
             output = self.model.generate(**inputs, max_new_tokens=77)
             gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
-            res.append(gen_res[0].split(self.prompt.replace('<image>', ''))[-1].strip().replace("\n", ""))
+            res.append(
+                gen_res[0]
+                .split(self.prompt.replace("<image>", ""))[-1]
+                .strip()
+                .replace("\n", "")
+            )
 
         return self.get_text_embeddings(res).unsqueeze(1)
-    

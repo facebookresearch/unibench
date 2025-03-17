@@ -42,6 +42,8 @@ class AbstractModel(ABC):
         use_itm_head: bool = False,
         face_blur: bool = False,
         device: str = "cuda",
+        prompt: str = None,
+        use_transforms: bool = True,
     ) -> None:
         super(AbstractModel, self).__init__()
         assert device in ["cpu", "cuda"], "device must be 'cpu' or 'cuda'"
@@ -61,6 +63,7 @@ class AbstractModel(ABC):
         self.face_blur = face_blur
         self.device = device
         self.tokenizer = tokenizer
+        self.use_transforms = use_transforms
 
         if self.model is not None:
             self.model = self.model.to(device)
@@ -69,6 +72,7 @@ class AbstractModel(ABC):
         self.zeroshot_weights = None
         self.classes = None
         self.templates = None
+        self.prompt = prompt
 
     @abstractmethod
     def get_image_embeddings(self, images: torch.Tensor) -> torch.Tensor:
@@ -81,6 +85,10 @@ class AbstractModel(ABC):
     def set_templates(self, templates: List[str]) -> None:
         if self.templates != templates:
             self.templates = templates
+
+    def set_prompt(self, prompt: str) -> None:
+        if self.prompt != prompt:
+            self.prompt = prompt
 
     def set_classes(self, classes: List[str]) -> None:
         if self.classes != classes:
@@ -107,25 +115,26 @@ class AbstractModel(ABC):
         )
 
     def get_preprocess_transforms(self):
-
         scale_size = int(math.floor(self.input_resolution / self.crop_pct))
         transforms = [
             Resize(scale_size, interpolation=self.interpolation),
             CenterCrop(self.input_resolution),
         ]
+        if self.use_transforms:
+            if self.face_blur:
+                transforms.append(FaceBlur(input_resolution=self.input_resolution))
 
-        if self.face_blur:
-            transforms.append(FaceBlur(input_resolution=self.input_resolution))
+            transforms.append(ToTensor())
+            transforms.append(GrayScale2RGB())
 
-        transforms.append(ToTensor())
-        transforms.append(GrayScale2RGB())
-
-        if self.use_norm:
-            transforms.append(
-                Normalize(
-                    mean=self.norm_mean,
-                    std=self.norm_std,
+            if self.use_norm:
+                transforms.append(
+                    Normalize(
+                        mean=self.norm_mean,
+                        std=self.norm_std,
+                    )
                 )
-            )
+        else:
+            transforms.append(ToTensor())
 
         return Compose(transforms)
