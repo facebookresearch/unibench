@@ -899,7 +899,7 @@ def siglip_vitB16(model_name, **kwargs):
         "name": "SigLIP ViT B 16 256",
     },
 )
-def siglip_vitB16(model_name, **kwargs):
+def siglip_vitB16_256(model_name, **kwargs):
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP-256", pretrained="webli"
     )

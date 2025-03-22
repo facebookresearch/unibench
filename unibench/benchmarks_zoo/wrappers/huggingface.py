@@ -137,7 +137,7 @@ class HuggingFaceDataset(Dataset):
                 samples,
                 target,
                 str(item["__key__"]),
-                item["split.txt"].decode("utf-8"),
+                item["split.txt"],
             )
 
         return samples, target, str(item["__key__"])
