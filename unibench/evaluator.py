@@ -330,7 +330,7 @@ class Evaluator(object):
                             if isinstance(sample, torch.Tensor) and device == "cuda":
                                 batch[i] = batch[i].to(device)
 
-                        with torch.no_grad(), torch.cuda.amp.autocast():
+                        with torch.no_grad(), torch.amp.autocast('cuda'):
                             values_to_save = dh.eval_batch(model, batch)
 
                         self.outputhandler.add_values(
