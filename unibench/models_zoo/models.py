@@ -2551,7 +2551,7 @@ def negclip_vitB32(model_name, **kwargs):
         import gdown
 
         gdown.download(id="1ooVVPxB-tvptgmHlIMMFGV3Cg-IrhbRZ", output=path, quiet=False)
-    model, _, _ = open_clip.create_model_and_transforms("ViT-B-32", pretrained=path)
+    model, _, _ = open_clip.create_model_and_transforms("ViT-B-32", pretrained=path, load_weights_only=False)
 
     tokenizer = open_clip.get_tokenizer("ViT-B-32")
 

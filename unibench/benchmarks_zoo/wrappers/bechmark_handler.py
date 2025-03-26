@@ -4,6 +4,7 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+
 from abc import abstractmethod
 import itertools
 from torch.distributions import Categorical
@@ -90,7 +91,7 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
             _, pred = pred.topk(self.topx, 1, True, True)
             pred = pred.t()
             correct = pred.eq(targets.view(1, -1).expand_as(pred)).int().sum(0)
-            
+
             if len(self.classes) < 5:
                 top5 = targets
                 correct_top5 = [1] * len(targets)
@@ -118,7 +119,7 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
             "predictions_top5": top5,
             "confidence": confidence,
         }
-        
+
         if len(batch) > 2:
             res["image_name"] = sample_id
 
@@ -158,7 +159,30 @@ class RelationBenchmarkHandler(BenchmarkHandler):
         else:
             images, captions, sample_id = batch
 
-        if isinstance(images, list):
+        if self.benchmark_name == "bivlc":
+            sim_C0_I0 = self.get_similarity(model, images[0], [captions[0]]).squeeze()
+            sim_C0_I1 = self.get_similarity(model, images[1], [captions[0]]).squeeze()
+            sim_C1_I0 = self.get_similarity(model, images[0], [captions[1]]).squeeze()
+            sim_C1_I1 = self.get_similarity(model, images[1], [captions[1]]).squeeze()
+
+            Ipos_2T = sim_C0_I0 > sim_C1_I0
+            Ineg_2T = sim_C1_I1 > sim_C0_I1
+            Tpos_2I = sim_C0_I0 > sim_C0_I1
+            Tneg_2I = sim_C1_I1 > sim_C1_I0
+            
+            I2T = torch.logical_and(Ipos_2T, Ineg_2T)
+            T2I = torch.logical_and(Tpos_2I, Tneg_2I)
+            group_score = torch.logical_and(I2T, T2I) 
+
+            res = {
+                "image_name": sample_id,
+                "benchmark_name": self.benchmark_name,
+                "correctness": group_score.int(),
+                'I2T': I2T.int(),
+                'T2I': T2I.int(),
+            }
+
+        elif isinstance(images, list):
             c_i0 = self.get_similarity(model, images[0], captions).squeeze()
             c_i1 = self.get_similarity(model, images[1], captions).squeeze()
             text_correct = torch.logical_and(
