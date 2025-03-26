@@ -4,6 +4,7 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+
 from unibench.benchmarks_zoo import register_benchmark
 from .wrappers import *
 
@@ -281,7 +282,8 @@ def mnist(benchmark_name, transform=None, **kwargs):
         classes=benchmark.classes,
         templates=benchmark.templates,
     )
-    
+
+
 # @register_dataset(
 #     "mnist",
 #     {
@@ -305,8 +307,8 @@ def mnist(benchmark_name, transform=None, **kwargs):
 #         classes=benchmark.classes,
 #         templates=benchmark.templates,
 #         topx=2
-    # )
-    
+# )
+
 # @register_dataset(
 #     "mnist",
 #     {
@@ -331,7 +333,7 @@ def mnist(benchmark_name, transform=None, **kwargs):
 #         templates=benchmark.templates,
 #         topx=3
 #     )
-    
+
 # @register_dataset(
 #     "mnist",
 #     {
@@ -356,7 +358,7 @@ def mnist(benchmark_name, transform=None, **kwargs):
 #         templates=benchmark.templates,
 #         topx=4
 #     )
-    
+
 # @register_dataset(
 #     "mnist",
 #     {
@@ -406,7 +408,8 @@ def fashion_mnist(benchmark_name, transform=None, **kwargs):
         classes=benchmark.classes,
         templates=benchmark.templates,
     )
-    
+
+
 @register_benchmark(
     "transfer",
     {
@@ -1564,6 +1567,29 @@ def flickr30k_order(benchmark_name, transform=None, **kwargs):
 def sugarcrepe(benchmark_name, transform=None, **kwargs):
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_sugarcrepe", **kwargs
+    )
+    return RelationBenchmarkHandler(
+        benchmark_name=benchmark_name,
+        benchmark=benchmark,
+    )
+
+
+@register_benchmark(
+    "relation",
+    {
+        "benchmark": "relation",
+        "benchmark_type": "relation",
+        "capability": "relations",
+        "curated": False,
+        "object_centric": False,
+        "image_resolution": [569.52, 487.69],
+        "num_classes": 2,
+        "llama2_ppi": None,
+    },
+)
+def bivlc(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_bivlc", **kwargs
     )
     return RelationBenchmarkHandler(
         benchmark_name=benchmark_name,

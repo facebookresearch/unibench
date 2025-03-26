@@ -9,27 +9,25 @@ LICENSE file in the root directory of this source tree.
 
 from pathlib import Path
 import fire
-import torch
 from tqdm import tqdm
 import shutil
 import webdataset
 from class_names import CLASS_NAMES
 from templates import TEMPLATES
-from utils import (
-    PIL_to_bytes,
-)
+from utils import *
 import os
 from benchmarks import SUN397
-
+from datasets import load_dataset
+import numpy as np
 
 def main(
     dataset_name,
     root_dir="/research/haider/Datasets",
     language="en",
-    upload2huggingface=False,
+    upload2huggingface=True,
     image_format="webp",
     max_size=500_000_000,
-    num_workers=8,
+    num_workers=64,
 ):
     transform = PIL_to_bytes(image_format)
     classnames = (
@@ -44,6 +42,11 @@ def main(
     if dataset_name == "sun397":
         ds = SUN397(root=root_dir, transform=transform, download=True, partition_idx=1)
         ds.templates = templates
+    elif dataset_name == "bivlc":
+        ds = load_dataset("imirandam/BiVLC", split="test", cache_dir=root_dir)
+        ds = ds.map(lambda example: {"image": [transform(example["image"]), transform(example["negative_image"])], "captions": [example['caption'], example['negative_caption']], "split": f"{example['type']}\n{example['subtype']}"}, num_proc=num_workers)
+        ds = [(example['image'], example['captions'], example['split']) for example in ds] 
+        ds = ListDataset(ds)
     else:
         raise ValueError(f"Unknown dataset: {dataset_name}")
     
@@ -84,7 +87,14 @@ def main(
         maxsize=max_size
     )
     nsamples = 0
-    for index, (input, output) in enumerate(tqdm(dataloader, desc="Converting")):
+    for index, batch in enumerate(tqdm(dataloader, desc="Converting")):
+        if len(batch) == 2:
+            input, output = batch
+        elif len(batch) == 3:
+            input, output, split = batch
+        else:
+            raise ValueError(f"Unknown batch size: {len(batch)}")
+            
         nsamples += 1
         
         if isinstance(input, bytes):
@@ -94,6 +104,11 @@ def main(
         
         if isinstance(output, int):
             output = {'cls': output}
+        elif isinstance(output, list):
+            output = {'npy': np.array(output)}
+            
+        if split is not None:
+            output['split.txt'] = split
         
         sink.write({
             "__key__": "s%07d" % index,
