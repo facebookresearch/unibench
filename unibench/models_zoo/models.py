@@ -69,20 +69,21 @@ def paligemma_3b(model_name, **kwargs):
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16
     ).cuda()
     processor = AutoProcessor.from_pretrained(name)
-    kwargs['batch_per_gpu'] = 2
+    kwargs["batch_per_gpu"] = 2
 
     return PaliGemma(
         model=model,
         model_name=model_name,
         tokenizer=tokenizer,
-        prompt='Describe the following image:',
+        prompt="Describe the following image:",
         processor=processor,
         use_norm=False,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size['width'],
+        input_resolution=processor.image_processor.size["width"],
         **kwargs
     )
+
 
 @register_model(
     "vision_text",
@@ -105,7 +106,7 @@ def llava_1_5_7b(model_name, **kwargs):
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16
     ).cuda()
     processor = AutoProcessor.from_pretrained(name)
-    kwargs['batch_per_gpu'] = 2
+    kwargs["batch_per_gpu"] = 2
 
     return LVLModel(
         model=model,
@@ -114,10 +115,11 @@ def llava_1_5_7b(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.crop_size['width'],
+        input_resolution=processor.image_processor.crop_size["width"],
         **kwargs
     )
-    
+
+
 @register_model(
     "vision_text",
     {
@@ -139,7 +141,7 @@ def llava_1_5_13b(model_name, **kwargs):
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16
     ).cuda()
     processor = AutoProcessor.from_pretrained(name)
-    kwargs['batch_per_gpu'] = 2
+    kwargs["batch_per_gpu"] = 2
 
     return LVLModel(
         model=model,
@@ -148,10 +150,11 @@ def llava_1_5_13b(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.crop_size['width'],
+        input_resolution=processor.image_processor.crop_size["width"],
         **kwargs
     )
-    
+
+
 @register_model(
     "vision_text",
     {
@@ -173,7 +176,7 @@ def llava_1_7b(model_name, **kwargs):
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16
     ).cuda()
     processor = AutoProcessor.from_pretrained(name)
-    kwargs['batch_per_gpu'] = 2
+    kwargs["batch_per_gpu"] = 2
 
     return LVLModel(
         model=model,
@@ -182,10 +185,11 @@ def llava_1_7b(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.crop_size['width'],
+        input_resolution=processor.image_processor.crop_size["width"],
         **kwargs
     )
-    
+
+
 @register_model(
     "vision_text",
     {
@@ -207,7 +211,7 @@ def llava_next_1_6_7b_vicuna(model_name, **kwargs):
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16
     ).cuda()
     processor = AutoProcessor.from_pretrained(name)
-    kwargs['batch_per_gpu'] = 1
+    kwargs["batch_per_gpu"] = 1
 
     return LlavaNext(
         model=model,
@@ -217,10 +221,11 @@ def llava_next_1_6_7b_vicuna(model_name, **kwargs):
         use_norm=False,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.crop_size['width'],
+        input_resolution=processor.image_processor.crop_size["width"],
         **kwargs
     )
-    
+
+
 @register_model(
     "vision_text",
     {
@@ -242,7 +247,7 @@ def chameleon_7b(model_name, **kwargs):
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16
     ).cuda()
     processor = AutoProcessor.from_pretrained(name)
-    kwargs['batch_per_gpu'] = 2
+    kwargs["batch_per_gpu"] = 2
 
     return Chameleon(
         model=model,
@@ -250,13 +255,14 @@ def chameleon_7b(model_name, **kwargs):
         tokenizer=tokenizer,
         processor=processor,
         use_norm=False,
-        prompt='What do you see in this image?<image>',
+        prompt="What do you see in this image?<image>",
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.crop_size['width'],
+        input_resolution=processor.image_processor.crop_size["width"],
         **kwargs
     )
-    
+
+
 @register_model(
     "vision_text",
     {
@@ -278,7 +284,7 @@ def blip2_7b(model_name, **kwargs):
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16
     ).cuda()
     processor = AutoProcessor.from_pretrained(name)
-    kwargs['batch_per_gpu'] = 2
+    kwargs["batch_per_gpu"] = 2
 
     return LVLModel(
         model=model,
@@ -287,7 +293,7 @@ def blip2_7b(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size['width'],
+        input_resolution=processor.image_processor.size["width"],
         **kwargs
     )
 

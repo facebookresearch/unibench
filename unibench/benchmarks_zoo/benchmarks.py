@@ -4,6 +4,7 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+
 from unibench.benchmarks_zoo import register_benchmark
 from .wrappers import *
 
@@ -25,12 +26,30 @@ def cifar10(benchmark_name, transform=None, **kwargs):
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cifar10", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            classes=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            classes=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            classes=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            classes=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -281,7 +300,8 @@ def mnist(benchmark_name, transform=None, **kwargs):
         classes=benchmark.classes,
         templates=benchmark.templates,
     )
-    
+
+
 # @register_dataset(
 #     "mnist",
 #     {
@@ -305,8 +325,8 @@ def mnist(benchmark_name, transform=None, **kwargs):
 #         classes=benchmark.classes,
 #         templates=benchmark.templates,
 #         topx=2
-    # )
-    
+# )
+
 # @register_dataset(
 #     "mnist",
 #     {
@@ -331,7 +351,7 @@ def mnist(benchmark_name, transform=None, **kwargs):
 #         templates=benchmark.templates,
 #         topx=3
 #     )
-    
+
 # @register_dataset(
 #     "mnist",
 #     {
@@ -356,7 +376,7 @@ def mnist(benchmark_name, transform=None, **kwargs):
 #         templates=benchmark.templates,
 #         topx=4
 #     )
-    
+
 # @register_dataset(
 #     "mnist",
 #     {
@@ -406,7 +426,8 @@ def fashion_mnist(benchmark_name, transform=None, **kwargs):
         classes=benchmark.classes,
         templates=benchmark.templates,
     )
-    
+
+
 @register_benchmark(
     "transfer",
     {
