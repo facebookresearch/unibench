@@ -1878,7 +1878,7 @@ def openclip_convnext_base(model_name, **kwargs):
     },
 )
 def clip_vitB32(model_name, **kwargs):
-    model, _ = clip.load("ViT-B/32")
+    model, _ = clip.load("ViT-B/32", download_root=str(HUB_CACHE_DIR))
 
     tokenizer = clip.tokenize
 
@@ -2240,7 +2240,7 @@ def openclip_vitL14_2b(model_name, **kwargs):
     },
 )
 def clip_vitL14(model_name, **kwargs):
-    model, _ = clip.load("ViT-L/14")
+    model, _ = clip.load("ViT-L/14", download_root=str(HUB_CACHE_DIR))
 
     tokenizer = clip.tokenize
 
@@ -2578,7 +2578,7 @@ def negclip_vitB32(model_name, **kwargs):
     },
 )
 def clip_vitB16(model_name, **kwargs):
-    model, _ = clip.load("ViT-B/16")
+    model, _ = clip.load("ViT-B/16", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
 
     return ClipModel(
@@ -2604,7 +2604,7 @@ def clip_vitB16(model_name, **kwargs):
     },
 )
 def clip_resnet50(model_name, **kwargs):
-    model, _ = clip.load("RN50")
+    model, _ = clip.load("RN50", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
@@ -2797,7 +2797,7 @@ def openclip_resnet50_cc(model_name, **kwargs):
     },
 )
 def clip_resnet101(model_name, **kwargs):
-    model, _ = clip.load("RN101")
+    model, _ = clip.load("RN101", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
@@ -2880,7 +2880,7 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
     },
 )
 def clip_resnet50x4(model_name, **kwargs):
-    model, _ = clip.load("RN50x4")
+    model, _ = clip.load("RN50x4", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
@@ -2905,7 +2905,7 @@ def clip_resnet50x4(model_name, **kwargs):
     },
 )
 def clip_resnet50x16(model_name, **kwargs):
-    model, _ = clip.load("RN50x16")
+    model, _ = clip.load("RN50x16", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
@@ -2930,7 +2930,7 @@ def clip_resnet50x16(model_name, **kwargs):
     },
 )
 def clip_resnet50x64(model_name, **kwargs):
-    model, _ = clip.load("RN50x64")
+    model, _ = clip.load("RN50x64", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
