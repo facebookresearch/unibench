@@ -1,5 +1,13 @@
 # Updates
 
+## April 15, 2025 - v0.4.0
+- Removed FaceNet from required libraries.
+- Added SigLIP2 models
+- Added bivlc benchmark
+- Created benchmark_builder for future benchmark implementations
+- Added News & Updates section in README
+- Fixed Sun397 benchmark
+
 ## September 15, 2024 - v0.3.1
 - Fixes type expectation in utils to print models by @marksibrahim
 
