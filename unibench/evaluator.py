@@ -16,7 +16,7 @@ from rich.progress import Progress
 from torch.utils.data import Dataset
 
 from unibench.benchmarks_zoo.registry import load_benchmark, register_benchmark
-from unibench.benchmarks_zoo.wrappers.bechmark_handler import BenchmarkHandler
+from unibench.benchmarks_zoo.wrappers.handlers.vllm_handlers import BenchmarkHandler
 import unibench.benchmarks_zoo.benchmarks as benchmarks_module
 import unibench.models_zoo.models as models_module
 
@@ -42,7 +42,7 @@ class Evaluator(object):
     def __init__(
         self,
         seed: int = 1337,
-        num_workers=int(os.environ.get("SLURM_CPUS_PER_TASK") or 96),
+        num_workers=int(os.environ.get("SLURM_CPUS_PER_TASK") or 10),
         models: Union[List[str], str] = "all",
         benchmarks: Union[List[str], str] = "all",
         model_id: Union[int, None] = None,
@@ -184,6 +184,8 @@ class Evaluator(object):
         face_blur: bool = False,
         device="cuda" if torch.cuda.is_available() else "cpu",
         batch_per_gpu: int = 32,
+        tasks: Union[List[str], str] = ['clip_judge_relation'],
+        max_num_samples: int = 5000,
     ):
         """
         Evaluate models on benchmarks and return and saving the results.
@@ -193,13 +195,11 @@ class Evaluator(object):
             benchmarks (list or str): The benchmarks to evaluate. Defaults to "all".
             model_id (int): The index of the specific model to evaluate. Defaults to None.
             benchmark_id (int): The index of the specific benchmark to evaluate. Defaults to None.
-            model_types (str): The types of models to evaluate. Defaults to "all".
-            benchmark_types (str): The types of benchmarks to evaluate. Defaults to "all".
             save_freq (int): The frequency at which to save results. Defaults to 1000.
             face_blur (bool): Whether to use face blurring during evaluation. Defaults to False.
             device (str): The device to use for evaluation. Defaults to "cuda" if available otherwise "cpu".
             batch_per_gpu (int): The batch size per GPU. Defaults to 32.
-            use_data_parallel (bool): Whether to use data parallelism. Defaults to torch.cuda.device_count() > 1.
+            max_num_samples (int): The maximum number of samples to evaluate. Defaults to 3000.
 
         Returns:
             query results: The results of the query for the specified benchmarks and models.
@@ -210,6 +210,9 @@ class Evaluator(object):
             )
             pg_benchmarks = progress.add_task(
                 "[green]Processing...", total=len(self.benchmarks)
+            )
+            pg_tasks = progress.add_task(
+                "[green]Processing...", total=len(self.benchmarks), visible=False
             )
             pg_benchmark = progress.add_task(
                 "[green]Processing...", total=len(self.benchmarks), visible=False
@@ -227,16 +230,8 @@ class Evaluator(object):
                         description=f"[green]Processing {benchmark_name}...",
                     )
 
-                    number_entries = self.outputhandler.check_if_computed(
-                        model_name=model_name, benchmark_name=benchmark_name
-                    )
-
-                    if number_entries == True:
-                        progress.update(pg_benchmarks, advance=1, refresh=True)
-                        continue
-
                     if model is None:
-                        model = load_model(
+                        model, model_tasks = load_model(
                             model_name=model_name,
                             batch_per_gpu=batch_per_gpu,
                             face_blur=face_blur,
@@ -248,60 +243,105 @@ class Evaluator(object):
                             f"{model_name} does not exist in the currently supported models"
                         )
 
-                    dh = load_benchmark(
+                    benchmark = load_benchmark(
                         benchmark_name,
                         transform=model.get_preprocess_transforms(),
                         root=self.benchmarks_dir,
+                        max_num_samples=max_num_samples,
                     )
-
-                    ds = dh.benchmark
-
-                    dh.on_validation_start(model)
-
-                    dl = torch.utils.data.DataLoader(
-                        ds,
-                        batch_size=model.get_batch_size(),
-                        shuffle=False,
-                        num_workers=self.num_workers,
-                        pin_memory=True,
-                    )
-
-                    if number_entries == len(ds):
-                        progress.update(pg_benchmarks, advance=1, refresh=True)
-                        continue
-                    elif number_entries > len(ds) or (0 < number_entries < len(ds)):
-                        print(f"Reseting results for {model_name}")
-                        self.outputhandler.delete_rows(
-                            model_name=model_name, benchmark_name=benchmark_name
-                        )
 
                     progress.update(
-                        pg_benchmark, total=len(dl), completed=0, visible=True
+                        pg_tasks,
+                        description=f"[green]Processing...",
+                        total=len(model_tasks),
+                        visible=True,
                     )
-                    for idx, batch in enumerate(dl):
+
+                    tasks_to_process = [task for task in model_tasks if task in benchmark and task in tasks]
+                    
+                    if not tasks_to_process:
+                        print(f"Warning: No overlapping tasks between model {model_name} and benchmark {benchmark_name}")
+                        progress.update(pg_benchmarks, advance=1, refresh=True)
+                        continue
+                        
+                    progress.update(
+                        pg_tasks,
+                        description=f"[green]Processing...",
+                        total=len(tasks_to_process),
+                        visible=True,
+                    )
+                    
+                    for task in tasks_to_process:
                         progress.update(
-                            pg_benchmark,
-                            description=f"[green]Processing Batch #{idx}...",
-                            visible=True,
+                            pg_tasks,
+                            description=f"[green]Processing {task}...",
                         )
 
-                        for i, sample in enumerate(batch):
-                            if isinstance(sample, torch.Tensor) and device == "cuda":
-                                batch[i] = batch[i].to(device)
-
-                        with torch.no_grad(), torch.cuda.amp.autocast():
-                            values_to_save = dh.eval_batch(model, batch)
-
-                        self.outputhandler.add_values(
-                            model_name=model_name, **values_to_save
+                        number_entries = self.outputhandler.check_if_computed(
+                            model_name=model_name,
+                            benchmark_name=benchmark_name,
+                            task_name=task,
                         )
 
-                        if idx % save_freq == 0 and idx > 0:
-                            self.outputhandler.save_csv(model_name, benchmark_name)
-                        progress.update(pg_benchmark, advance=1)
-                    progress.update(pg_benchmark, visible=False)
-                    self.outputhandler.save_csv(model_name, benchmark_name)
-                    self.outputhandler.save_aggregate_results(model_name, benchmark_name)
+                        if number_entries == True:
+                            continue
+
+                        dh = benchmark[task]
+
+                        ds = dh.benchmark
+
+                        dh.on_validation_start(model)
+                        seed_everything(self.seed)
+                        dl = torch.utils.data.DataLoader(
+                            ds,
+                            batch_size=model.get_batch_size(),
+                            shuffle=True,
+                            num_workers=self.num_workers,
+                            pin_memory=True,
+                        )
+
+                        if number_entries == len(ds):
+                            progress.update(pg_tasks, advance=1, refresh=True)
+                            continue
+                        elif number_entries > len(ds) or (0 < number_entries < len(ds)):
+                            print(f"Reseting results for {model_name}")
+                            self.outputhandler.delete_rows(
+                                model_name=model_name, benchmark_name=benchmark_name
+                            )
+
+                        progress.update(
+                            pg_benchmark, total=len(dl), completed=0, visible=True
+                        )
+                        for idx, batch in enumerate(dl):
+                            progress.update(
+                                pg_benchmark,
+                                description=f"[green]Processing Batch #{idx}...",
+                            )
+
+                            for i, sample in enumerate(batch):
+                                if (
+                                    isinstance(sample, torch.Tensor)
+                                    and device == "cuda"
+                                ):
+                                    batch[i] = batch[i].to(device)
+
+                            with torch.no_grad(), torch.cuda.amp.autocast():
+                                values_to_save = dh.eval_batch(model, batch)
+
+                            self.outputhandler.add_values(
+                                model_name=model_name, **values_to_save
+                            )
+
+                            if idx % save_freq == 0 and idx > 0:
+                                self.outputhandler.save_csv(model_name, benchmark_name)
+                            progress.update(pg_benchmark, advance=1, refresh=True)
+                        progress.update(pg_tasks, advance=1)
+                        progress.update(pg_benchmark, visible=False)
+                        self.outputhandler.save_csv(model_name, benchmark_name)
+                        self.outputhandler.save_aggregate_results(
+                            model_name, benchmark_name
+                        )
+                    
                     progress.update(pg_benchmarks, advance=1)
                 progress.update(pg_models, advance=1)
 

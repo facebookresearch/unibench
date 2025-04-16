@@ -44,6 +44,7 @@ class HuggingFaceDataset(Dataset):
         image_extension="webp",
         classes=None,
         templates=None,
+        max_num_samples=None,
         *args,
         **kwargs
     ):
@@ -58,6 +59,7 @@ class HuggingFaceDataset(Dataset):
         self.transform = transform
         self.download_num_workers = download_num_workers
         self.target_transform = target_transform
+        self.max_num_samples = max_num_samples
 
         self.classes = classes
         self.templates = templates
@@ -66,6 +68,9 @@ class HuggingFaceDataset(Dataset):
             self.download_dataset()
 
         self.dataset = load_from_disk(str(self.dataset_dir))
+        
+        if self.max_num_samples is not None and len(self.dataset) > self.max_num_samples:
+            self.dataset = self.dataset.select(range(self.max_num_samples))
 
         try:
             if classes is None:
@@ -137,7 +142,7 @@ class HuggingFaceDataset(Dataset):
                 samples,
                 target,
                 str(item["__key__"]),
-                item["split.txt"].decode("utf-8"),
+                item["split.txt"],
             )
 
         return samples, target, str(item["__key__"])

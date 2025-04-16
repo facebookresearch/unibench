@@ -43,11 +43,11 @@ class OutputHandler(object):
     def reset_local_csv(self):
         self._local_csv = pd.DataFrame()
 
-    def check_if_computed(self, model_name, benchmark_name, **kwargs):
+    def check_if_computed(self, model_name, benchmark_name, task_name, **kwargs):
         self.load_aggregate_results()
         res = self.query(
             df=self._aggregate,
-            **{"model_name": model_name, "benchmark_name": benchmark_name}
+            **{"model_name": model_name, "benchmark_name": benchmark_name, "task_name": task_name}
         )
         if len(res) >= 1:
             return True
@@ -133,6 +133,8 @@ class OutputHandler(object):
 
         expr = ""
         for i, (k, v) in enumerate(kwargs.items()):
+            if k not in df.columns:
+                continue
             if isinstance(v, list):
                 expr += "(" + " or ".join(create_compare(k, v_) for v_ in v) + ")"
             else:
@@ -140,6 +142,10 @@ class OutputHandler(object):
             if i < len(kwargs.items()) - 1:
                 expr += " and "
 
+        # Remove trailing "and" if it exists
+        if expr.endswith(" and "):
+            expr = expr[:-5]  # Remove last " and "
+        
         return df.query(expr)
 
     def delete_rows(self, model_name, benchmark_name, **kwargs):

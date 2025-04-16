@@ -16,7 +16,7 @@ from git import Repo
 import sys
 import torch
 
-from unibench.models_zoo.wrappers.vlm import Chameleon, LVLModel, LlavaNext, PaliGemma
+from unibench.models_zoo.wrappers.vlm import LlavaModels, VLLModel, PaliGemma
 
 
 def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs):
@@ -58,66 +58,30 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
         "name": "Llava",
     },
 )
-def paligemma_3b(model_name, **kwargs):
-    from transformers import PaliGemmaForConditionalGeneration
-    from transformers import AutoTokenizer
-    from transformers import AutoProcessor
-
-    name = "google/paligemma-3b-pt-224"
-    tokenizer = AutoTokenizer.from_pretrained(name)
-    model = PaliGemmaForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
-    ).cuda()
-    processor = AutoProcessor.from_pretrained(name)
-    kwargs["batch_per_gpu"] = 2
-
-    return PaliGemma(
-        model=model,
-        model_name=model_name,
-        tokenizer=tokenizer,
-        prompt="Describe the following image:",
-        processor=processor,
-        use_norm=False,
-        norm_mean=processor.image_processor.image_mean,
-        norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size["width"],
-        **kwargs
-    )
-
-
-@register_model(
-    "vision_text",
-    {
-        "dataset_size": 14,
-        "model_size": 7000,
-        "learning_objective": "BLIP",
-        "architecture": "vit",
-        "name": "Llava",
-    },
-)
 def llava_1_5_7b(model_name, **kwargs):
     from transformers import LlavaForConditionalGeneration
-    from transformers import AutoTokenizer
     from transformers import AutoProcessor
 
     name = "llava-hf/llava-1.5-7b-hf"
-    tokenizer = AutoTokenizer.from_pretrained(name)
     model = LlavaForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
-    ).cuda()
-    processor = AutoProcessor.from_pretrained(name)
-    kwargs["batch_per_gpu"] = 2
-
-    return LVLModel(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    return LlavaModels(
         model=model,
         model_name=model_name,
-        tokenizer=tokenizer,
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
         **kwargs
-    )
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
 
 
 @register_model(
@@ -125,34 +89,36 @@ def llava_1_5_7b(model_name, **kwargs):
     {
         "dataset_size": 14,
         "model_size": 7000,
-        "learning_objective": "BLIP",
+        "learning_objective": "Llava",
         "architecture": "vit",
         "name": "Llava",
     },
 )
 def llava_1_5_13b(model_name, **kwargs):
     from transformers import LlavaForConditionalGeneration
-    from transformers import AutoTokenizer
     from transformers import AutoProcessor
 
     name = "llava-hf/llava-1.5-13b-hf"
-    tokenizer = AutoTokenizer.from_pretrained(name)
     model = LlavaForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
-    ).cuda()
-    processor = AutoProcessor.from_pretrained(name)
-    kwargs["batch_per_gpu"] = 2
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
 
-    return LVLModel(
+    return LlavaModels(
         model=model,
         model_name=model_name,
-        tokenizer=tokenizer,
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
         **kwargs
-    )
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
 
 
 @register_model(
@@ -160,34 +126,36 @@ def llava_1_5_13b(model_name, **kwargs):
     {
         "dataset_size": 14,
         "model_size": 7000,
-        "learning_objective": "BLIP",
+        "learning_objective": "Llava",
         "architecture": "vit",
         "name": "Llava",
     },
 )
-def llava_1_7b(model_name, **kwargs):
+def bakllava_1_7b(model_name, **kwargs):
     from transformers import LlavaForConditionalGeneration
-    from transformers import AutoTokenizer
     from transformers import AutoProcessor
 
     name = "llava-hf/bakLlava-v1-hf"
-    tokenizer = AutoTokenizer.from_pretrained(name)
     model = LlavaForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
-    ).cuda()
-    processor = AutoProcessor.from_pretrained(name)
-    kwargs["batch_per_gpu"] = 2
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
 
-    return LVLModel(
+    return LlavaModels(
         model=model,
         model_name=model_name,
-        tokenizer=tokenizer,
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("[/INST]")[-1].strip().replace("\n", ""),
         **kwargs
-    )
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
 
 
 @register_model(
@@ -200,30 +168,557 @@ def llava_1_7b(model_name, **kwargs):
         "name": "Llava Next",
     },
 )
-def llava_next_1_6_7b_vicuna(model_name, **kwargs):
+def llava_next_llama(model_name, **kwargs):
     from transformers import LlavaNextForConditionalGeneration
-    from transformers import AutoTokenizer
     from transformers import AutoProcessor
 
     name = "llava-hf/llama3-llava-next-8b-hf"
-    tokenizer = AutoTokenizer.from_pretrained(name)
     model = LlavaNextForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
-    ).cuda()
-    processor = AutoProcessor.from_pretrained(name)
-    kwargs["batch_per_gpu"] = 1
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
 
-    return LlavaNext(
+    return LlavaModels(
         model=model,
         model_name=model_name,
-        tokenizer=tokenizer,
         processor=processor,
-        use_norm=False,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
         **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def llava_next_mistral(model_name, **kwargs):
+    from transformers import LlavaNextForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "llava-hf/llava-v1.6-mistral-7b-hf"
+    model = LlavaNextForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
     )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("[/INST]")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def llava_next_vicuna_7b(model_name, **kwargs):
+    from transformers import LlavaNextForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "llava-hf/llava-v1.6-vicuna-7b-hf"
+    model = LlavaNextForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
+    )
+    processor = AutoProcessor.from_pretrained(name)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def llava_next_vicuna_13b(model_name, **kwargs):
+    from transformers import LlavaNextForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "llava-hf/llava-v1.6-vicuna-13b-hf"
+    model = LlavaNextForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
+    )
+    processor = AutoProcessor.from_pretrained(name)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "Llava",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def llava_1_6_34b(model_name, **kwargs):
+    from transformers import LlavaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "llava-hf/llava-v1.6-34b-hf"
+    model = LlavaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma_3b_224(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma-3b-pt-224"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma_3b_mix_224(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma-3b-mix-224"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma_3b_448(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma-3b-pt-448"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma_3b_mix_448(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma-3b-mix-448"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma2_3b_mix_224(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma2-3b-mix-224"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma2_3b_mix_448(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma2-3b-mix-448"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma2_10b_mix_224(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma2-10b-mix-224"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma2_10b_mix_448(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma2-10b-mix-448"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        # image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+    
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma2_28b_mix_448(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma2-28b-mix-448"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        # image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+    
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+    },
+)
+def paligemma2_28b_mix_224(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/paligemma2-28b-mix-224"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        # image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
 
 
 @register_model(
@@ -238,29 +733,32 @@ def llava_next_1_6_7b_vicuna(model_name, **kwargs):
 )
 def chameleon_7b(model_name, **kwargs):
     from transformers import ChameleonForConditionalGeneration
-    from transformers import AutoTokenizer
     from transformers import AutoProcessor
 
     name = "facebook/chameleon-7b"
-    tokenizer = AutoTokenizer.from_pretrained(name)
     model = ChameleonForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.float16,
     ).cuda()
-    processor = AutoProcessor.from_pretrained(name)
-    kwargs["batch_per_gpu"] = 2
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
 
-    return Chameleon(
+    return PaliGemma(
         model=model,
         model_name=model_name,
-        tokenizer=tokenizer,
+        image_token="<image>",
         processor=processor,
-        use_norm=False,
-        prompt="What do you see in this image?<image>",
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
         **kwargs
-    )
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
 
 
 @register_model(
@@ -273,29 +771,107 @@ def chameleon_7b(model_name, **kwargs):
         "name": "Chameleon",
     },
 )
-def blip2_7b(model_name, **kwargs):
-    from transformers import Blip2ForConditionalGeneration
-    from transformers import AutoTokenizer
+def chameleon_30b(model_name, **kwargs):
+    from transformers import ChameleonForConditionalGeneration
     from transformers import AutoProcessor
 
-    name = "Salesforce/blip2-opt-6.7b"
-    tokenizer = AutoTokenizer.from_pretrained(name)
-    model = Blip2ForConditionalGeneration.from_pretrained(
+    name = "facebook/chameleon-30b"
+    model = ChameleonForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16
     ).cuda()
-    processor = AutoProcessor.from_pretrained(name)
-    kwargs["batch_per_gpu"] = 2
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
 
-    return LVLModel(
+    return PaliGemma(
         model=model,
         model_name=model_name,
-        tokenizer=tokenizer,
+        image_token="<image>",
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
         **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def llama_4_scout(model_name, **kwargs):
+    from transformers import Llama4ForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "meta-llama/Llama-4-Scout-17B-16E-Instruct"
+    model = Llama4ForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
     )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def llama_3_2_11b(model_name, **kwargs):
+    from transformers import MllamaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "meta-llama/Llama-3.2-11B-Vision"
+    model = MllamaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="cuda:0"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return PaliGemma(
+        model=model,
+        model_name=model_name,
+        image_token="<|image|><|begin_of_text|>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
 
 
 @register_model(
