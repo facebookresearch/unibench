@@ -31,12 +31,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     python_requires=">=3.8",
     install_requires=[
-        "open-clip-torch",
-        "openai-clip",
         "zipp",
-        "timm",
         "fire",
-        "opencv-python",
         "datasets",
         "ftfy",
         "torch",
@@ -46,9 +42,17 @@ setuptools.setup(
         "torchvision",
         "rich",
         "oslo.concurrency",
-        "transformers",
         "gdown",
     ],
+    extras_require={
+        "all": [
+            "open-clip-torch",
+            "openai-clip",
+            "timm",
+            "opencv-python",
+            "transformers",
+        ],
+    }
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
     test_suite="tests",
