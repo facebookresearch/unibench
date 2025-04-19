@@ -46,7 +46,7 @@ class AbstractModel(ABC):
         use_transforms: bool = True,
     ) -> None:
         super(AbstractModel, self).__init__()
-        assert device in ["cpu", "cuda"], "device must be 'cpu' or 'cuda'"
+        assert device in ["cpu", "cuda", None], "device must be 'cpu' or 'cuda'"
 
         self.model = model
         self.use_itm_head = use_itm_head
@@ -65,8 +65,9 @@ class AbstractModel(ABC):
         self.tokenizer = tokenizer
         self.use_transforms = use_transforms
 
-        if self.model is not None:
+        if self.model is not None and self.device is not None:
             self.model = self.model.to(device)
+        if self.model is not None:
             self.model.eval()
 
         self.zeroshot_weights = None

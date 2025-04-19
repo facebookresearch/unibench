@@ -16,10 +16,11 @@ class VLLModel(AbstractModel):
         model_name,
         processor=None,
         output_func=None,
-        max_new_tokens=16,
+        max_new_tokens=32,
         image_token=None,
         **kwargs,
     ):
+        kwargs['device'] = None
         super(VLLModel, self).__init__(
             model, model_name, use_transforms=False, **kwargs
         )
@@ -61,14 +62,22 @@ class LlavaModels(VLLModel):
             elif self.image_token is not None:
                 prompts[i] = self.image_token + prompts[i]
 
-        inputs = self.processor(
-            text=prompts, padding=True, return_tensors="pt", images=(images * 255).int()
-        ).to("cuda")
+        inputs = (
+            self.processor(
+                text=prompts,
+                padding=True,
+                return_tensors="pt",
+                images=[[image] for image in (images * 255).int()],
+            )
+        )
         output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens)
         gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
         res = []
-        for text in gen_res:
-            res.append(self.output_func(text))
+        for i, text in enumerate(gen_res):
+            p = prompts[i]
+            if self.image_token is not None:
+                p = prompts[i].replace(self.image_token, '')
+            res.append(self.output_func(text.split(p)[-1]))
         return res
 
 
@@ -77,14 +86,40 @@ class PaliGemma(VLLModel):
     def get_text_from_image(self, images, prompts):
         res = []
         for image, prompt in zip(images, prompts):
-            inputs = self.processor(
-                text=[self.image_token + prompt if self.image_token is not None else prompt],
-                images=(image * 255).int(),
-                padding=True,
-                return_tensors="pt",
-            ).to("cuda")
+            if self.processor.chat_template is not None:
+                prompt = self.processor.apply_chat_template(
+                    [
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "image"},
+                                {"type": "text", "text": prompt},
+                            ],
+                        },
+                    ],
+                    add_generation_prompt=True,
+                )
+            elif self.image_token is not None:
+                prompt = self.image_token + prompt
+            inputs = (
+                self.processor(
+                    text=prompt,
+                    images=[(image * 255).int()],
+                    padding=True,
+                    truncation=True,
+                    return_tensors="pt",
+                )
+            )
+            if len(inputs['pixel_values'].shape) > 4:
+                inputs['pixel_values'] = inputs['pixel_values'].squeeze()
+                
+            if 'image_sizes' in inputs:
+                del inputs['image_sizes']
             output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens)
             gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
-            res.append(self.output_func(gen_res[0].split(prompt)[-1]))
+            p = prompt
+            if self.image_token is not None:
+                p = prompt.replace(self.image_token, '')
+            res.append(self.output_func(gen_res[0].split(p)[-1]))
 
         return res

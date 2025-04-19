@@ -306,7 +306,7 @@ class Evaluator(object):
                         elif number_entries > len(ds) or (0 < number_entries < len(ds)):
                             print(f"Reseting results for {model_name}")
                             self.outputhandler.delete_rows(
-                                model_name=model_name, benchmark_name=benchmark_name
+                                model_name=model_name, benchmark_name=benchmark_name, task_name=task,
                             )
 
                         progress.update(
@@ -339,7 +339,7 @@ class Evaluator(object):
                         progress.update(pg_benchmark, visible=False)
                         self.outputhandler.save_csv(model_name, benchmark_name)
                         self.outputhandler.save_aggregate_results(
-                            model_name, benchmark_name
+                            model_name, benchmark_name, task
                         )
                     
                     progress.update(pg_benchmarks, advance=1)

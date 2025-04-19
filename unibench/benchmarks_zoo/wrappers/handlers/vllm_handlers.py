@@ -48,7 +48,7 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
                 random_classes = [target]
                 random_classes += random.sample(
                     [cls for cls in self.class_names if cls != target],
-                    self.num_classes - 1,
+                    self.num_classes - 1 if len(self.class_names) > self.num_classes else len(self.class_names) - 1,
                 )
                 random.shuffle(random_classes)
                 prompts.append(
@@ -74,7 +74,10 @@ class TextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
         else:
             images, targets = batch
 
-        targets_names = [self.class_names[i - 1].lower() for i in targets]
+        if len(targets.shape) > 1:
+            targets_names = [self.class_names[i.argmax() - 1].lower() for i in targets]
+        else:
+            targets_names = [self.class_names[i - 1].lower() for i in targets]
         prompts = self.get_prompts(targets_names)
         text_outputs = model.get_text_from_image(images, prompts)
 
@@ -164,8 +167,13 @@ class CLIPJudgeBenchmarkHandler(VLLMBenchmarkHandler):
         else:
             images, targets = batch
 
+        if len(targets.shape) > 1:
+            targets_names = [self.class_names[i.argmax() - 1].lower() for i in targets]
+        else:
+            targets_names = [self.class_names[i - 1].lower() for i in targets]
+
         logits = self.get_zeroshot_predictions(
-            model, images, [self.class_names[i - 1] for i in targets]
+            model, images, targets_names
         )
 
         if len(targets.shape) > 1:
@@ -268,7 +276,10 @@ Answer with only 'yes' or 'no':
         else:
             images, targets = batch
 
-        targets_names = [self.class_names[i - 1] for i in targets]
+        if len(targets.shape) > 1:
+            targets_names = [self.class_names[i.argmax() - 1].lower() for i in targets]
+        else:
+            targets_names = [self.class_names[i - 1].lower() for i in targets]
         prompts = self.get_prompts(targets_names)
         text_outputs = model.get_text_from_image(images, prompts)
 

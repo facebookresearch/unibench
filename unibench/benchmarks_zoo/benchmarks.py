@@ -1534,10 +1534,16 @@ def countbench(benchmark_name, transform=None, **kwargs):
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_countbench", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        )
+    }
 
 
 @register_benchmark(
