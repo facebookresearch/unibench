@@ -2,6 +2,14 @@ from unibench import Evaluator
 import fire
 
 models = [
+    "gemma3_27b",
+    "gemma3_12b",
+    "gemma3_4b",
+    "aya_8b",
+    "phi_4",
+    "llama_4_maverick",
+    "llama_4_scout",
+    "llama_3_2_11b_cot",
     "paligemma_3b_224",
     "paligemma_3b_mix_224",
     "paligemma_3b_448",
@@ -21,15 +29,16 @@ models = [
     "llava_next_mistral_7b",
     "paligemma2_28b_mix_224",
     "paligemma2_28b_mix_448",
+    "llava_next_34b",
     # "cambrian_8b",
-    # "chameleon_30b", need a fix
+    # "chameleon_30b",
     # "llava_1_6_34b",
-    "llama_4_scout",
+    # "llama_4_scout",
     # "llava_next_110b", not enough memory
 ]
 
 
-def main(task_name, idx=2):
+def main(task_name, idx=10):
     evaluator = Evaluator(
         download_aggregate_precomputed=False, model_id=idx, models=models
     )
@@ -39,7 +48,7 @@ def main(task_name, idx=2):
     print('-' * 20)
     
     evaluator.evaluate(
-        batch_per_gpu=4,
+        batch_per_gpu=2,
         tasks=[task_name],
     )
 

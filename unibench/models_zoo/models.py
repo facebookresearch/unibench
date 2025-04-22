@@ -175,7 +175,7 @@ def llava_next_llama_8b(model_name, **kwargs):
     model = LlavaNextForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side='left')
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side="left")
     model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
     return LlavaModels(
         model=model,
@@ -361,7 +361,7 @@ def llava_next_vicuna_7b(model_name, **kwargs):
     model = LlavaNextForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side='left')
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side="left")
     return LlavaModels(
         model=model,
         model_name=model_name,
@@ -397,7 +397,7 @@ def llava_next_vicuna_13b(model_name, **kwargs):
     model = LlavaNextForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side='left')
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side="left")
     return LlavaModels(
         model=model,
         model_name=model_name,
@@ -546,7 +546,7 @@ def paligemma_3b_448(model_name, **kwargs):
     model = PaliGemmaForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, torch_dtype=torch.float16)
 
     return LlavaModels(
         model=model,
@@ -849,7 +849,7 @@ def chameleon_7b(model_name, **kwargs):
     name = "facebook/chameleon-7b"
     model = ChameleonForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
-    ).cuda()
+    )
     processor = AutoProcessor.from_pretrained(name, use_fast=True)
     model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
     return PaliGemma(
@@ -887,8 +887,10 @@ def chameleon_30b(model_name, **kwargs):
     name = "facebook/chameleon-30b"
     model = ChameleonForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
-    ).cuda()
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, torch_dtype=torch.float16
+    )
 
     return PaliGemma(
         model=model,
@@ -924,7 +926,271 @@ def llama_4_scout(model_name, **kwargs):
 
     name = "meta-llama/Llama-4-Scout-17B-16E-Instruct"
     model = Llama4ForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced", local_files_only = True,  trust_remote_code=True
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.float16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def phi_4(model_name, **kwargs):
+    from transformers import AutoModelForCausalLM
+    from transformers import AutoProcessor
+
+    name = "microsoft/Phi-4-multimodal-instruct"
+    model = AutoModelForCausalLM.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.float16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    model.load_adapter(
+        name,
+        adapter_name="vision",
+        device_map="balanced",
+        adapter_kwargs={"subfolder": "vision-lora"},
+    )
+    model.set_adapter("vision")
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, trust_remote_code=True
+    )
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def aya_8b(model_name, **kwargs):
+    from transformers import AutoModelForImageTextToText
+    from transformers import AutoProcessor
+
+    name = "CohereLabs/aya-vision-8b"
+    model = AutoModelForImageTextToText.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.float16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
+        .strip()
+        .replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def gemma3_4b(model_name, **kwargs):
+    from transformers import Gemma3ForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/gemma-3-4b-it"
+    model = Gemma3ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.float16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
+        .strip()
+        .replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def gemma3_27b(model_name, **kwargs):
+    from transformers import Gemma3ForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/gemma-3-27b-it"
+    model = Gemma3ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.float16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
+        .strip()
+        .replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def gemma3_12b(model_name, **kwargs):
+    from transformers import Gemma3ForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "google/gemma-3-12b-it"
+    model = Gemma3ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.float16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
+        .strip()
+        .replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def llama_4_maverick(model_name, **kwargs):
+    from transformers import Llama4ForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "meta-llama/Llama-4-Maverick-17B-128E-Instruct"
+    model = Llama4ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.float16,
+        device_map="balanced",
+        trust_remote_code=True,
     )
     processor = AutoProcessor.from_pretrained(name, use_fast=True)
 
@@ -962,8 +1228,45 @@ def llama_3_2_11b(model_name, **kwargs):
     name = "meta-llama/Llama-3.2-11B-Vision-Instruct"
     model = MllamaForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
-    ).cuda()
-    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side='left')
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side="left")
+
+    return LlavaModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+    ]
+
+
+@register_model(
+    "vision_text",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next",
+    },
+)
+def llama_3_2_11b_cot(model_name, **kwargs):
+    from transformers import MllamaForConditionalGeneration
+    from transformers import AutoProcessor
+
+    name = "Xkev/Llama-3.2V-11B-cot"
+    model = MllamaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side="left")
 
     return LlavaModels(
         model=model,

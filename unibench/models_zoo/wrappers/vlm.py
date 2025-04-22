@@ -69,7 +69,7 @@ class LlavaModels(VLLModel):
                 return_tensors="pt",
                 images=[[image] for image in (images * 255).int()],
             )
-        )
+        ).to(self.model.device).to(self.model.dtype)
         output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens)
         gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
         res = []
@@ -109,7 +109,7 @@ class PaliGemma(VLLModel):
                     truncation=True,
                     return_tensors="pt",
                 )
-            )
+            ).to(self.model.device).to(self.model.dtype)
             if len(inputs['pixel_values'].shape) > 4:
                 inputs['pixel_values'] = inputs['pixel_values'].squeeze()
                 
