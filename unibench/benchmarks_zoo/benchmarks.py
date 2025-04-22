@@ -48,7 +48,6 @@ def cifar10(benchmark_name, transform=None, **kwargs):
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
-            
         ),
     }
 
@@ -92,6 +91,416 @@ def imagenet1k(benchmark_name, transform=None, **kwargs):
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_2(benchmark_name, transform=None, **kwargs):
+    class_names = 2
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_4(benchmark_name, transform=None, **kwargs):
+    class_names = 4
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_8(benchmark_name, transform=None, **kwargs):
+    class_names = 8
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_16(benchmark_name, transform=None, **kwargs):
+    class_names = 16
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_32(benchmark_name, transform=None, **kwargs):
+    class_names = 32
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_64(benchmark_name, transform=None, **kwargs):
+    class_names = 64
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_128(benchmark_name, transform=None, **kwargs):
+    class_names = 128
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_256(benchmark_name, transform=None, **kwargs):
+    class_names = 256
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_512(benchmark_name, transform=None, **kwargs):
+    class_names = 512
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+    }
+
+
+@register_benchmark(
+    "imagenet",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "object recognition",
+        "capability": "imagenet",
+        "curated": False,
+        "object_centric": True,
+        "image_resolution": [490.38, 430.25],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenet1k_1000(benchmark_name, transform=None, **kwargs):
+    class_names = 1000
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
+    )
+    return {
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+            class_names=class_names,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            class_names=class_names,
         ),
     }
 
@@ -1542,7 +1951,7 @@ def countbench(benchmark_name, transform=None, **kwargs):
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
-        )
+        ),
     }
 
 
@@ -2058,7 +2467,7 @@ def vg_relation(benchmark_name, transform=None, **kwargs):
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
-        )
+        ),
     }
 
 
@@ -2087,7 +2496,7 @@ def flickr30k_order(benchmark_name, transform=None, **kwargs):
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
-        )
+        ),
     }
 
 
@@ -2116,7 +2525,7 @@ def sugarcrepe(benchmark_name, transform=None, **kwargs):
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
-        )
+        ),
     }
 
 
@@ -2145,7 +2554,7 @@ def winoground(benchmark_name, transform=None, **kwargs):
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
-        )
+        ),
     }
 
 
@@ -2174,7 +2583,7 @@ def vg_attribution(benchmark_name, transform=None, **kwargs):
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
-        )
+        ),
     }
 
 
@@ -2203,5 +2612,5 @@ def coco_order(benchmark_name, transform=None, **kwargs):
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
-        )
+        ),
     }
