@@ -5,11 +5,10 @@ This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
 import setuptools
-import unibench
 
 setuptools.setup(
     name="unibench",
-    version=unibench.__version__,
+    version="0.4.0",
     author="Haider Al-Tahan",
     author_email="haideraltahan@meta.com",
     description="This repository is designed to simplify the evaluation process of vision-language models. It provides a comprehensive set of tools and scripts for evaluating VLM models and benchmarks.",
