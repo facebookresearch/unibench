@@ -546,7 +546,9 @@ def paligemma_3b_448(model_name, **kwargs):
     model = PaliGemmaForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True, torch_dtype=torch.float16)
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, torch_dtype=torch.float16
+    )
 
     return LlavaModels(
         model=model,
@@ -660,7 +662,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
     model = PaliGemmaForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, pad_to_multiple_of=8)
 
     return LlavaModels(
         model=model,
@@ -848,7 +850,7 @@ def chameleon_7b(model_name, **kwargs):
 
     name = "facebook/chameleon-7b"
     model = ChameleonForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
+        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="balanced"
     )
     processor = AutoProcessor.from_pretrained(name, use_fast=True)
     model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
