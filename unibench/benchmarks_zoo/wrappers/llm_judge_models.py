@@ -51,18 +51,17 @@ class DeepSeekJudge(AbstractLLMJudge):
 class LlamaJudge(AbstractLLMJudge):
     def __init__(self, model_name="meta-llama/Meta-Llama-3.1-8B-Instruct"):
         self.model_name = model_name
-
-    def pre_process_text(self, prompts):
-        return [[{"role": "user", "content": prompt}] for prompt in prompts]
-
-    def eval_batch(self, prompts):
-        if not hasattr(self, "model"):
-            self.model = pipeline(
+        self.model = pipeline(
                 "text-generation",
                 model=self.model_name,
                 model_kwargs={"torch_dtype": torch.bfloat16},
                 device_map="auto",
             )
+
+    def pre_process_text(self, prompts):
+        return [[{"role": "user", "content": prompt}] for prompt in prompts]
+
+    def eval_batch(self, prompts):            
         output = self.model(
             prompts, max_new_tokens=16, pad_token_id=self.model.tokenizer.eos_token_id
         )

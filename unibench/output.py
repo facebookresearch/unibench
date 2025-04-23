@@ -151,7 +151,7 @@ class OutputHandler(object):
             expr = expr[:-5]  # Remove last " and "
 
         return df.query(expr)
-
+    
     def delete_rows(self, model_name, benchmark_name, **kwargs):
         # file_name = str(OUTPUT_DIR.joinpath(model_name + ".f"))
         self.output_dir.joinpath(model_name).mkdir(parents=True, exist_ok=True)
@@ -239,6 +239,7 @@ class OutputHandler(object):
             index="model_name", columns="benchmark_type", values="correctness"
         )
 
+    @lockutils.synchronized(name="single", external=True, fair=True)
     def save_csv(self, model_name, benchmark_name):
         self.output_dir.joinpath(model_name).mkdir(parents=True, exist_ok=True)
         file_name = str(

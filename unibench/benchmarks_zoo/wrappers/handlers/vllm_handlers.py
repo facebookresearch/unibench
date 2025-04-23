@@ -48,7 +48,11 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
                 random_classes = [target]
                 random_classes += random.sample(
                     [cls for cls in self.class_names if cls != target],
-                    self.num_classes - 1 if len(self.class_names) > self.num_classes else len(self.class_names) - 1,
+                    (
+                        self.num_classes - 1
+                        if len(self.class_names) > self.num_classes
+                        else len(self.class_names) - 1
+                    ),
                 )
                 random.shuffle(random_classes)
                 prompts.append(
@@ -92,6 +96,7 @@ class TextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
             "benchmark_name": self.benchmark_name,
             "correctness": correct,
             "prompt": prompts,
+            "num_classes": self.num_classes,
         }
 
         if len(batch) > 2:
@@ -114,14 +119,17 @@ class CLIPJudgeBenchmarkHandler(VLLMBenchmarkHandler):
         VLLMBenchmarkHandler.__init__(self, task_name=task_name, **kwargs)
         self.topk = topk
         self.templates = templates
-
-        self.embedding_model = transformers.CLIPTextModelWithProjection.from_pretrained(
-            clip_model, torch_dtype=torch.float16
-        ).cuda()
-        self.embedding_tokenizer = AutoTokenizer.from_pretrained(clip_model)
-        self.embedding_model.eval()
+        self.clip_model = clip_model
 
     def on_validation_start(self, model):
+        self.embedding_model = transformers.CLIPTextModelWithProjection.from_pretrained(
+            self.clip_model,
+            torch_dtype=torch.float16,
+            low_cpu_mem_usage=True,
+            device_map="auto",
+        )
+        self.embedding_tokenizer = AutoTokenizer.from_pretrained(self.clip_model)
+        self.embedding_model.eval()
         zeroshot_weights = []
         for class_name in self.class_names:
             texts = [template.format(class_name) for template in self.templates]
@@ -172,9 +180,7 @@ class CLIPJudgeBenchmarkHandler(VLLMBenchmarkHandler):
         else:
             targets_names = [self.class_names[i - 1].lower() for i in targets]
 
-        logits = self.get_zeroshot_predictions(
-            model, images, targets_names
-        )
+        logits = self.get_zeroshot_predictions(model, images, targets_names)
 
         if len(targets.shape) > 1:
             pred = softmax(logits, dim=-1).topk(1)[1].squeeze()
@@ -252,20 +258,22 @@ Answer with only 'yes' or 'no':
         **kwargs,
     ):
         VLLMBenchmarkHandler.__init__(self, task_name=task_name, **kwargs)
-        if "deepseek" in llm_model:
+        self.llm_model = llm_model
+        self.llm_prompt = llm_prompt
+
+    def on_validation_start(self, model):
+        if "deepseek" in self.llm_model:
             self.llm_model = DeepSeekJudge(
-                model_name=llm_model,
+                model_name=self.llm_model,
             )
-        elif "llama" in llm_model:
+        elif "llama" in self.llm_model:
             self.llm_model = LlamaJudge(
-                model_name=llm_model,
+                model_name=self.llm_model,
             )
         else:
             raise ValueError(
-                f"LLM model {llm_model} not supported. Please use either DeepSeek or Llama models."
+                f"LLM model {self.llm_model} not supported. Please use either DeepSeek or Llama models."
             )
-
-        self.llm_prompt = llm_prompt
 
     def eval_batch(self, model, batch):
         split = ""
@@ -328,16 +336,20 @@ class CLIPJudgeRelationBenchmarkHandler(VLLMBenchmarkHandler):
             class_names=None,
             **kwargs,
         )
-        self.embedding_model = transformers.CLIPTextModelWithProjection.from_pretrained(
-            clip_model, torch_dtype=torch.float16
-        ).cuda()
-        self.embedding_tokenizer = AutoTokenizer.from_pretrained(clip_model)
-        self.embedding_model.eval()
         self.max_new_tokens = max_new_tokens
+        self.clip_model = clip_model
 
     def on_validation_start(self, model):
+        self.embedding_model = transformers.CLIPTextModelWithProjection.from_pretrained(
+            self.clip_model,
+            torch_dtype=torch.float16,
+            low_cpu_mem_usage=True,
+            device_map="auto",
+        )
+        self.embedding_tokenizer = AutoTokenizer.from_pretrained(self.clip_model)
+        self.embedding_model.eval()
         model.max_new_tokens = self.max_new_tokens
-    
+
     def get_prompts(self, num_images):
         prompts = []
         for _ in range(num_images):
@@ -358,13 +370,10 @@ class CLIPJudgeRelationBenchmarkHandler(VLLMBenchmarkHandler):
     def get_image_embeddings(self, model, images):
         prompts = self.get_prompts(len(images))
         return (
-            (
-                self.get_text_embeddings(
-                    model.get_text_from_image(images, prompts)
-                ).unsqueeze(1)
-            )
-            .float()
-        )
+            self.get_text_embeddings(
+                model.get_text_from_image(images, prompts)
+            ).unsqueeze(1)
+        ).float()
 
     def get_similarity(self, model, images, captions):
         image_features = self.get_image_embeddings(model, images)
