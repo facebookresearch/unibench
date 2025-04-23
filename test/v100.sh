@@ -3,7 +3,7 @@
 #SBATCH -N1 --ntasks-per-node=1
 #SBATCH --mem-per-gpu=64GB
 #SBATCH --cpus-per-gpu=8
-#SBATCH --gres=gpu:a100:2
+#SBATCH --gres=gpu:v100:2
 #SBATCH --time=02:00:00
 #SBATCH --output=./scripts_log/%A_%a.out
 #SBATCH --account=gts-rmurty7-paid

@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=job
-#SBATCH -N1 --ntasks-per-node=1
+#SBATCH -N1 --ntasks-per-node=4
 #SBATCH --mem-per-gpu=95GB
 #SBATCH --cpus-per-task=6
-#SBATCH --gres=gpu:RTX_6000:1
+#SBATCH --gres=gpu:RTX_6000:4
 #SBATCH --time=05:00:00
 #SBATCH --output=./scripts_log/%A_%a.out
 #SBATCH --account=gts-rmurty7-paid
