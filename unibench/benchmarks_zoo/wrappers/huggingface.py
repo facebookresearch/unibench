@@ -4,6 +4,7 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+from functools import partial
 from datasets import load_dataset, load_from_disk
 from huggingface_hub import hf_hub_download
 import torch
@@ -40,11 +41,12 @@ class HuggingFaceDataset(Dataset):
         root: str = DATA_DIR,
         transform=None,
         target_transform=None,
-        download_num_workers=60,
+        download_num_workers=40,
         image_extension="webp",
         classes=None,
         templates=None,
         max_num_samples=None,
+        subset_kwargs=None,
         *args,
         **kwargs
     ):
@@ -68,6 +70,13 @@ class HuggingFaceDataset(Dataset):
             self.download_dataset()
 
         self.dataset = load_from_disk(str(self.dataset_dir))
+        
+        if subset_kwargs is not None:
+            def fil(x, key, val):
+                return val in x[key]
+            for d in subset_kwargs:
+                k,v = d.values()
+                self.dataset = self.dataset.filter(partial(fil, key=k, val=v), num_proc=self.download_num_workers)
         
         if self.max_num_samples is not None and len(self.dataset) > self.max_num_samples:
             self.dataset = self.dataset.select(range(self.max_num_samples))

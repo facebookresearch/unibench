@@ -2469,8 +2469,2038 @@ def vg_relation(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
         ),
     }
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_brightness_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'brightness_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_brightness_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'brightness_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_brightness_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'brightness_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_brightness_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'brightness_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_brightness_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'brightness_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_frost_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'frost_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_frost_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'frost_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_frost_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'frost_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
+
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_frost_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'frost_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_frost_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'frost_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }    
+
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_blur_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_blur_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_blur_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_blur_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_blur_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_blur_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_blur_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_blur_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    } 
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_blur_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_blur_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }       
+     
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_noise_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_noise_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+     
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_noise_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_noise_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+        
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_noise_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_noise_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+      
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_noise_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_noise_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+ 
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_gaussian_noise_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'gaussian_noise_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }        
+  
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_fog_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'fog_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+  
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_fog_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'fog_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_fog_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'fog_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_fog_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'fog_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_fog_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'fog_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_elastic_transform_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'elastic_transform_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_elastic_transform_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'elastic_transform_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_elastic_transform_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'elastic_transform_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_elastic_transform_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'elastic_transform_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_elastic_transform_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'elastic_transform_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_zoom_blur_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'zoom_blur_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_zoom_blur_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'zoom_blur_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_zoom_blur_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'zoom_blur_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_zoom_blur_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'zoom_blur_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_zoom_blur_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'zoom_blur_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_snow_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'snow_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_snow_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'snow_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_snow_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'snow_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_snow_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'snow_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }  
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_snow_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'snow_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_defocus_blur_1(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'defocus_blur_1'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+   
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_defocus_blur_2(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'defocus_blur_2'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+    
+   
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_defocus_blur_3(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'defocus_blur_3'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+   
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_defocus_blur_4(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'defocus_blur_4'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+   
+@register_benchmark(
+    "corruption_sub",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "corruption",
+        "capability": "corruption",
+        "curated": True,
+        "object_centric": True,
+        "image_resolution": [224, 224],
+        "num_classes": 1000,
+        "llama2_ppi": 76188.02,
+    },
+)
+def imagenetc_defocus_blur_5(benchmark_name, transform=None, **kwargs):
+    benchmark = HuggingFaceDataset(
+        transform=transform, dataset_url="haideraltahan/wds_imagenetc", subset_kwargs=[{
+            'key':'split.txt',
+            'value':'defocus_blur_5'
+            }],**kwargs
+    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }   
+    
+             
 @register_benchmark(
     "relation",
     {
