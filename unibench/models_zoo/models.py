@@ -49,7 +49,7 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -85,7 +85,7 @@ def llava_1_5_7b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -121,7 +121,7 @@ def llava_1_5_13b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -158,7 +158,7 @@ def bakllava_1_7b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -195,7 +195,7 @@ def llava_next_llama_8b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -232,7 +232,7 @@ def llava_next_34b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -269,7 +269,7 @@ def llava_next_72b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -306,7 +306,7 @@ def llava_next_110b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -344,7 +344,7 @@ def llava_next_mistral_7b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -380,7 +380,7 @@ def llava_next_vicuna_7b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -416,7 +416,7 @@ def llava_next_vicuna_13b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -453,7 +453,7 @@ def llava_1_6_34b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -491,7 +491,7 @@ def paligemma_3b_224(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -529,7 +529,7 @@ def paligemma_3b_mix_224(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -567,7 +567,7 @@ def paligemma_3b_448(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -605,7 +605,7 @@ def paligemma_3b_mix_448(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -643,7 +643,7 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -658,9 +658,9 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
 
     name = "google/paligemma2-3b-mix-448"
     model = PaliGemmaForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
-    )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
+    ).cuda()
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, pad_to_multiple_of=8)
 
     return LlavaModels(
         model=model,
@@ -681,7 +681,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -719,7 +719,7 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -757,7 +757,7 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -795,7 +795,7 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -833,7 +833,7 @@ def paligemma2_28b_mix_224(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -844,13 +844,13 @@ def paligemma2_28b_mix_224(model_name, **kwargs):
 )
 def chameleon_7b(model_name, **kwargs):
     from transformers import ChameleonForConditionalGeneration
-    from transformers import AutoProcessor
+    from transformers import ChameleonProcessor
 
     name = "facebook/chameleon-7b"
     model = ChameleonForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
+        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="cuda"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    processor = ChameleonProcessor.from_pretrained(name, use_fast=True, torch_dtype=torch.bfloat16, padding_side="left")
     model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
     return PaliGemma(
         model=model,
@@ -871,7 +871,7 @@ def chameleon_7b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -911,7 +911,7 @@ def chameleon_30b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -952,7 +952,7 @@ def llama_4_scout(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -999,7 +999,7 @@ def phi_4(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -1042,7 +1042,7 @@ def aya_8b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -1085,7 +1085,7 @@ def gemma3_4b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -1128,7 +1128,7 @@ def gemma3_27b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -1171,7 +1171,7 @@ def gemma3_12b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -1212,7 +1212,7 @@ def llama_4_maverick(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -1249,7 +1249,7 @@ def llama_3_2_11b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -1286,7 +1286,7 @@ def llama_3_2_11b_cot(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,
@@ -1324,7 +1324,7 @@ def llama_3_2_90b(model_name, **kwargs):
 
 
 @register_model(
-    "vision_text",
+    "vllm",
     {
         "dataset_size": 14,
         "model_size": 7000,

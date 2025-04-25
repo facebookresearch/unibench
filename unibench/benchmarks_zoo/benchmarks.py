@@ -96,7 +96,7 @@ def imagenet1k(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -137,7 +137,7 @@ def imagenet1k_2(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -178,7 +178,7 @@ def imagenet1k_4(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -219,7 +219,7 @@ def imagenet1k_8(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -260,7 +260,7 @@ def imagenet1k_16(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -301,7 +301,7 @@ def imagenet1k_32(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -342,7 +342,7 @@ def imagenet1k_64(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -383,7 +383,7 @@ def imagenet1k_128(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -424,7 +424,7 @@ def imagenet1k_256(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -465,7 +465,7 @@ def imagenet1k_512(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "imagenet_classes",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
