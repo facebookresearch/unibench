@@ -846,13 +846,15 @@ def paligemma2_28b_mix_224(model_name, **kwargs):
 )
 def chameleon_7b(model_name, **kwargs):
     from transformers import ChameleonForConditionalGeneration
-    from transformers import AutoProcessor
+    from transformers import ChameleonProcessor
 
     name = "facebook/chameleon-7b"
     model = ChameleonForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="balanced"
+        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="cuda"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    processor = ChameleonProcessor.from_pretrained(
+        name, use_fast=True, torch_dtype=torch.bfloat16, padding_side="left"
+    )
     model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
     return PaliGemma(
         model=model,
