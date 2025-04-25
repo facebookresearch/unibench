@@ -546,7 +546,9 @@ def paligemma_3b_448(model_name, **kwargs):
     model = PaliGemmaForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True, torch_dtype=torch.float16)
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, torch_dtype=torch.float16
+    )
 
     return LlavaModels(
         model=model,
@@ -658,8 +660,8 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
 
     name = "google/paligemma2-3b-mix-448"
     model = PaliGemmaForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16
-    ).cuda()
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
+    )
     processor = AutoProcessor.from_pretrained(name, use_fast=True, pad_to_multiple_of=8)
 
     return LlavaModels(
