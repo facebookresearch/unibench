@@ -10,7 +10,7 @@ from .wrappers import *
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -53,7 +53,7 @@ def cifar10(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "imagenet",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -506,7 +506,7 @@ def imagenet1k_1000(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -549,7 +549,7 @@ def cifar100(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -592,7 +592,7 @@ def food101(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -635,7 +635,7 @@ def cars(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -678,7 +678,7 @@ def fgvc_aircraft(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -721,7 +721,7 @@ def pets(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "texture",
@@ -764,7 +764,7 @@ def dtd(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -807,7 +807,7 @@ def sun397(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -850,7 +850,7 @@ def caltech101(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -893,7 +893,7 @@ def mnist(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -936,7 +936,7 @@ def fashion_mnist(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -979,7 +979,7 @@ def pug_imagenet(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1022,7 +1022,7 @@ def gtsrb(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1065,7 +1065,7 @@ def renderedsst2(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1108,7 +1108,7 @@ def stl10(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1151,7 +1151,7 @@ def svhn(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "non-natural images",
@@ -1194,7 +1194,7 @@ def eurosat(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1237,7 +1237,7 @@ def country211(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "robustness",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "non-natural images",
@@ -1280,7 +1280,7 @@ def imagenet_sketch(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -1323,7 +1323,7 @@ def dmlab(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "robustness",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "robustness",
@@ -1366,7 +1366,7 @@ def imageneta(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "robustness",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "robustness",
@@ -1409,7 +1409,7 @@ def imageneto(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "robustness",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "non-natural images",
@@ -1452,7 +1452,7 @@ def imagenetr(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "non-natural images",
@@ -1495,7 +1495,7 @@ def pcam(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "robustness",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "robustness",
@@ -1538,7 +1538,7 @@ def imagenete(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "robustness",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "robustness",
@@ -1581,7 +1581,7 @@ def imagenet9(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "corruption",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "corruption",
@@ -1624,7 +1624,7 @@ def imagenetc(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1667,7 +1667,7 @@ def flowers102(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "robustness",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "robustness",
@@ -1710,7 +1710,7 @@ def imagenetv2(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "robustness",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "robustness",
@@ -1753,7 +1753,7 @@ def objectnet(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1796,7 +1796,7 @@ def cub(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1839,7 +1839,7 @@ def places365(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -1884,7 +1884,7 @@ def clevr_distance(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -1927,7 +1927,7 @@ def clevr_count(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -1956,7 +1956,7 @@ def countbench(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -1999,7 +1999,7 @@ def inaturalist(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -2042,7 +2042,7 @@ def voc2007(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "non-natural images",
@@ -2085,7 +2085,7 @@ def resisc45(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -2130,7 +2130,7 @@ def dspr_orientation(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -2175,7 +2175,7 @@ def kitti_distance(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -2220,7 +2220,7 @@ def smallnorb_azimuth(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -2265,7 +2265,7 @@ def smallnorb_elevation(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -2310,7 +2310,7 @@ def dspr_x_position(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "reasoning",
@@ -2355,7 +2355,7 @@ def dspr_y_position(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "vtab",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "non-natural images",
@@ -2400,7 +2400,7 @@ def retinopathy(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "transfer",
+    "unibench1",
     {
         "benchmark": "zero-shot",
         "benchmark_type": "object recognition",
@@ -2443,7 +2443,7 @@ def dollar_street(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "relation",
+    "unibench1",
     {
         "benchmark": "relation",
         "benchmark_type": "relation",
@@ -4502,7 +4502,7 @@ def imagenetc_defocus_blur_5(benchmark_name, transform=None, **kwargs):
     
              
 @register_benchmark(
-    "relation",
+    "unibench1",
     {
         "benchmark": "relation",
         "benchmark_type": "relation",
@@ -4531,7 +4531,7 @@ def flickr30k_order(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "relation",
+    "unibench1",
     {
         "benchmark": "relation",
         "benchmark_type": "relation",
@@ -4560,7 +4560,7 @@ def sugarcrepe(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "relation",
+    "unibench1",
     {
         "benchmark": "relation",
         "benchmark_type": "relation",
@@ -4589,7 +4589,7 @@ def winoground(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "relation",
+    "unibench1",
     {
         "benchmark": "relation",
         "benchmark_type": "relation",
@@ -4618,7 +4618,7 @@ def vg_attribution(benchmark_name, transform=None, **kwargs):
 
 
 @register_benchmark(
-    "relation",
+    "unibench1",
     {
         "benchmark": "relation",
         "benchmark_type": "relation",
