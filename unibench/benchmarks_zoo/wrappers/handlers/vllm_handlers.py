@@ -438,3 +438,87 @@ class CLIPJudgeRelationBenchmarkHandler(VLLMBenchmarkHandler):
         res["task_name"] = self.task_name
 
         return res
+
+class InContextTextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
+    def __init__(
+        self,
+        task_name="in_context_text_classification",
+        llm_model="meta-llama/Meta-Llama-3.1-8B-Instruct",
+        description_prompt="Provide a brief description of what a {class_name} is:",
+        **kwargs,
+    ):
+        VLLMBenchmarkHandler.__init__(self, task_name=task_name, **kwargs)
+        self.description_prompt = description_prompt
+        self.class_descriptions = {}
+
+    def on_validation_start(self, model):
+        # Generate descriptions for each class using the model
+        for class_name in self.class_names:
+            prompt = self.description_prompt.format(class_name=class_name)
+            description = model.generate_text(prompt)
+            self.class_descriptions[class_name] = f"{class_name}: {description}"
+            
+    def get_prompts(self, targets_names):
+        prompts = []
+        for target in targets_names:
+            if self.num_classes == -1:
+                # Include all class descriptions
+                class_descs = [self.class_descriptions[c.lower()] for c in self.class_names]
+                prompts.append(
+                    self.classification_prompt.format(class_descriptions="\n".join(class_descs))
+                )
+            else:
+                # Include target and random subset of classes
+                random_classes = [target]
+                random_classes += random.sample(
+                    [cls for cls in self.class_names if cls != target],
+                    (
+                        self.num_classes - 1
+                        if len(self.class_names) > self.num_classes
+                        else len(self.class_names) - 1
+                    ),
+                )
+                random.shuffle(random_classes)
+                class_descs = [self.class_descriptions[c.lower()] for c in random_classes]
+                prompts.append(
+                    self.classification_prompt.format(class_descriptions="\n".join(class_descs))
+                )
+        return prompts
+
+    def eval_batch(self, model, batch):
+        split = ""
+        if len(batch) == 4:
+            images, targets, sample_id, split = batch
+        elif len(batch) == 3:
+            images, targets, sample_id = batch
+        else:
+            images, targets = batch
+
+        if len(targets.shape) > 1:
+            targets_names = [self.class_names[i.argmax() - 1].lower() for i in targets]
+        else:
+            targets_names = [self.class_names[i - 1].lower() for i in targets]
+        prompts = self.get_prompts(targets_names)
+        text_outputs = model.get_text_from_image(images, prompts)
+
+        correct = [
+            1 if target.lower() in text_output.lower() else 0
+            for text_output, target in zip(text_outputs, targets_names)
+        ]
+
+        res = {
+            "image_class": targets,
+            "split": split,
+            "benchmark_name": self.benchmark_name,
+            "correctness": correct,
+            "prompt": prompts,
+            "num_classes": self.num_classes,
+            "class_descriptions": self.class_descriptions,
+        }
+
+        if len(batch) > 2:
+            res["image_name"] = sample_id
+
+        res["task_name"] = self.task_name
+
+        return res
