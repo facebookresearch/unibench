@@ -20,23 +20,14 @@ This repository is designed to simplify the evaluation process of vision-languag
 
 ## Getting Started
 
-Install the package: 
+Install the latest release: 
+```
+pip install unibench
+```
+or install the pre-released version
 ```
 pip install git+https://github.com/facebookresearch/unibench.git
 ```
-
-<details > 
-<summary><b>[option 2]</b> Install Dependencies
-</summary>
-
-1. Install the necessary dependencies by:
-    - Option 1, creating a new conda env: `conda env create -f environment.yml`
-    - Option 2, updating your conda env with required libraries: `conda env update --file environment.yml --prune`
-2. Activate the environment: `conda activate unibench`
-3. Install Spacy english language model: `python -m spacy download en_core_web_sm`
-4. Install the package: `pip install git+https://github.com/fairinternal/unibench`
-  
-</details> 
 
 ## Usage
 
