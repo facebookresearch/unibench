@@ -92,11 +92,6 @@ def imagenet1k(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
-        "in_context_text_classification": InContextTextClassificationBenchmarkHandler(
-            benchmark_name=benchmark_name,
-            benchmark=benchmark,
-            class_names=benchmark.classes,
-        ),
     }
 
 
@@ -137,6 +132,11 @@ def imagenet1k_2(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
             num_classes=num_classes,
+        ),
+        "in_context_text_classification": InContextTextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
         ),
     }
 

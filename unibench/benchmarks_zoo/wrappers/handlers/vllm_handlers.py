@@ -17,6 +17,7 @@ from transformers import AutoTokenizer
 
 from unibench.benchmarks_zoo.wrappers.handlers.benchmark_handler import BenchmarkHandler
 from unibench.benchmarks_zoo.wrappers.llm_judge_models import DeepSeekJudge, LlamaJudge
+from unibench.common_utils.constants import MISC_DIR
 
 
 class VLLMBenchmarkHandler(BenchmarkHandler):
@@ -445,18 +446,58 @@ class InContextTextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
         task_name="in_context_text_classification",
         llm_model="meta-llama/Meta-Llama-3.1-8B-Instruct",
         description_prompt="Provide a brief description of what a {class_name} is:",
+        prompt="What type of object is in this photo? Choose one from {class_name}, here is a description of each:\n{class_descriptions}",
+        llm_max_new_tokens=32,
         **kwargs,
     ):
-        VLLMBenchmarkHandler.__init__(self, task_name=task_name, **kwargs)
+        VLLMBenchmarkHandler.__init__(self, task_name=task_name, prompt=prompt, **kwargs)
         self.description_prompt = description_prompt
         self.class_descriptions = {}
+        self.llm_model = llm_model
+        self.llm_max_new_tokens = llm_max_new_tokens
+        self.cache_file = MISC_DIR / f"{self.benchmark_name}_class_descriptions.pt"
 
     def on_validation_start(self, model):
-        # Generate descriptions for each class using the model
-        for class_name in self.class_names:
-            prompt = self.description_prompt.format(class_name=class_name)
-            description = model.generate_text(prompt)
-            self.class_descriptions[class_name] = f"{class_name}: {description}"
+        if self.cache_file.exists():
+            # Load class descriptions from cache
+            try:
+                self.class_descriptions = torch.load(self.cache_file)
+                return None
+            except:
+                print(f"Failed to load class descriptions from {self.cache_file}. Regenerating.")
+        
+        # Initialize LLM for generating class descriptions
+        if "deepseek" in self.llm_model:
+            self.llm = DeepSeekJudge(model_name=self.llm_model)
+        elif "llama" in self.llm_model:
+            self.llm = LlamaJudge(model_name=self.llm_model, max_new_tokens=self.llm_max_new_tokens)
+        else:
+            raise ValueError(
+                f"LLM model {self.llm_model} not supported. Please use either DeepSeek or Llama models."
+            )
+            
+        # Generate descriptions for each class using the LLM in batches
+        batch_size = 8  # Process 8 class descriptions at a time
+        for i in range(0, len(self.class_names), batch_size):
+            batch_classes = self.class_names[i:i+batch_size]
+            
+            # Create prompts for the batch
+            prompts = [self.description_prompt.format(class_name=class_name) for class_name in batch_classes]
+            processed_prompts = self.llm.pre_process_text(prompts)
+            
+            # Get descriptions for the batch
+            descriptions = self.llm.eval_batch(processed_prompts, return_output=True)
+            
+            # Store the descriptions
+            for class_name, description in zip(batch_classes, descriptions):
+                if class_name.lower() in self.class_descriptions:
+                    print(f"Warning: Class {class_name} already has a description. Overwriting.")
+                self.class_descriptions[class_name.lower()] = f"{class_name}: {description}"
+        
+        # Save the class descriptions to cache
+        self.cache_file.parent.mkdir(parents=True, exist_ok=True)
+        torch.save(self.class_descriptions, self.cache_file)
+        del self.llm
             
     def get_prompts(self, targets_names):
         prompts = []
@@ -465,13 +506,13 @@ class InContextTextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
                 # Include all class descriptions
                 class_descs = [self.class_descriptions[c.lower()] for c in self.class_names]
                 prompts.append(
-                    self.classification_prompt.format(class_descriptions="\n".join(class_descs))
+                    self.prompt.format(class_descriptions="\n".join(class_descs))
                 )
             else:
                 # Include target and random subset of classes
                 random_classes = [target]
                 random_classes += random.sample(
-                    [cls for cls in self.class_names if cls != target],
+                    [cls for cls in self.class_names if cls.lower() != target],
                     (
                         self.num_classes - 1
                         if len(self.class_names) > self.num_classes
@@ -481,7 +522,7 @@ class InContextTextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
                 random.shuffle(random_classes)
                 class_descs = [self.class_descriptions[c.lower()] for c in random_classes]
                 prompts.append(
-                    self.classification_prompt.format(class_descriptions="\n".join(class_descs))
+                    self.prompt.format(class_names=", ".join(random_classes), class_descriptions="\n".join(class_descs))
                 )
         return prompts
 

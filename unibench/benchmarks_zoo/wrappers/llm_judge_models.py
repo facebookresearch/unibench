@@ -49,22 +49,30 @@ class DeepSeekJudge(AbstractLLMJudge):
 
 
 class LlamaJudge(AbstractLLMJudge):
-    def __init__(self, model_name="meta-llama/Meta-Llama-3.1-8B-Instruct"):
+    def __init__(
+        self, model_name="meta-llama/Meta-Llama-3.1-8B-Instruct", max_new_tokens=32
+    ):
+        self.max_new_tokens = max_new_tokens
         self.model_name = model_name
         self.model = pipeline(
-                "text-generation",
-                model=self.model_name,
-                model_kwargs={"torch_dtype": torch.bfloat16},
-                device_map="auto",
-            )
+            "text-generation",
+            model=self.model_name,
+            model_kwargs={"torch_dtype": torch.bfloat16},
+            device_map="cuda:0",
+        )
 
     def pre_process_text(self, prompts):
         return [[{"role": "user", "content": prompt}] for prompt in prompts]
 
-    def eval_batch(self, prompts):            
+    def eval_batch(self, prompts, return_output=False):
         output = self.model(
-            prompts, max_new_tokens=16, pad_token_id=self.model.tokenizer.eos_token_id
+            prompts,
+            max_new_tokens=self.max_new_tokens,
+            pad_token_id=self.model.tokenizer.eos_token_id,
+            do_sample=False,
         )
+        if return_output:
+            return [x[0]["generated_text"][-1]["content"] for x in output]
         return [
             1 if "yes" in x[0]["generated_text"][-1]["content"] else 0 for x in output
         ]
