@@ -52,7 +52,7 @@ setuptools.setup(
             "opencv-python",
             "transformers",
         ],
-    }
+    },
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
     test_suite="tests",
