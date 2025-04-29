@@ -112,10 +112,10 @@ Args:
 
 ### Example
 
-The following command will run the evaluation for openclip_vitB32 trained on metaclip400m and CLIP ResNet50 on vg_relation,clevr_distance,fer2013,pcam,imageneta benchmarks:
+The following command will run the evaluation for openclip_vitB32 trained on metaclip400m and CLIP ResNet50 on vg_relation,clevr_distance,pcam,imageneta benchmarks:
 
 ```console
-unibench evaluate --models=[openclip_vitB32_metaclip_400m,clip_resnet50] --benchmarks=[vg_relation,clevr_distance,fer2013,pcam,imageneta]
+unibench evaluate --models=[openclip_vitB32_metaclip_400m,clip_resnet50] --benchmarks=[vg_relation,clevr_distance,pcam,imageneta]
 ```
 
 In addition to saving the results in `~/.cache/unibench`, the output would be a summary of the evaluation results:
