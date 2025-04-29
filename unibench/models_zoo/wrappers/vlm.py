@@ -74,7 +74,7 @@ class LlavaModels(VLLModel):
             .to(self.model.device)
             .to(self.model.dtype)
         )
-        output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens)
+        output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens, do_sample=False)
         gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
         res = []
         for i, text in enumerate(gen_res):

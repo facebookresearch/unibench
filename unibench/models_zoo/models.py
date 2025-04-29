@@ -210,9 +210,9 @@ def llava_next_34b(model_name, **kwargs):
 
     name = "llava-hf/llava-v1.6-34b-hf"
     model = LlavaNextForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
+        name, low_cpu_mem_usage=False, device_map="balanced", torch_dtype=torch.bfloat16, trust_remote_code=True
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, torch_dtype=torch.bfloat16)
 
     return LlavaModels(
         model=model,
@@ -850,11 +850,12 @@ def chameleon_7b(model_name, **kwargs):
 
     name = "facebook/chameleon-7b"
     model = ChameleonForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="cuda"
+        name, low_cpu_mem_usage=False, device_map="cuda", torch_dtype=torch.bfloat16, trust_remote_code=True
     )
-    processor = ChameleonProcessor.from_pretrained(name, use_fast=True, torch_dtype=torch.bfloat16, padding_side="left")
+    model = torch.compile(model, mode="max-autotune")
+    processor = ChameleonProcessor.from_pretrained(name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16)
     model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
-    return PaliGemma(
+    return LlavaModels(
         model=model,
         model_name=model_name,
         image_token="<image>",
@@ -1103,12 +1104,12 @@ def gemma3_27b(model_name, **kwargs):
     name = "google/gemma-3-27b-it"
     model = Gemma3ForConditionalGeneration.from_pretrained(
         name,
-        low_cpu_mem_usage=True,
-        torch_dtype=torch.float16,
+        low_cpu_mem_usage=False,
+        torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, torch_dtype=torch.bfloat16)
 
     return LlavaModels(
         model=model,
