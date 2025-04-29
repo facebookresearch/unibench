@@ -28,6 +28,7 @@ class VLLModel(AbstractModel):
         self.max_new_tokens = max_new_tokens
         self.output_func = output_func
         self.image_token = image_token
+        self.model = torch.compile(self.model, mode="max-autotune")
 
     def get_text_from_image(self, images, prompts):
         pass
@@ -66,9 +67,11 @@ class LlavaModels(VLLModel):
             (
                 self.processor(
                     text=prompts,
-                    padding=True,
+                    padding="longest",
+                    truncation=True,
                     return_tensors="pt",
                     images=[[image] for image in (images * 255).int()],
+                    pad_to_multiple_of=8
                 )
             )
             .to(self.model.device)

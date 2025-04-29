@@ -81,6 +81,7 @@ def llava_1_5_7b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -117,6 +118,7 @@ def llava_1_5_13b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -154,6 +156,7 @@ def bakllava_1_7b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -191,6 +194,7 @@ def llava_next_llama_8b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -228,6 +232,7 @@ def llava_next_34b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -265,6 +270,7 @@ def llava_next_72b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -302,6 +308,7 @@ def llava_next_110b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -340,6 +347,7 @@ def llava_next_mistral_7b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -376,6 +384,7 @@ def llava_next_vicuna_7b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -412,6 +421,7 @@ def llava_next_vicuna_13b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -449,6 +459,7 @@ def llava_1_6_34b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -487,6 +498,7 @@ def paligemma_3b_224(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -525,6 +537,7 @@ def paligemma_3b_mix_224(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -565,6 +578,7 @@ def paligemma_3b_448(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -603,6 +617,7 @@ def paligemma_3b_mix_448(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -641,6 +656,7 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -679,6 +695,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -717,6 +734,7 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -755,6 +773,7 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -774,9 +793,9 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
 
     name = "google/paligemma2-28b-mix-448"
     model = PaliGemmaForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
+        name, low_cpu_mem_usage=True, device_map="balanced",  trust_remote_code=True
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, )
 
     return LlavaModels(
         model=model,
@@ -793,6 +812,7 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -831,6 +851,7 @@ def paligemma2_28b_mix_224(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -852,7 +873,7 @@ def chameleon_7b(model_name, **kwargs):
     model = ChameleonForConditionalGeneration.from_pretrained(
         name, low_cpu_mem_usage=False, device_map="cuda", torch_dtype=torch.bfloat16, trust_remote_code=True
     )
-    model = torch.compile(model, mode="max-autotune")
+    
     processor = ChameleonProcessor.from_pretrained(name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16)
     model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
     return LlavaModels(
@@ -870,6 +891,7 @@ def chameleon_7b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -910,6 +932,7 @@ def chameleon_30b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -951,6 +974,7 @@ def llama_4_scout(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -998,6 +1022,7 @@ def phi_4(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1041,6 +1066,7 @@ def aya_8b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1084,6 +1110,7 @@ def gemma3_4b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1127,6 +1154,7 @@ def gemma3_27b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1170,6 +1198,7 @@ def gemma3_12b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1211,6 +1240,7 @@ def llama_4_maverick(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1248,6 +1278,7 @@ def llama_3_2_11b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1285,6 +1316,7 @@ def llama_3_2_11b_cot(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1323,6 +1355,7 @@ def llama_3_2_90b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 
@@ -1360,6 +1393,7 @@ def cambrian_8b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
+        "in_context_text_classification"
     ]
 
 

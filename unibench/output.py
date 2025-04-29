@@ -57,6 +57,7 @@ class OutputHandler(object):
             return True
 
         self.load_csv(model_name, benchmark_name)
+        kwargs.update({"task_name": task_name})
         return len(self.query(**kwargs))
 
     def load_all_csvs(self, model_names):
