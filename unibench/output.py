@@ -9,12 +9,9 @@ import os.path
 from pathlib import Path
 
 import pandas as pd
-import torch
 
 from unibench.common_utils.utils import download_all_results, download_only_aggregate
 from oslo_concurrency import lockutils
-
-from .benchmarks_zoo.registry import get_benchmark_info, list_benchmarks
 
 from .common_utils.constants import OUTPUT_DIR, LOCK_DIR
 
@@ -117,6 +114,7 @@ class OutputHandler(object):
         return pd.concat([self._local_csv, self._model_csv])
 
     def add_values(self, **kwargs):
+        import torch
         for k in kwargs.keys():
             if isinstance(kwargs[k], torch.Tensor):
                 kwargs[k] = kwargs[k].cpu().squeeze().tolist()
@@ -158,6 +156,7 @@ class OutputHandler(object):
         self._model_csv.to_feather(file_name)
 
     def _get_benchmark_mappings(self, axis):
+        from .benchmarks_zoo.registry import get_benchmark_info, list_benchmarks
         benchmark_mappings = {}
         for benchmark in list_benchmarks():
             if axis is None:
@@ -166,6 +165,11 @@ class OutputHandler(object):
                 benchmark_mappings[benchmark] = get_benchmark_info(benchmark)[axis]
         return benchmark_mappings
 
+    def get_aggregate_results(self):
+        if not hasattr(self, "_aggregate"):
+            self.load_aggregate_results()
+        return self._aggregate
+    
     @lockutils.synchronized(name="aggregate", external=True, fair=True)
     def load_aggregate_results(self):
         file = self.output_dir.joinpath("aggregate.f")

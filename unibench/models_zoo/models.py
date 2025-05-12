@@ -7,16 +7,13 @@ LICENSE file in the root directory of this source tree.
 
 import os
 from unibench.models_zoo import register_model
-from unibench.common_utils.constants import HUB_CACHE_DIR, CURRENT_DIR
-from unibench.models_zoo.wrappers import *
-import timm
-import open_clip
-import clip
-from git import Repo
+from unibench.common_utils.constants import HUB_CACHE_DIR, CURRENT_DIR, IMAGENET_INCEPTION_MEAN, IMAGENET_INCEPTION_STD, OPENAI_CLIP_MEAN, OPENAI_CLIP_STD
 import sys
 
 
 def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs):
+    from git import Repo
+    from unibench.models_zoo.wrappers import BlipModel
     if not HUB_CACHE_DIR.joinpath("BLIP").exists():
         Repo.clone_from(
             "https://github.com/salesforce/BLIP.git", HUB_CACHE_DIR.joinpath("BLIP")
@@ -37,8 +34,8 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
         model=model,
         model_name=model_name,
         tokenizer=model.tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         use_itm_head=True,
         input_resolution=image_size,
         **kwargs
@@ -196,6 +193,8 @@ def blip_vitL16_flickr(model_name, **kwargs):
     },
 )
 def eva02_vitE14_plus_2b(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA02-E-14-plus", pretrained="laion2b_s9b_b144k"
     )
@@ -206,8 +205,8 @@ def eva02_vitE14_plus_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -225,6 +224,8 @@ def eva02_vitE14_plus_2b(model_name, **kwargs):
     },
 )
 def eva02_vitE14_2b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA02-E-14", pretrained="laion2b_s4b_b115k"
     )
@@ -235,8 +236,8 @@ def eva02_vitE14_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -254,6 +255,8 @@ def eva02_vitE14_2b(model_name, **kwargs):
     },
 )
 def eva02_vitL14_2b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA02-L-14", pretrained="merged2b_s4b_b131k"
     )
@@ -264,8 +267,8 @@ def eva02_vitL14_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -283,6 +286,8 @@ def eva02_vitL14_2b(model_name, **kwargs):
     },
 )
 def eva02_vitB16_2b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA02-B-16", pretrained="merged2b_s8b_b131k"
     )
@@ -293,8 +298,8 @@ def eva02_vitB16_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -312,6 +317,8 @@ def eva02_vitB16_2b(model_name, **kwargs):
     },
 )
 def eva01_vitG14_plus_2b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA01-g-14-plus", pretrained="merged2b_s11b_b114k"
     )
@@ -322,8 +329,8 @@ def eva01_vitG14_plus_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -341,6 +348,8 @@ def eva01_vitG14_plus_2b(model_name, **kwargs):
     },
 )
 def eva01_vitG14_400m(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA01-g-14", pretrained="laion400m_s11b_b41k"
     )
@@ -351,8 +360,8 @@ def eva01_vitG14_400m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -370,6 +379,8 @@ def eva01_vitG14_400m(model_name, **kwargs):
     },
 )
 def clipa_vitbigG14(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-bigG-14-CLIPA", pretrained="datacomp1b"
     )
@@ -380,8 +391,8 @@ def clipa_vitbigG14(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=32,
@@ -400,6 +411,8 @@ def clipa_vitbigG14(model_name, **kwargs):
     },
 )
 def vitamin_s_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-S", pretrained="datacomp1b"
     )
@@ -427,6 +440,8 @@ def vitamin_s_1b(model_name, **kwargs):
     },
 )
 def vitamin_s_ltt_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-S-LTT", pretrained="datacomp1b"
     )
@@ -454,6 +469,8 @@ def vitamin_s_ltt_1b(model_name, **kwargs):
     },
 )
 def vitamin_b_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-B", pretrained="datacomp1b"
     )
@@ -481,6 +498,8 @@ def vitamin_b_1b(model_name, **kwargs):
     },
 )
 def vitamin_b_ltt_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-B-LTT", pretrained="datacomp1b"
     )
@@ -508,6 +527,8 @@ def vitamin_b_ltt_1b(model_name, **kwargs):
     },
 )
 def vitamin_l_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L", pretrained="datacomp1b"
     )
@@ -535,6 +556,8 @@ def vitamin_l_1b(model_name, **kwargs):
     },
 )
 def vitamin_l2_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L2", pretrained="datacomp1b"
     )
@@ -562,6 +585,8 @@ def vitamin_l2_1b(model_name, **kwargs):
     },
 )
 def vitamin_l2_256_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L2-256", pretrained="datacomp1b"
     )
@@ -589,6 +614,8 @@ def vitamin_l2_256_1b(model_name, **kwargs):
     },
 )
 def vitamin_l2_336_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L2-336", pretrained="datacomp1b"
     )
@@ -616,6 +643,8 @@ def vitamin_l2_336_1b(model_name, **kwargs):
     },
 )
 def vitamin_xl_256_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-XL-256", pretrained="datacomp1b"
     )
@@ -643,6 +672,8 @@ def vitamin_xl_256_1b(model_name, **kwargs):
     },
 )
 def vitamin_xl_336_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-XL-336", pretrained="datacomp1b"
     )
@@ -670,6 +701,8 @@ def vitamin_xl_336_1b(model_name, **kwargs):
     },
 )
 def vitamin_xl_384_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-XL-384", pretrained="datacomp1b"
     )
@@ -697,6 +730,8 @@ def vitamin_xl_384_1b(model_name, **kwargs):
     },
 )
 def vitamin_l_256_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L-256", pretrained="datacomp1b"
     )
@@ -724,6 +759,8 @@ def vitamin_l_256_1b(model_name, **kwargs):
     },
 )
 def vitamin_l_336_1b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L-336", pretrained="datacomp1b"
     )
@@ -751,6 +788,8 @@ def vitamin_l_336_1b(model_name, **kwargs):
     },
 )
 def clipa_vitH14(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-H-14-CLIPA", pretrained="datacomp1b"
     )
@@ -761,8 +800,8 @@ def clipa_vitH14(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=32,
@@ -781,6 +820,8 @@ def clipa_vitH14(model_name, **kwargs):
     },
 )
 def clipa_vitL14(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14-CLIPA", pretrained="datacomp1b"
     )
@@ -791,8 +832,8 @@ def clipa_vitL14(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=32,
@@ -811,6 +852,8 @@ def clipa_vitL14(model_name, **kwargs):
     },
 )
 def siglip_vitL16(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP-256", pretrained="webli"
     )
@@ -821,8 +864,8 @@ def siglip_vitL16(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -841,6 +884,8 @@ def siglip_vitL16(model_name, **kwargs):
     },
 )
 def roberta_vitB32(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "roberta-ViT-B-32", pretrained="laion2b_s12b_b32k"
     )
@@ -851,8 +896,8 @@ def roberta_vitB32(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -870,6 +915,8 @@ def roberta_vitB32(model_name, **kwargs):
     },
 )
 def siglip_vitB16(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP", pretrained="webli"
     )
@@ -880,8 +927,8 @@ def siglip_vitB16(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -900,6 +947,8 @@ def siglip_vitB16(model_name, **kwargs):
     },
 )
 def siglip_vitB16_256(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP-256", pretrained="webli"
     )
@@ -910,8 +959,8 @@ def siglip_vitB16_256(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -930,6 +979,8 @@ def siglip_vitB16_256(model_name, **kwargs):
     },
 )
 def siglip_vitB16_384(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP-384", pretrained="webli"
     )
@@ -940,8 +991,8 @@ def siglip_vitB16_384(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -960,6 +1011,8 @@ def siglip_vitB16_384(model_name, **kwargs):
     },
 )
 def siglip_vitB16_512(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP-512", pretrained="webli"
     )
@@ -970,8 +1023,8 @@ def siglip_vitB16_512(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -990,6 +1043,8 @@ def siglip_vitB16_512(model_name, **kwargs):
     },
 )
 def siglip_vitL16_384(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP-384", pretrained="webli"
     )
@@ -1000,8 +1055,8 @@ def siglip_vitL16_384(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1020,6 +1075,8 @@ def siglip_vitL16_384(model_name, **kwargs):
     },
 )
 def siglip_so400_14(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP", pretrained="webli"
     )
@@ -1030,8 +1087,8 @@ def siglip_so400_14(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=16,
@@ -1050,6 +1107,8 @@ def siglip_so400_14(model_name, **kwargs):
     },
 )
 def siglip_so400_14_378(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP-378", pretrained="webli"
     )
@@ -1060,8 +1119,8 @@ def siglip_so400_14_378(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=16,
@@ -1080,6 +1139,8 @@ def siglip_so400_14_378(model_name, **kwargs):
     },
 )
 def siglip_so400_14_384(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP-384", pretrained="webli"
     )
@@ -1090,8 +1151,8 @@ def siglip_so400_14_384(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=16,
@@ -1110,6 +1171,8 @@ def siglip_so400_14_384(model_name, **kwargs):
     },
 )
 def siglip2_so400_16_512(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-16-SigLIP2-512", pretrained="webli"
     )
@@ -1120,8 +1183,8 @@ def siglip2_so400_16_512(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1140,6 +1203,8 @@ def siglip2_so400_16_512(model_name, **kwargs):
     },
 )
 def siglip2_so400_16_512(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-16-SigLIP2-512", pretrained="webli"
     )
@@ -1150,8 +1215,8 @@ def siglip2_so400_16_512(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1170,6 +1235,8 @@ def siglip2_so400_16_512(model_name, **kwargs):
     },
 )
 def siglip2_so400_16_384(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-16-SigLIP2-384", pretrained="webli"
     )
@@ -1180,8 +1247,8 @@ def siglip2_so400_16_384(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1200,6 +1267,8 @@ def siglip2_so400_16_384(model_name, **kwargs):
     },
 )
 def siglip2_so400_16_256(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-16-SigLIP2-256", pretrained="webli"
     )
@@ -1210,8 +1279,8 @@ def siglip2_so400_16_256(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1230,6 +1299,8 @@ def siglip2_so400_16_256(model_name, **kwargs):
     },
 )
 def siglip2_so400_14_378(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP2-378", pretrained="webli"
     )
@@ -1240,8 +1311,8 @@ def siglip2_so400_14_378(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1260,6 +1331,8 @@ def siglip2_so400_14_378(model_name, **kwargs):
     },
 )
 def siglip2_so400_14(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP2", pretrained="webli"
     )
@@ -1270,8 +1343,8 @@ def siglip2_so400_14(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1290,6 +1363,8 @@ def siglip2_so400_14(model_name, **kwargs):
     },
 )
 def siglip2_vitL16_512(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP2-512", pretrained="webli"
     )
@@ -1300,8 +1375,8 @@ def siglip2_vitL16_512(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1320,6 +1395,8 @@ def siglip2_vitL16_512(model_name, **kwargs):
     },
 )
 def siglip2_vitL16_384(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP2-384", pretrained="webli"
     )
@@ -1330,8 +1407,8 @@ def siglip2_vitL16_384(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1350,6 +1427,8 @@ def siglip2_vitL16_384(model_name, **kwargs):
     },
 )
 def siglip2_vitL16_256(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP2-256", pretrained="webli"
     )
@@ -1360,8 +1439,8 @@ def siglip2_vitL16_256(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1380,6 +1459,8 @@ def siglip2_vitL16_256(model_name, **kwargs):
     },
 )
 def siglip2_vitB16_512(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP2-512", pretrained="webli"
     )
@@ -1390,8 +1471,8 @@ def siglip2_vitB16_512(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1410,6 +1491,8 @@ def siglip2_vitB16_512(model_name, **kwargs):
     },
 )
 def siglip2_vitB16_384(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP2-384", pretrained="webli"
     )
@@ -1420,8 +1503,8 @@ def siglip2_vitB16_384(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1440,6 +1523,8 @@ def siglip2_vitB16_384(model_name, **kwargs):
     },
 )
 def siglip2_vitB16_256(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP2-256", pretrained="webli"
     )
@@ -1450,8 +1535,8 @@ def siglip2_vitB16_256(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1470,6 +1555,8 @@ def siglip2_vitB16_256(model_name, **kwargs):
     },
 )
 def siglip2_vitB16(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP2", pretrained="webli"
     )
@@ -1480,8 +1567,8 @@ def siglip2_vitB16(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1500,6 +1587,8 @@ def siglip2_vitB16(model_name, **kwargs):
     },
 )
 def siglip2_vitB32_256(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-SigLIP2-256", pretrained="webli"
     )
@@ -1510,8 +1599,8 @@ def siglip2_vitB32_256(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.IMAGENET_INCEPTION_MEAN,
-        norm_std=timm.data.constants.IMAGENET_INCEPTION_STD,
+        norm_mean=IMAGENET_INCEPTION_MEAN,
+        norm_std=IMAGENET_INCEPTION_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
@@ -1530,6 +1619,8 @@ def siglip2_vitB32_256(model_name, **kwargs):
     },
 )
 def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-quickgelu", pretrained="metaclip_fullcc"
     )
@@ -1540,8 +1631,8 @@ def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1559,6 +1650,8 @@ def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
     },
 )
 def openclip_vitB16_metaclip_400m(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-quickgelu", pretrained="metaclip_400m"
     )
@@ -1569,8 +1662,8 @@ def openclip_vitB16_metaclip_400m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1588,6 +1681,8 @@ def openclip_vitB16_metaclip_400m(model_name, **kwargs):
     },
 )
 def openclip_vitB32_metaclip_400m(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-quickgelu", pretrained="metaclip_400m"
     )
@@ -1598,8 +1693,8 @@ def openclip_vitB32_metaclip_400m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1617,6 +1712,8 @@ def openclip_vitB32_metaclip_400m(model_name, **kwargs):
     },
 )
 def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-quickgelu", pretrained="laion400m_e32"
     )
@@ -1627,8 +1724,8 @@ def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1646,6 +1743,8 @@ def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
     },
 )
 def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-quickgelu", pretrained="openai"
     )
@@ -1656,8 +1755,8 @@ def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1675,6 +1774,8 @@ def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
     },
 )
 def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-quickgelu", pretrained="metaclip_fullcc"
     )
@@ -1685,8 +1786,8 @@ def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1704,6 +1805,8 @@ def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
     },
 )
 def openclip_vitL14_dfn2b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14-quickgelu", pretrained="dfn2b"
     )
@@ -1714,8 +1817,8 @@ def openclip_vitL14_dfn2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1733,6 +1836,8 @@ def openclip_vitL14_dfn2b(model_name, **kwargs):
     },
 )
 def openclip_vitL14_metaclip_400(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14-quickgelu", pretrained="metaclip_400m"
     )
@@ -1743,8 +1848,8 @@ def openclip_vitL14_metaclip_400(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1762,6 +1867,8 @@ def openclip_vitL14_metaclip_400(model_name, **kwargs):
     },
 )
 def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14-quickgelu", pretrained="metaclip_fullcc"
     )
@@ -1772,8 +1879,8 @@ def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1791,6 +1898,8 @@ def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
     },
 )
 def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-H-14-quickgelu", pretrained="metaclip_fullcc"
     )
@@ -1801,8 +1910,8 @@ def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1820,6 +1929,8 @@ def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
     },
 )
 def openclip_vitH14_dfn5b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-H-14-quickgelu", pretrained="dfn5b"
     )
@@ -1830,8 +1941,8 @@ def openclip_vitH14_dfn5b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1849,6 +1960,8 @@ def openclip_vitH14_dfn5b(model_name, **kwargs):
     },
 )
 def openclip_convnext_base(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "convnext_base", pretrained="laion400m_s13b_b51k"
     )
@@ -1859,8 +1972,8 @@ def openclip_convnext_base(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1878,6 +1991,8 @@ def openclip_convnext_base(model_name, **kwargs):
     },
 )
 def clip_vitB32(model_name, **kwargs):
+    import clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _ = clip.load("ViT-B/32", download_root=str(HUB_CACHE_DIR))
 
     tokenizer = clip.tokenize
@@ -1886,8 +2001,8 @@ def clip_vitB32(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
@@ -1905,6 +2020,8 @@ def clip_vitB32(model_name, **kwargs):
     },
 )
 def openclip_vitB32_datacomp_s(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="datacomp_s_s13m_b4k"
     )
@@ -1915,8 +2032,8 @@ def openclip_vitB32_datacomp_s(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1934,6 +2051,8 @@ def openclip_vitB32_datacomp_s(model_name, **kwargs):
     },
 )
 def openclip_vitB32_datacomp_m(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="datacomp_m_s128m_b4k"
     )
@@ -1944,8 +2063,8 @@ def openclip_vitB32_datacomp_m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1963,6 +2082,8 @@ def openclip_vitB32_datacomp_m(model_name, **kwargs):
     },
 )
 def openclip_vitB32_datacomp_xl(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="datacomp_xl_s13b_b90k"
     )
@@ -1973,8 +2094,8 @@ def openclip_vitB32_datacomp_xl(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -1992,6 +2113,8 @@ def openclip_vitB32_datacomp_xl(model_name, **kwargs):
     },
 )
 def openclip_vitB16_datacomp_xl(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16", pretrained="datacomp_xl_s13b_b90k"
     )
@@ -2002,8 +2125,8 @@ def openclip_vitB16_datacomp_xl(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2021,6 +2144,8 @@ def openclip_vitB16_datacomp_xl(model_name, **kwargs):
     },
 )
 def openclip_vitB16_datacomp_l(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16", pretrained="datacomp_l_s1b_b8k"
     )
@@ -2031,8 +2156,8 @@ def openclip_vitB16_datacomp_l(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2050,6 +2175,8 @@ def openclip_vitB16_datacomp_l(model_name, **kwargs):
     },
 )
 def openclip_vitH14(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-H-14", pretrained="laion2b_s32b_b79k"
     )
@@ -2060,8 +2187,8 @@ def openclip_vitH14(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2079,6 +2206,7 @@ def openclip_vitH14(model_name, **kwargs):
     },
 )
 def xvlm_flickr(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import XVLMModel
     from .wrappers.xvlm_util.xvlm import XVLM
     from .wrappers.xvlm_util.tokenization_bert import BertTokenizer
     from .wrappers.xvlm_util.tokenization_roberta import RobertaTokenizer
@@ -2105,8 +2233,8 @@ def xvlm_flickr(model_name, **kwargs):
         model=model,
         model_name=model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=384,
         **kwargs
     )
@@ -2123,6 +2251,7 @@ def xvlm_flickr(model_name, **kwargs):
     },
 )
 def flava_full(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import FlavaModel
     from transformers import FlavaForPreTraining, FlavaImageProcessor, BertTokenizer
 
     model = FlavaForPreTraining.from_pretrained("facebook/flava-full")
@@ -2135,8 +2264,8 @@ def flava_full(model_name, **kwargs):
         model=model,
         model_name=model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=processor.size["height"],
         **kwargs
     )
@@ -2153,6 +2282,8 @@ def flava_full(model_name, **kwargs):
     },
 )
 def openclip_vitL14_400m(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14", pretrained="laion400m_e32"
     )
@@ -2163,8 +2294,8 @@ def openclip_vitL14_400m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2182,6 +2313,8 @@ def openclip_vitL14_400m(model_name, **kwargs):
     },
 )
 def openclip_vitL14_datacomp_xl(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14", pretrained="datacomp_xl_s13b_b90k"
     )
@@ -2192,8 +2325,8 @@ def openclip_vitL14_datacomp_xl(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2211,6 +2344,8 @@ def openclip_vitL14_datacomp_xl(model_name, **kwargs):
     },
 )
 def openclip_vitL14_2b(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14", pretrained="laion2b_s32b_b82k"
     )
@@ -2221,8 +2356,8 @@ def openclip_vitL14_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2240,6 +2375,8 @@ def openclip_vitL14_2b(model_name, **kwargs):
     },
 )
 def clip_vitL14(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import clip
     model, _ = clip.load("ViT-L/14", download_root=str(HUB_CACHE_DIR))
 
     tokenizer = clip.tokenize
@@ -2248,8 +2385,8 @@ def clip_vitL14(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2267,6 +2404,7 @@ def clip_vitL14(model_name, **kwargs):
     },
 )
 def xvlm_coco(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import XVLMModel
     from .wrappers.xvlm_util.xvlm import XVLM
     from .wrappers.xvlm_util.tokenization_bert import BertTokenizer
     from .wrappers.xvlm_util.tokenization_roberta import RobertaTokenizer
@@ -2293,8 +2431,8 @@ def xvlm_coco(model_name, **kwargs):
         model=model,
         model_name=model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=384,
         **kwargs
     )
@@ -2311,6 +2449,8 @@ def xvlm_coco(model_name, **kwargs):
     },
 )
 def openclip_vitB32_400m(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="laion400m_e32"
     )
@@ -2321,8 +2461,8 @@ def openclip_vitB32_400m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2340,6 +2480,8 @@ def openclip_vitB32_400m(model_name, **kwargs):
     },
 )
 def openclip_vitB32_2b(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="laion2b_s34b_b79k"
     )
@@ -2350,8 +2492,8 @@ def openclip_vitB32_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2369,6 +2511,8 @@ def openclip_vitB32_2b(model_name, **kwargs):
     },
 )
 def openclip_vitG14_2b(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-g-14", pretrained="laion2b_s34b_b88k"
     )
@@ -2379,8 +2523,8 @@ def openclip_vitG14_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2398,6 +2542,8 @@ def openclip_vitG14_2b(model_name, **kwargs):
     },
 )
 def openclip_vitbigG14_2b(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-bigG-14", pretrained="laion2b_s39b_b160k"
     )
@@ -2408,8 +2554,8 @@ def openclip_vitbigG14_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2427,6 +2573,8 @@ def openclip_vitbigG14_2b(model_name, **kwargs):
     },
 )
 def openclip_vitB16_2b(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16", pretrained="laion2b_s34b_b88k"
     )
@@ -2437,8 +2585,8 @@ def openclip_vitB16_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2456,6 +2604,8 @@ def openclip_vitB16_2b(model_name, **kwargs):
     },
 )
 def openclip_vitB16_400m(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16", pretrained="laion400m_e32"
     )
@@ -2466,8 +2616,8 @@ def openclip_vitB16_400m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2485,6 +2635,8 @@ def openclip_vitB16_400m(model_name, **kwargs):
     },
 )
 def opencoca_vitL14_2b(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "coca_ViT-L-14", pretrained="laion2b_s13b_b90k"
     )
@@ -2495,8 +2647,8 @@ def opencoca_vitL14_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=76,
@@ -2515,6 +2667,8 @@ def opencoca_vitL14_2b(model_name, **kwargs):
     },
 )
 def opencoca_vitB32_2b(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "coca_ViT-B-32", pretrained="laion2b_s13b_b90k"
     )
@@ -2525,8 +2679,8 @@ def opencoca_vitB32_2b(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=76,
@@ -2545,6 +2699,8 @@ def opencoca_vitB32_2b(model_name, **kwargs):
     },
 )
 def negclip_vitB32(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     path = os.path.join(HUB_CACHE_DIR, "negclip.pth")
     if not os.path.exists(path):
         print("Downloading the NegCLIP model...")
@@ -2559,8 +2715,8 @@ def negclip_vitB32(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
@@ -2578,6 +2734,8 @@ def negclip_vitB32(model_name, **kwargs):
     },
 )
 def clip_vitB16(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import clip
     model, _ = clip.load("ViT-B/16", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
 
@@ -2585,8 +2743,8 @@ def clip_vitB16(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2604,14 +2762,16 @@ def clip_vitB16(model_name, **kwargs):
     },
 )
 def clip_resnet50(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import clip
     model, _ = clip.load("RN50", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2629,6 +2789,8 @@ def clip_resnet50(model_name, **kwargs):
     },
 )
 def clip_resnet50_quickgelu(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "RN50-quickgelu", pretrained="openai"
     )
@@ -2639,8 +2801,8 @@ def clip_resnet50_quickgelu(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2658,6 +2820,8 @@ def clip_resnet50_quickgelu(model_name, **kwargs):
     },
 )
 def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "RN50-quickgelu", pretrained="yfcc15m"
     )
@@ -2668,8 +2832,8 @@ def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2687,6 +2851,8 @@ def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
     },
 )
 def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms(
         "RN50-quickgelu", pretrained="cc12m"
     )
@@ -2697,8 +2863,8 @@ def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2716,6 +2882,8 @@ def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
     },
 )
 def openclip_resnet101_yfcc(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms("RN101", pretrained="yfcc15m")
 
     tokenizer = open_clip.get_tokenizer("RN101")
@@ -2724,8 +2892,8 @@ def openclip_resnet101_yfcc(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2743,6 +2911,8 @@ def openclip_resnet101_yfcc(model_name, **kwargs):
     },
 )
 def openclip_resnet50_yfcc(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms("RN50", pretrained="yfcc15m")
 
     tokenizer = open_clip.get_tokenizer("RN50")
@@ -2751,8 +2921,8 @@ def openclip_resnet50_yfcc(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2770,6 +2940,8 @@ def openclip_resnet50_yfcc(model_name, **kwargs):
     },
 )
 def openclip_resnet50_cc(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import open_clip
     model, _, _ = open_clip.create_model_and_transforms("RN50", pretrained="cc12m")
 
     tokenizer = open_clip.get_tokenizer("RN50")
@@ -2778,8 +2950,8 @@ def openclip_resnet50_cc(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2797,14 +2969,16 @@ def openclip_resnet50_cc(model_name, **kwargs):
     },
 )
 def clip_resnet101(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import clip
     model, _ = clip.load("RN101", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2822,6 +2996,8 @@ def clip_resnet101(model_name, **kwargs):
     },
 )
 def clip_resnet101_quickgelu(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "RN101-quickgelu", pretrained="openai"
     )
@@ -2832,8 +3008,8 @@ def clip_resnet101_quickgelu(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2851,6 +3027,8 @@ def clip_resnet101_quickgelu(model_name, **kwargs):
     },
 )
 def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
+    import open_clip
+    from unibench.models_zoo.wrappers import ClipModel
     model, _, _ = open_clip.create_model_and_transforms(
         "RN101-quickgelu", pretrained="yfcc15m"
     )
@@ -2861,8 +3039,8 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2880,14 +3058,16 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
     },
 )
 def clip_resnet50x4(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import clip
     model, _ = clip.load("RN50x4", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2905,14 +3085,16 @@ def clip_resnet50x4(model_name, **kwargs):
     },
 )
 def clip_resnet50x16(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import clip
     model, _ = clip.load("RN50x16", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
@@ -2930,14 +3112,16 @@ def clip_resnet50x16(model_name, **kwargs):
     },
 )
 def clip_resnet50x64(model_name, **kwargs):
+    from unibench.models_zoo.wrappers import ClipModel
+    import clip
     model, _ = clip.load("RN50x64", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
         model,
         model_name,
         tokenizer=tokenizer,
-        norm_mean=timm.data.constants.OPENAI_CLIP_MEAN,
-        norm_std=timm.data.constants.OPENAI_CLIP_STD,
+        norm_mean=OPENAI_CLIP_MEAN,
+        norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
