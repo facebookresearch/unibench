@@ -11,6 +11,35 @@ from pathlib import Path
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
+minimal_requirements = [
+    "fire",
+    "pandas",
+    "rich",
+    "huggingface_hub",
+    "oslo.concurrency",
+    "pyarrow",
+]
+
+new_model_requirements = [
+    "datasets",
+    "torch",
+    "torchvision",
+]
+
+new_benchmark_requirements = [
+    "torch",
+    "torchvision",
+    "open_clip_torch",    
+    "openai-clip",
+    "timm",
+    "opencv-python",
+    "transformers",
+    'GitPython',
+    'fairscale',
+    'gdown',
+    'scipy',
+]
+
 setuptools.setup(
     name="unibench",
     version="0.4.0",
@@ -30,31 +59,11 @@ setuptools.setup(
     ],
     packages=setuptools.find_packages(),
     python_requires=">=3.8",
-    install_requires=[
-        # "zipp",
-        "fire",
-        "pandas",
-        "rich",
-        "huggingface_hub",
-        "oslo.concurrency",
-        "pyarrow",
-        # "datasets",
-        # "ftfy",
-        # "torch",
-        # "scipy",
-        # "fairscale",
-        # "GitPython",
-        # "torchvision",
-        # "gdown",
-    ],
+    install_requires=minimal_requirements,
     extras_require={
-        "all": [
-            "open-clip-torch",
-            "openai-clip",
-            "timm",
-            "opencv-python",
-            "transformers",
-        ],
+        "new_benchmark": minimal_requirements + new_benchmark_requirements,
+        "new_model": minimal_requirements + new_model_requirements,
+        "all": list(set(minimal_requirements + new_model_requirements + new_benchmark_requirements)),
     },
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
