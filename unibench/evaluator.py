@@ -13,7 +13,6 @@ import pandas as pd
 from rich.progress import Progress
 
 
-
 from unibench.output import OutputHandler
 from unibench.common_utils.utils import (
     seed_everything,
@@ -108,6 +107,7 @@ class Evaluator(object):
         self, benchmarks: Union[List[str], str], benchmark_id: Union[int, None] = None
     ):
         from unibench.benchmarks_zoo import list_benchmarks
+
         if isinstance(benchmarks, str):
             self.benchmarks = list_benchmarks(benchmarks)
         elif isinstance(benchmarks, list):
@@ -126,6 +126,7 @@ class Evaluator(object):
         self, models: Union[List[str], str], model_id: Union[int, None] = None
     ):
         from unibench.models_zoo import list_models
+
         if isinstance(models, str):
             self.models = list_models(models)
         elif isinstance(models, list):
@@ -143,12 +144,13 @@ class Evaluator(object):
 
     def download_benchmarks(self):
         from unibench.benchmarks_zoo.registry import load_benchmark
+
         for benchmark in self.benchmarks:
             print(f"Loading {benchmark}")
             load_benchmark(benchmark, root=self.benchmarks_dir)
             print(f"Done Loading {benchmark}")
 
-    def list_models(self):
+    def list_models(self) -> dict:
         model_mappings = get_model_mappings(None)
         # print(pd.DataFrame(model_mappings).transpose().to_markdown())
         Console().print(
@@ -158,12 +160,12 @@ class Evaluator(object):
                 index_name="model_name",
             )
         )
+        return model_mappings
 
-    def add_benchmark(
-        self, benchmark, handler, meta_data={}
-    ):
+    def add_benchmark(self, benchmark, handler, meta_data={}):
         from unibench.benchmarks_zoo.registry import register_benchmark
         import unibench.benchmarks_zoo.benchmarks as benchmarks_module
+
         def temp_func(benchmark_name, transform=None, **kwargs):
             bm = benchmark(transform=transform, **kwargs)
 
@@ -182,7 +184,7 @@ class Evaluator(object):
         self.outputhandler.generate_aggregate_results()
         print("Aggregate results generated")
 
-    def list_benchmarks(self):
+    def list_benchmarks(self) -> dict:
         benchmark_mappings = get_benchmark_mappings(None)
         Console().print(
             df_to_table(
@@ -191,6 +193,7 @@ class Evaluator(object):
                 index_name="benchmark_name",
             )
         )
+        return benchmark_mappings
 
     def add_model(
         self,
@@ -199,6 +202,7 @@ class Evaluator(object):
     ):
         import unibench.models_zoo.models as models_module
         from unibench.models_zoo.registry import register_model
+
         def temp_func(model_name, **kwargs):
             return model(**kwargs)
 
@@ -244,9 +248,10 @@ class Evaluator(object):
         import torch
         from unibench.benchmarks_zoo.registry import load_benchmark
         from unibench.models_zoo.registry import load_model
-        device="cuda" if torch.cuda.is_available() else "cpu"
+
+        device = "cuda" if torch.cuda.is_available() else "cpu"
         seed_everything(self.seed)
-        
+
         with Progress(transient=True) as progress:
             pg_models = progress.add_task(
                 "[green]Processing...", total=len(self.models)
@@ -332,7 +337,7 @@ class Evaluator(object):
                             if isinstance(sample, torch.Tensor) and device == "cuda":
                                 batch[i] = batch[i].to(device)
 
-                        with torch.no_grad(), torch.amp.autocast('cuda'):
+                        with torch.no_grad(), torch.amp.autocast("cuda"):
                             values_to_save = dh.eval_batch(model, batch)
 
                         self.outputhandler.add_values(
@@ -344,7 +349,9 @@ class Evaluator(object):
                         progress.update(pg_benchmark, advance=1)
                     progress.update(pg_benchmark, visible=False)
                     self.outputhandler.save_csv(model_name, benchmark_name)
-                    self.outputhandler.save_aggregate_results(model_name, benchmark_name)
+                    self.outputhandler.save_aggregate_results(
+                        model_name, benchmark_name
+                    )
                     progress.update(pg_benchmarks, advance=1)
                 progress.update(pg_models, advance=1)
 
