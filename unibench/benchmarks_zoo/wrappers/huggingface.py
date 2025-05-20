@@ -8,7 +8,7 @@ from datasets import load_dataset, load_from_disk
 from huggingface_hub import hf_hub_download
 import torch
 from torch.utils.data import Dataset
-from ...common_utils import DATA_DIR
+from ...common_utils.constants import DATA_DIR
 from pathlib import Path
 
 

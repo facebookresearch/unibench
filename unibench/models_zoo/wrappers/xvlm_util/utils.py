@@ -8,7 +8,7 @@ import os
 import subprocess
 import yaml
 
-from unibench.common_utils import HUB_CACHE_DIR
+from unibench.common_utils.constants import HUB_CACHE_DIR
 import gdown
 
 download_urls = {

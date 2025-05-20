@@ -6,7 +6,6 @@ LICENSE file in the root directory of this source tree.
 """
 
 from unibench.benchmarks_zoo import register_benchmark
-from .wrappers import *
 
 
 @register_benchmark(
@@ -23,6 +22,8 @@ from .wrappers import *
     },
 )
 def cifar10(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cifar10", **kwargs
     )
@@ -48,6 +49,8 @@ def cifar10(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenet1k(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
     )
@@ -73,6 +76,8 @@ def imagenet1k(benchmark_name, transform=None, **kwargs):
     },
 )
 def cifar100(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cifar100", **kwargs
     )
@@ -98,6 +103,8 @@ def cifar100(benchmark_name, transform=None, **kwargs):
     },
 )
 def food101(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_food101", **kwargs
     )
@@ -123,6 +130,8 @@ def food101(benchmark_name, transform=None, **kwargs):
     },
 )
 def cars(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cars", **kwargs
     )
@@ -148,6 +157,8 @@ def cars(benchmark_name, transform=None, **kwargs):
     },
 )
 def fgvc_aircraft(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_fgvc_aircraft", **kwargs
     )
@@ -173,6 +184,8 @@ def fgvc_aircraft(benchmark_name, transform=None, **kwargs):
     },
 )
 def pets(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_pets", **kwargs
     )
@@ -198,6 +211,8 @@ def pets(benchmark_name, transform=None, **kwargs):
     },
 )
 def dtd(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_dtd", **kwargs
     )
@@ -223,6 +238,8 @@ def dtd(benchmark_name, transform=None, **kwargs):
     },
 )
 def sun397(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_sun397", **kwargs
     )
@@ -248,6 +265,8 @@ def sun397(benchmark_name, transform=None, **kwargs):
     },
 )
 def caltech101(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_caltech101", **kwargs
     )
@@ -273,6 +292,8 @@ def caltech101(benchmark_name, transform=None, **kwargs):
     },
 )
 def mnist(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
     )
@@ -282,107 +303,6 @@ def mnist(benchmark_name, transform=None, **kwargs):
         classes=benchmark.classes,
         templates=benchmark.templates,
     )
-
-
-# @register_dataset(
-#     "mnist",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_top2(benchmark_name, transform=None, **kwargs):
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=benchmark.classes,
-#         templates=benchmark.templates,
-#         topx=2
-# )
-
-# @register_dataset(
-#     "mnist",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_top3(benchmark_name, transform=None, **kwargs):
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=benchmark.classes,
-#         templates=benchmark.templates,
-#         topx=3
-#     )
-
-# @register_dataset(
-#     "mnist",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_top4(benchmark_name, transform=None, **kwargs):
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=benchmark.classes,
-#         templates=benchmark.templates,
-#         topx=4
-#     )
-
-# @register_dataset(
-#     "mnist",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_top5(benchmark_name, transform=None, **kwargs):
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=benchmark.classes,
-#         templates=benchmark.templates,
-#         topx=5
-#     )
 
 
 @register_benchmark(
@@ -399,6 +319,8 @@ def mnist(benchmark_name, transform=None, **kwargs):
     },
 )
 def fashion_mnist(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_fashion_mnist", **kwargs
     )
@@ -424,6 +346,8 @@ def fashion_mnist(benchmark_name, transform=None, **kwargs):
     },
 )
 def pug_imagenet(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_pug_imagenet", **kwargs
     )
@@ -433,187 +357,6 @@ def pug_imagenet(benchmark_name, transform=None, **kwargs):
         classes=benchmark.classes,
         templates=benchmark.templates,
     )
-
-
-# @register_dataset(
-#     "transfer",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_more_prompts(benchmark_name, transform=None, **kwargs):
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=benchmark.classes,
-#         templates=[
-#             "a photo of the number: '{}'.",
-#             "a digit drawing of the number: '{}'.",
-#             "a digit sketch of the number: '{}'.",
-#             "a handwritten digit image of: '{}'.",
-#             "a digit illustration of: '{}'.",
-#             "a graphical representation of the number: '{}'.",
-#             "a visual depiction of the digit: '{}'.",
-#             "a snapshot of the numeral: '{}'.",
-#             "a handwritten representation of the number: '{}'.",
-#             "an image showcasing the digit: '{}'.",
-#         ],
-#     )
-
-
-# @register_dataset(
-#     "transfer",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_numbers(benchmark_name, transform=None, **kwargs):
-#     import inflect
-
-#     p = inflect.engine()
-
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=[p.number_to_words(i) for i in benchmark.classes],
-#         templates=benchmark.templates,
-#     )
-
-
-# @register_dataset(
-#     "transfer",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_numbers_more_prompts(benchmark_name, transform=None, **kwargs):
-#     import inflect
-
-#     p = inflect.engine()
-
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=[p.number_to_words(i) for i in benchmark.classes],
-#         templates=[
-#             "A photo of the number: '{}'.",
-#             "A digit drawing of the number: '{}'.",
-#             "A digit sketch of the number: '{}'.",
-#             "A handwritten digit image of: '{}'.",
-#             "A digit illustration of: '{}'.",
-#             "A graphical representation of the number: '{}'.",
-#             "A visual depiction of the digit: '{}'.",
-#             "A snapshot of the numeral: '{}'.",
-#             "A handwritten representation of the number: '{}'.",
-#             "An image showcasing the digit: '{}'.",
-#         ],
-#     )
-
-
-# @register_dataset(
-#     "transfer",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_numbers_diff_prompts(benchmark_name, transform=None, **kwargs):
-#     import inflect
-
-#     p = inflect.engine()
-
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=[p.number_to_words(i) for i in benchmark.classes],
-#         templates=[
-#             "showcasing the digit {}, is this image.",
-#             "this number {} is represented in a handwritten form.",
-#             "the numeral {} is captured in this snapshot.",
-#             "the digit {} is depicted visually in this image.",
-#             "this image is a graphical representation of the number {}.",
-#             "this is an illustration of the digit {}.",
-#             "this image represents the digit {} in a handwritten form.",
-#             "the number {} is sketched as a digit in this image.",
-#             "this is a photograph of the digit {}.",
-#             "the number {} is drawn as a digit in this image.",
-#         ],
-#     )
-
-
-# @register_dataset(
-#     "transfer",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "object recognition",
-#         "capability": "character recognition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [28, 28],
-#         "num_classes": 10,
-#         "llama2_ppi": 36.87,
-#     },
-# )
-# def mnist_diff_prompts(benchmark_name, transform=None, **kwargs):
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=benchmark.classes,
-#         templates=[
-#             "showcasing the digit {}, is this image.",
-#             "this number {} is represented in a handwritten form.",
-#             "the numeral {} is captured in this snapshot.",
-#             "the digit {} is depicted visually in this image.",
-#             "this image is a graphical representation of the number {}.",
-#             "this is an illustration of the digit {}.",
-#             "this image represents the digit {} in a handwritten form.",
-#             "the number {} is sketched as a digit in this image.",
-#             "this is a photograph of the digit {}.",
-#             "the number {} is drawn as a digit in this image.",
-#         ],
-#     )
 
 
 @register_benchmark(
@@ -630,6 +373,8 @@ def pug_imagenet(benchmark_name, transform=None, **kwargs):
     },
 )
 def gtsrb(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_gtsrb", **kwargs
     )
@@ -655,6 +400,8 @@ def gtsrb(benchmark_name, transform=None, **kwargs):
     },
 )
 def renderedsst2(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_renderedsst2", **kwargs
     )
@@ -680,6 +427,8 @@ def renderedsst2(benchmark_name, transform=None, **kwargs):
     },
 )
 def stl10(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_stl10", **kwargs
     )
@@ -705,6 +454,8 @@ def stl10(benchmark_name, transform=None, **kwargs):
     },
 )
 def svhn(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_svhn", **kwargs
     )
@@ -730,6 +481,8 @@ def svhn(benchmark_name, transform=None, **kwargs):
     },
 )
 def eurosat(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_eurosat", **kwargs
     )
@@ -755,6 +508,8 @@ def eurosat(benchmark_name, transform=None, **kwargs):
     },
 )
 def country211(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_country211", **kwargs
     )
@@ -780,6 +535,8 @@ def country211(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenet_sketch(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenet_sketch", **kwargs
     )
@@ -789,31 +546,6 @@ def imagenet_sketch(benchmark_name, transform=None, **kwargs):
         classes=benchmark.classes,
         templates=benchmark.templates,
     )
-
-
-# @register_dataset(
-#     "transfer",
-#     {
-#         "benchmark": "zero-shot",
-#         "benchmark_type": "non-natural images",
-#         "capability": "rendition",
-#         "curated": True,
-#         "object_centric": True,
-#         "image_resolution": [762.64, 727.06],
-#         "num_classes": 1000,
-#         "llama2_ppi": 76188.02,
-#     },
-# )
-# def fer2013(benchmark_name, transform=None, **kwargs):
-#     benchmark = HuggingFaceDataset(
-#         transform=transform, dataset_url="haideraltahan/wds_fer2013", **kwargs
-#     )
-#     return ZeroShotDatasetHandler(
-#         benchmark_name=benchmark_name,
-#         benchmark=benchmark,
-#         classes=benchmark.classes,
-#         templates=benchmark.templates,
-#     )
 
 
 @register_benchmark(
@@ -830,6 +562,8 @@ def imagenet_sketch(benchmark_name, transform=None, **kwargs):
     },
 )
 def dmlab(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_dmlab", **kwargs
     )
@@ -855,6 +589,8 @@ def dmlab(benchmark_name, transform=None, **kwargs):
     },
 )
 def imageneta(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imageneta", **kwargs
     )
@@ -880,6 +616,8 @@ def imageneta(benchmark_name, transform=None, **kwargs):
     },
 )
 def imageneto(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imageneto", **kwargs
     )
@@ -905,6 +643,8 @@ def imageneto(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenetr(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenetr", **kwargs
     )
@@ -930,6 +670,8 @@ def imagenetr(benchmark_name, transform=None, **kwargs):
     },
 )
 def pcam(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_pcam", **kwargs
     )
@@ -955,6 +697,8 @@ def pcam(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenete(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenete", **kwargs
     )
@@ -980,6 +724,8 @@ def imagenete(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenet9(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenet9", **kwargs
     )
@@ -1005,6 +751,8 @@ def imagenet9(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenetc(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenetc", **kwargs
     )
@@ -1030,6 +778,8 @@ def imagenetc(benchmark_name, transform=None, **kwargs):
     },
 )
 def flowers102(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_flowers", **kwargs
     )
@@ -1055,6 +805,8 @@ def flowers102(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenetv2(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenetv2", **kwargs
     )
@@ -1080,6 +832,8 @@ def imagenetv2(benchmark_name, transform=None, **kwargs):
     },
 )
 def objectnet(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_objectnet", **kwargs
     )
@@ -1105,6 +859,8 @@ def objectnet(benchmark_name, transform=None, **kwargs):
     },
 )
 def cub(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cub", **kwargs
     )
@@ -1130,6 +886,8 @@ def cub(benchmark_name, transform=None, **kwargs):
     },
 )
 def places365(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_places365", **kwargs
     )
@@ -1155,6 +913,8 @@ def places365(benchmark_name, transform=None, **kwargs):
     },
 )
 def clevr_distance(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_clevr_closest_object_distance",
@@ -1182,6 +942,8 @@ def clevr_distance(benchmark_name, transform=None, **kwargs):
     },
 )
 def clevr_count(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_clevr_count_all", **kwargs
     )
@@ -1207,6 +969,8 @@ def clevr_count(benchmark_name, transform=None, **kwargs):
     },
 )
 def countbench(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_countbench", **kwargs
     )
@@ -1230,6 +994,8 @@ def countbench(benchmark_name, transform=None, **kwargs):
     },
 )
 def inaturalist(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_inaturalist", **kwargs
     )
@@ -1255,6 +1021,8 @@ def inaturalist(benchmark_name, transform=None, **kwargs):
     },
 )
 def voc2007(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_voc2007", **kwargs
     )
@@ -1280,6 +1048,8 @@ def voc2007(benchmark_name, transform=None, **kwargs):
     },
 )
 def resisc45(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_resisc45", **kwargs
     )
@@ -1305,6 +1075,8 @@ def resisc45(benchmark_name, transform=None, **kwargs):
     },
 )
 def dspr_orientation(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_dsprites_label_orientation",
@@ -1332,6 +1104,8 @@ def dspr_orientation(benchmark_name, transform=None, **kwargs):
     },
 )
 def kitti_distance(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_kitti_closest_vehicle_distance",
@@ -1359,6 +1133,8 @@ def kitti_distance(benchmark_name, transform=None, **kwargs):
     },
 )
 def smallnorb_azimuth(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_smallnorb_label_azimuth",
@@ -1386,6 +1162,8 @@ def smallnorb_azimuth(benchmark_name, transform=None, **kwargs):
     },
 )
 def smallnorb_elevation(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_smallnorb_label_elevation",
@@ -1413,6 +1191,8 @@ def smallnorb_elevation(benchmark_name, transform=None, **kwargs):
     },
 )
 def dspr_x_position(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_dsprites_label_x_position",
@@ -1440,6 +1220,8 @@ def dspr_x_position(benchmark_name, transform=None, **kwargs):
     },
 )
 def dspr_y_position(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_dsprites_label_y_position",
@@ -1467,6 +1249,8 @@ def dspr_y_position(benchmark_name, transform=None, **kwargs):
     },
 )
 def retinopathy(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_diabetic_retinopathy",
@@ -1494,6 +1278,8 @@ def retinopathy(benchmark_name, transform=None, **kwargs):
     },
 )
 def dollar_street(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_dollar_street", **kwargs
     )
@@ -1519,6 +1305,8 @@ def dollar_street(benchmark_name, transform=None, **kwargs):
     },
 )
 def vg_relation(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_vg_relation", **kwargs
     )
@@ -1542,6 +1330,8 @@ def vg_relation(benchmark_name, transform=None, **kwargs):
     },
 )
 def flickr30k_order(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_flickr30k_order", **kwargs
     )
@@ -1565,6 +1355,8 @@ def flickr30k_order(benchmark_name, transform=None, **kwargs):
     },
 )
 def sugarcrepe(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_sugarcrepe", **kwargs
     )
@@ -1588,6 +1380,8 @@ def sugarcrepe(benchmark_name, transform=None, **kwargs):
     },
 )
 def bivlc(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_bivlc", **kwargs
     )
@@ -1611,6 +1405,8 @@ def bivlc(benchmark_name, transform=None, **kwargs):
     },
 )
 def winoground(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_winoground", **kwargs
     )
@@ -1634,6 +1430,8 @@ def winoground(benchmark_name, transform=None, **kwargs):
     },
 )
 def vg_attribution(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_vg_attribution", **kwargs
     )
@@ -1657,6 +1455,8 @@ def vg_attribution(benchmark_name, transform=None, **kwargs):
     },
 )
 def coco_order(benchmark_name, transform=None, **kwargs):
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_coco_order", **kwargs
     )
