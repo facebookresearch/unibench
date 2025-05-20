@@ -339,6 +339,12 @@ eval.evaluate()
 
 [Contributions](CONTRIBUTING.md) (e.g. adding new benchmarks/models), issues, and feature requests are welcome! For any changes, please open an issue first to discuss what you would like to change or improve.
 
+When contributing please ensure tests are passing: 
+
+```python
+# if need be, pip install pytest 
+python -m pytest tests/
+```
 
 ## License
 

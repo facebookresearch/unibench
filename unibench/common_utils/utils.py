@@ -5,18 +5,10 @@ This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
 
-from pathlib import Path
 import random
 from typing import Optional
 import numpy as np
-import shutil
 from huggingface_hub import hf_hub_download, snapshot_download
-import torch
-
-from ..benchmarks_zoo.registry import get_benchmark_info
-from ..benchmarks_zoo import benchmarks, list_benchmarks
-from ..models_zoo.registry import get_model_info
-from ..models_zoo import models, list_models
 
 import pandas as pd
 from rich.table import Table
@@ -60,6 +52,7 @@ def df_to_table(
 
 
 def seed_everything(seed: int):
+    import torch
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -67,6 +60,8 @@ def seed_everything(seed: int):
 
 
 def get_benchmark_mappings(axis, benchmarks=None):
+    from ..benchmarks_zoo.registry import get_benchmark_info
+    from ..benchmarks_zoo import list_benchmarks
     if benchmarks is None:
         benchmarks = list_benchmarks()
     benchmark_mappings = {}
@@ -79,6 +74,8 @@ def get_benchmark_mappings(axis, benchmarks=None):
 
 
 def get_model_mappings(axis, models=None):
+    from ..models_zoo.registry import get_model_info
+    from ..models_zoo import list_models
     if models is None:
         models = list_models()
     model_mappings = {}
