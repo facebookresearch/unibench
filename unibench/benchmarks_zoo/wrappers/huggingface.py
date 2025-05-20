@@ -47,7 +47,7 @@ class HuggingFaceDataset(Dataset):
         *args,
         **kwargs
     ):
-        Dataset.__init__(self, *args, **kwargs)
+        Dataset.__init__(self)
         assert dataset_url != "", "Please provide a dataset url"
 
         self.dataset_name = dataset_url.split("/")[-1]

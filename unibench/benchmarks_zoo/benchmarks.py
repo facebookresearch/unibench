@@ -5,7 +5,20 @@ This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
 
-from unibench.benchmarks_zoo import register_benchmark
+
+try:
+    from unibench.benchmarks_zoo import register_benchmark
+    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.handlers import (
+        ZeroShotBenchmarkHandler, 
+        RelationBenchmarkHandler,
+        TextClassificationBenchmarkHandler,
+        CLIPJudgeBenchmarkHandler,
+        LLMJudgeBenchmarkHandler,
+        CLIPJudgeRelationBenchmarkHandler
+    )
+except ImportError:
+    from unibench.benchmarks_zoo import register_benchmark
 
 
 @register_benchmark(
@@ -22,17 +35,33 @@ from unibench.benchmarks_zoo import register_benchmark
     },
 )
 def cifar10(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cifar10", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -49,17 +78,33 @@ def cifar10(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenet1k(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenet1k", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -76,17 +121,33 @@ def imagenet1k(benchmark_name, transform=None, **kwargs):
     },
 )
 def cifar100(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cifar100", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -103,17 +164,33 @@ def cifar100(benchmark_name, transform=None, **kwargs):
     },
 )
 def food101(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_food101", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -130,17 +207,33 @@ def food101(benchmark_name, transform=None, **kwargs):
     },
 )
 def cars(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cars", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -157,17 +250,33 @@ def cars(benchmark_name, transform=None, **kwargs):
     },
 )
 def fgvc_aircraft(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_fgvc_aircraft", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -184,17 +293,33 @@ def fgvc_aircraft(benchmark_name, transform=None, **kwargs):
     },
 )
 def pets(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_pets", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -211,17 +336,33 @@ def pets(benchmark_name, transform=None, **kwargs):
     },
 )
 def dtd(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_dtd", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -238,17 +379,33 @@ def dtd(benchmark_name, transform=None, **kwargs):
     },
 )
 def sun397(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_sun397", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -265,17 +422,33 @@ def sun397(benchmark_name, transform=None, **kwargs):
     },
 )
 def caltech101(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_caltech101", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -292,17 +465,33 @@ def caltech101(benchmark_name, transform=None, **kwargs):
     },
 )
 def mnist(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_mnist", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -319,17 +508,33 @@ def mnist(benchmark_name, transform=None, **kwargs):
     },
 )
 def fashion_mnist(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_fashion_mnist", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -346,17 +551,33 @@ def fashion_mnist(benchmark_name, transform=None, **kwargs):
     },
 )
 def pug_imagenet(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_pug_imagenet", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -373,17 +594,33 @@ def pug_imagenet(benchmark_name, transform=None, **kwargs):
     },
 )
 def gtsrb(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_gtsrb", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -400,17 +637,33 @@ def gtsrb(benchmark_name, transform=None, **kwargs):
     },
 )
 def renderedsst2(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_renderedsst2", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -427,17 +680,33 @@ def renderedsst2(benchmark_name, transform=None, **kwargs):
     },
 )
 def stl10(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_stl10", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -454,17 +723,33 @@ def stl10(benchmark_name, transform=None, **kwargs):
     },
 )
 def svhn(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_svhn", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -481,17 +766,33 @@ def svhn(benchmark_name, transform=None, **kwargs):
     },
 )
 def eurosat(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_eurosat", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -508,17 +809,33 @@ def eurosat(benchmark_name, transform=None, **kwargs):
     },
 )
 def country211(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_country211", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -535,17 +852,33 @@ def country211(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenet_sketch(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenet_sketch", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -562,17 +895,33 @@ def imagenet_sketch(benchmark_name, transform=None, **kwargs):
     },
 )
 def dmlab(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_dmlab", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -589,17 +938,33 @@ def dmlab(benchmark_name, transform=None, **kwargs):
     },
 )
 def imageneta(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imageneta", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -616,17 +981,33 @@ def imageneta(benchmark_name, transform=None, **kwargs):
     },
 )
 def imageneto(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imageneto", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -643,17 +1024,33 @@ def imageneto(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenetr(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenetr", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -670,17 +1067,33 @@ def imagenetr(benchmark_name, transform=None, **kwargs):
     },
 )
 def pcam(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_pcam", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -697,17 +1110,33 @@ def pcam(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenete(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenete", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -724,17 +1153,33 @@ def imagenete(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenet9(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenet9", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -751,17 +1196,33 @@ def imagenet9(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenetc(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenetc", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -778,17 +1239,33 @@ def imagenetc(benchmark_name, transform=None, **kwargs):
     },
 )
 def flowers102(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_flowers", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -805,17 +1282,33 @@ def flowers102(benchmark_name, transform=None, **kwargs):
     },
 )
 def imagenetv2(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_imagenetv2", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -832,17 +1325,33 @@ def imagenetv2(benchmark_name, transform=None, **kwargs):
     },
 )
 def objectnet(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_objectnet", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -859,17 +1368,33 @@ def objectnet(benchmark_name, transform=None, **kwargs):
     },
 )
 def cub(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_cub", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -886,17 +1411,33 @@ def cub(benchmark_name, transform=None, **kwargs):
     },
 )
 def places365(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_places365", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -913,19 +1454,35 @@ def places365(benchmark_name, transform=None, **kwargs):
     },
 )
 def clevr_distance(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_clevr_closest_object_distance",
         **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -942,17 +1499,33 @@ def clevr_distance(benchmark_name, transform=None, **kwargs):
     },
 )
 def clevr_count(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_clevr_count_all", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -969,15 +1542,19 @@ def clevr_count(benchmark_name, transform=None, **kwargs):
     },
 )
 def countbench(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_countbench", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
 
 
 @register_benchmark(
@@ -994,17 +1571,33 @@ def countbench(benchmark_name, transform=None, **kwargs):
     },
 )
 def inaturalist(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_inaturalist", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1021,17 +1614,33 @@ def inaturalist(benchmark_name, transform=None, **kwargs):
     },
 )
 def voc2007(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_voc2007", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1048,17 +1657,33 @@ def voc2007(benchmark_name, transform=None, **kwargs):
     },
 )
 def resisc45(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_resisc45", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1075,19 +1700,35 @@ def resisc45(benchmark_name, transform=None, **kwargs):
     },
 )
 def dspr_orientation(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_dsprites_label_orientation",
         **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1104,19 +1745,35 @@ def dspr_orientation(benchmark_name, transform=None, **kwargs):
     },
 )
 def kitti_distance(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_kitti_closest_vehicle_distance",
         **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1133,19 +1790,35 @@ def kitti_distance(benchmark_name, transform=None, **kwargs):
     },
 )
 def smallnorb_azimuth(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_smallnorb_label_azimuth",
         **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1162,19 +1835,35 @@ def smallnorb_azimuth(benchmark_name, transform=None, **kwargs):
     },
 )
 def smallnorb_elevation(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_smallnorb_label_elevation",
         **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1191,19 +1880,35 @@ def smallnorb_elevation(benchmark_name, transform=None, **kwargs):
     },
 )
 def dspr_x_position(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_dsprites_label_x_position",
         **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1220,19 +1925,35 @@ def dspr_x_position(benchmark_name, transform=None, **kwargs):
     },
 )
 def dspr_y_position(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_dsprites_label_y_position",
         **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1249,19 +1970,35 @@ def dspr_y_position(benchmark_name, transform=None, **kwargs):
     },
 )
 def retinopathy(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform,
         dataset_url="haideraltahan/wds_diabetic_retinopathy",
         **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1278,17 +2015,33 @@ def retinopathy(benchmark_name, transform=None, **kwargs):
     },
 )
 def dollar_street(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import ZeroShotBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_dollar_street", **kwargs
     )
-    return ZeroShotBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-        classes=benchmark.classes,
-        templates=benchmark.templates,
-    )
+    return {
+        "zeroshot_classification": ZeroShotBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "clip_judge_classification": CLIPJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+            templates=benchmark.templates,
+        ),
+        "llm_judge_classification": LLMJudgeBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1305,15 +2058,19 @@ def dollar_street(benchmark_name, transform=None, **kwargs):
     },
 )
 def vg_relation(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_vg_relation", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1330,15 +2087,19 @@ def vg_relation(benchmark_name, transform=None, **kwargs):
     },
 )
 def flickr30k_order(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_flickr30k_order", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1355,15 +2116,19 @@ def flickr30k_order(benchmark_name, transform=None, **kwargs):
     },
 )
 def sugarcrepe(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_sugarcrepe", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1380,15 +2145,19 @@ def sugarcrepe(benchmark_name, transform=None, **kwargs):
     },
 )
 def bivlc(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_bivlc", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1405,15 +2174,19 @@ def bivlc(benchmark_name, transform=None, **kwargs):
     },
 )
 def winoground(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_winoground", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1430,15 +2203,19 @@ def winoground(benchmark_name, transform=None, **kwargs):
     },
 )
 def vg_attribution(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_vg_attribution", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
 
 
 @register_benchmark(
@@ -1455,12 +2232,16 @@ def vg_attribution(benchmark_name, transform=None, **kwargs):
     },
 )
 def coco_order(benchmark_name, transform=None, **kwargs):
-    from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.bechmark_handler import RelationBenchmarkHandler
     benchmark = HuggingFaceDataset(
         transform=transform, dataset_url="haideraltahan/wds_coco_order", **kwargs
     )
-    return RelationBenchmarkHandler(
-        benchmark_name=benchmark_name,
-        benchmark=benchmark,
-    )
+    return {
+        "zero_shot_relation": RelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }

@@ -10,6 +10,43 @@ from unibench.models_zoo import register_model
 from unibench.common_utils.constants import HUB_CACHE_DIR, CURRENT_DIR, IMAGENET_INCEPTION_MEAN, IMAGENET_INCEPTION_STD, OPENAI_CLIP_MEAN, OPENAI_CLIP_STD
 import sys
 
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava 1.5 7B",
+    },
+)
+def llava_1_5_7b(model_name, **kwargs):
+    from transformers import LlavaForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "llava-hf/llava-1.5-7b-hf"
+    model = LlavaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification"
+    ]
 
 def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs):
     from git import Repo

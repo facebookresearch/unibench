@@ -38,6 +38,8 @@ new_benchmark_requirements = [
     'fairscale',
     'gdown',
     'scipy',
+    'accelerate',
+    'openai'
 ]
 
 setuptools.setup(

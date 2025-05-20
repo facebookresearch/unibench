@@ -4,6 +4,7 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+
 from abc import ABC, abstractmethod
 from typing import List, Union
 
@@ -41,9 +42,11 @@ class AbstractModel(ABC):
         use_itm_head: bool = False,
         face_blur: bool = False,
         device: str = "cuda",
+        prompt: str = None,
+        use_transforms: bool = True,
     ) -> None:
         super(AbstractModel, self).__init__()
-        assert device in ["cpu", "cuda"], "device must be 'cpu' or 'cuda'"
+        assert device in ["cpu", "cuda", None], "device must be 'cpu' or 'cuda'"
 
         self.model = model
         self.use_itm_head = use_itm_head
@@ -60,13 +63,17 @@ class AbstractModel(ABC):
         self.face_blur = face_blur
         self.device = device
         self.tokenizer = tokenizer
+        self.use_transforms = use_transforms
 
-        self.model = self.model.to(device)
-        self.model.eval()
+        if self.model is not None and self.device is not None:
+            self.model = self.model.to(device)
+        if self.model is not None:
+            self.model.eval()
 
         self.zeroshot_weights = None
         self.classes = None
         self.templates = None
+        self.prompt = prompt
 
     @abstractmethod
     def get_image_embeddings(self, images: torch.Tensor) -> torch.Tensor:
@@ -79,6 +86,10 @@ class AbstractModel(ABC):
     def set_templates(self, templates: List[str]) -> None:
         if self.templates != templates:
             self.templates = templates
+
+    def set_prompt(self, prompt: str) -> None:
+        if self.prompt != prompt:
+            self.prompt = prompt
 
     def set_classes(self, classes: List[str]) -> None:
         if self.classes != classes:
@@ -110,20 +121,22 @@ class AbstractModel(ABC):
             Resize(scale_size, interpolation=self.interpolation),
             CenterCrop(self.input_resolution),
         ]
+        if self.use_transforms:
+            if self.face_blur:
+                print("No longer supporting face blur")
+                # transforms.append(FaceBlur(input_resolution=self.input_resolution))
 
-        if self.face_blur:
-            from .transformations.faceblur import FaceBlur
-            transforms.append(FaceBlur(input_resolution=self.input_resolution))
+            transforms.append(ToTensor())
+            transforms.append(GrayScale2RGB())
 
-        transforms.append(ToTensor())
-        transforms.append(GrayScale2RGB())
-
-        if self.use_norm:
-            transforms.append(
-                Normalize(
-                    mean=self.norm_mean,
-                    std=self.norm_std,
+            if self.use_norm:
+                transforms.append(
+                    Normalize(
+                        mean=self.norm_mean,
+                        std=self.norm_std,
+                    )
                 )
-            )
+        else:
+            transforms.append(ToTensor())
 
         return Compose(transforms)

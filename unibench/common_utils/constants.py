@@ -18,6 +18,7 @@ CACHE_DIR = Path(os.getenv("UNIBENCH_HUB", Path.home().joinpath(".cache").joinpa
 DATA_DIR = CACHE_DIR.joinpath("data")
 OUTPUT_DIR = CACHE_DIR.joinpath("outputs")
 LOCK_DIR = CACHE_DIR.joinpath("locks")
+MISC_DIR = CACHE_DIR.joinpath("misc")
 
 ##################################################################
 # MEAN AND STD
