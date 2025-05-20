@@ -5,40 +5,36 @@ This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
 
-from abc import abstractmethod
 import itertools
 from torch.distributions import Categorical
 from torch import softmax
 import torch
 
-
-class BenchmarkHandler:
-    def __init__(self, benchmark_name, benchmark):
-        self.benchmark_name = benchmark_name
-        self.benchmark = benchmark
-
-    @abstractmethod
-    def eval_batch(self, model, batch):
-        raise NotImplementedError
-
-    @abstractmethod
-    def on_validation_start(self, model):
-        pass
+from .benchmark_handler import BenchmarkHandler
 
 
 class ZeroShotBenchmarkHandler(BenchmarkHandler):
-    def __init__(self, benchmark_name, benchmark, classes, templates, topx=1):
-        BenchmarkHandler.__init__(self, benchmark_name, benchmark)
-        assert classes is not None, "Classes must be provided for zero shot benchmarks"
+    def __init__(
+        self,
+        class_names,
+        templates,
+        task_name="zeroshot_classification",
+        topk=1,
+        **kwargs,
+    ):
+        BenchmarkHandler.__init__(self, task_name=task_name, **kwargs)
+        assert (
+            class_names is not None
+        ), "Classes must be provided for zero shot benchmarks"
         assert (
             templates is not None
         ), "Templates must be provided for zero shot benchmarks"
-        self.classes = classes
+        self.class_names = class_names
         self.templates = templates
-        self.topx = topx
+        self.topk = topk
 
     def on_validation_start(self, model):
-        model.set_classes(self.classes)
+        model.set_classes(self.class_names)
         model.set_templates(self.templates)
         model.compute_zeroshot_weights()
 
@@ -74,7 +70,7 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
             top5 = softmax(logits, dim=-1).topk(5)[1]
             correct_top5 = (
                 torch.bitwise_and(
-                    torch.nn.functional.one_hot(top5, len(self.classes)).sum(1),
+                    torch.nn.functional.one_hot(top5, len(self.class_names)).sum(1),
                     targets,
                 )
                 .sum(1)
@@ -88,11 +84,11 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
             pred = softmax(logits, dim=-1)
             confidence = pred.max(1)[0].squeeze()
             entropy = Categorical(probs=pred).entropy()
-            _, pred = pred.topk(self.topx, 1, True, True)
+            _, pred = pred.topk(self.topk, 1, True, True)
             pred = pred.t()
             correct = pred.eq(targets.view(1, -1).expand_as(pred)).int().sum(0)
 
-            if len(self.classes) < 5:
+            if len(self.class_names) < 5:
                 top5 = targets
                 correct_top5 = [1] * len(targets)
             else:
@@ -100,8 +96,8 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
                 _, top5 = pred.topk(5, 1, True, True)
                 correct_top5 = (
                     torch.bitwise_and(
-                        torch.nn.functional.one_hot(top5, len(self.classes)).sum(1),
-                        torch.nn.functional.one_hot(targets, len(self.classes)),
+                        torch.nn.functional.one_hot(top5, len(self.class_names)).sum(1),
+                        torch.nn.functional.one_hot(targets, len(self.class_names)),
                     )
                     .sum(1)
                     .int()
@@ -123,12 +119,14 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
         if len(batch) > 2:
             res["image_name"] = sample_id
 
+        res["task_name"] = self.task_name
+
         return res
 
 
 class RelationBenchmarkHandler(BenchmarkHandler):
-    def __init__(self, benchmark_name, benchmark):
-        BenchmarkHandler.__init__(self, benchmark_name, benchmark)
+    def __init__(self, benchmark_name, benchmark, task_name="relation_classification"):
+        BenchmarkHandler.__init__(self, benchmark_name, benchmark, task_name)
 
     def get_similarity(self, model, images, captions):
         image_features = model.get_image_embeddings(images)
@@ -159,30 +157,7 @@ class RelationBenchmarkHandler(BenchmarkHandler):
         else:
             images, captions, sample_id = batch
 
-        if self.benchmark_name == "bivlc":
-            sim_C0_I0 = self.get_similarity(model, images[0], [captions[0]]).squeeze()
-            sim_C0_I1 = self.get_similarity(model, images[1], [captions[0]]).squeeze()
-            sim_C1_I0 = self.get_similarity(model, images[0], [captions[1]]).squeeze()
-            sim_C1_I1 = self.get_similarity(model, images[1], [captions[1]]).squeeze()
-
-            Ipos_2T = sim_C0_I0 > sim_C1_I0
-            Ineg_2T = sim_C1_I1 > sim_C0_I1
-            Tpos_2I = sim_C0_I0 > sim_C0_I1
-            Tneg_2I = sim_C1_I1 > sim_C1_I0
-            
-            I2T = torch.logical_and(Ipos_2T, Ineg_2T)
-            T2I = torch.logical_and(Tpos_2I, Tneg_2I)
-            group_score = torch.logical_and(I2T, T2I) 
-
-            res = {
-                "image_name": sample_id,
-                "benchmark_name": self.benchmark_name,
-                "correctness": group_score.int(),
-                'I2T': I2T.int(),
-                'T2I': T2I.int(),
-            }
-
-        elif isinstance(images, list):
+        if isinstance(images, list):
             c_i0 = self.get_similarity(model, images[0], captions).squeeze()
             c_i1 = self.get_similarity(model, images[1], captions).squeeze()
             text_correct = torch.logical_and(
@@ -219,5 +194,7 @@ class RelationBenchmarkHandler(BenchmarkHandler):
             if "\n" in attribute[0]:
                 attribute = [x.split("\n") for x in attribute]
             res["attribute"] = attribute
+
+        res["task_name"] = self.task_name
 
         return res

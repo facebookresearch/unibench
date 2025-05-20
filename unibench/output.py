@@ -40,16 +40,24 @@ class OutputHandler(object):
     def reset_local_csv(self):
         self._local_csv = pd.DataFrame()
 
-    def check_if_computed(self, model_name, benchmark_name, **kwargs):
+    def check_if_computed(self, model_name, benchmark_name, task_name, **kwargs):
         self.load_aggregate_results()
-        res = self.query(
-            df=self._aggregate,
-            **{"model_name": model_name, "benchmark_name": benchmark_name}
-        )
+        try:
+            res = self.query(
+                df=self._aggregate,
+                **{
+                    "model_name": model_name,
+                    "benchmark_name": benchmark_name,
+                    "task_name": task_name,
+                }
+            )
+        except:
+            return False
         if len(res) >= 1:
             return True
 
         self.load_csv(model_name, benchmark_name)
+        kwargs.update({"task_name": task_name})
         return len(self.query(**kwargs))
 
     def load_all_csvs(self, model_names):
@@ -177,25 +185,31 @@ class OutputHandler(object):
             self._aggregate = pd.read_feather(file)
 
     @lockutils.synchronized(name="aggregate", external=True, fair=True)
-    def save_aggregate_results(self, model_name, benchmark_name):
+    def save_aggregate_results(self, model_name, benchmark_name, task_name):
         file_dir = self.output_dir.joinpath("aggregate.f")
         if file_dir.exists():
             self._aggregate = pd.read_feather(file_dir)
 
         df = self.query(
             self._model_csv,
-            **{"model_name": [model_name], "benchmark_name": [benchmark_name]}
+            **{
+                "model_name": [model_name],
+                "benchmark_name": [benchmark_name],
+                "task_name": [task_name],
+            }
         )
 
         df = (
-            df.groupby(["model_name", "benchmark_name"])["correctness"]
+            df.groupby(["model_name", "benchmark_name", "task_name"])["correctness"]
             .mean()
             .reset_index()
         )
 
         df = (
             pd.concat([self._aggregate, df])
-            .drop_duplicates(subset=["model_name", "benchmark_name"], keep="last")
+            .drop_duplicates(
+                subset=["model_name", "benchmark_name", "task_name"], keep="last"
+            )
             .reset_index(drop=True)
         )
 
