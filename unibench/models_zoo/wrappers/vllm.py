@@ -77,6 +77,9 @@ class VLLModels(AbstractVLLM):
             .to(self.model.device)
             .to(self.model.dtype)
         )
+        
+        if "image_sizes" in inputs:
+            del inputs["image_sizes"]
         output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens, do_sample=False)
         gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
         res = []

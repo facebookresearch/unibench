@@ -55,10 +55,12 @@ class OutputHandler(object):
             return False
         if len(res) >= 1:
             return True
+        else:
+            return False
 
-        self.load_csv(model_name, benchmark_name)
-        kwargs.update({"task_name": task_name})
-        return len(self.query(**kwargs))
+        # self.load_csv(model_name, benchmark_name)
+        # kwargs.update({"task_name": task_name})
+        # return len(self.query(**kwargs))
 
     def load_all_csvs(self, model_names):
         self._model_csv = pd.DataFrame()
@@ -183,6 +185,8 @@ class OutputHandler(object):
         file = self.output_dir.joinpath("aggregate.f")
         if file.exists():
             self._aggregate = pd.read_feather(file)
+        else:
+            self._aggregate = pd.DataFrame()
 
     @lockutils.synchronized(name="aggregate", external=True, fair=True)
     def save_aggregate_results(self, model_name, benchmark_name, task_name):

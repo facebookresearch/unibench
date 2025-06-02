@@ -4,11 +4,12 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+from functools import partial
 from datasets import load_dataset, load_from_disk
 from huggingface_hub import hf_hub_download
 import torch
 from torch.utils.data import Dataset
-from ...common_utils.constants import DATA_DIR
+from unibench.common_utils.constants import DATA_DIR
 from pathlib import Path
 
 
@@ -40,14 +41,16 @@ class HuggingFaceDataset(Dataset):
         root: str = DATA_DIR,
         transform=None,
         target_transform=None,
-        download_num_workers=60,
+        download_num_workers=40,
         image_extension="webp",
         classes=None,
         templates=None,
+        max_num_samples=None,
+        subset_kwargs=None,
         *args,
         **kwargs
     ):
-        Dataset.__init__(self)
+        Dataset.__init__(self, *args, **kwargs)
         assert dataset_url != "", "Please provide a dataset url"
 
         self.dataset_name = dataset_url.split("/")[-1]
@@ -58,6 +61,7 @@ class HuggingFaceDataset(Dataset):
         self.transform = transform
         self.download_num_workers = download_num_workers
         self.target_transform = target_transform
+        self.max_num_samples = max_num_samples
 
         self.classes = classes
         self.templates = templates
@@ -66,6 +70,16 @@ class HuggingFaceDataset(Dataset):
             self.download_dataset()
 
         self.dataset = load_from_disk(str(self.dataset_dir))
+        
+        if subset_kwargs is not None:
+            def fil(x, key, val):
+                return val in x[key]
+            for d in subset_kwargs:
+                k,v = d.values()
+                self.dataset = self.dataset.filter(partial(fil, key=k, val=v), num_proc=self.download_num_workers)
+        
+        if self.max_num_samples is not None and len(self.dataset) > self.max_num_samples:
+            self.dataset = self.dataset.select(range(self.max_num_samples))
 
         try:
             if classes is None:
