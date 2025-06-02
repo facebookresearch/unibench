@@ -270,7 +270,10 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
         use_itm_head=True,
         input_resolution=image_size,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -458,7 +461,10 @@ def eva02_vitE14_plus_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -492,7 +498,10 @@ def eva02_vitE14_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -526,7 +535,10 @@ def eva02_vitL14_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -560,7 +572,10 @@ def eva02_vitB16_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -594,7 +609,10 @@ def eva01_vitG14_plus_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -628,7 +646,10 @@ def eva01_vitG14_400m(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -663,7 +684,10 @@ def clipa_vitbigG14(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=32,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -695,7 +719,10 @@ def vitamin_s_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -727,7 +754,10 @@ def vitamin_s_ltt_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -759,7 +789,10 @@ def vitamin_b_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -791,7 +824,10 @@ def vitamin_b_ltt_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -823,7 +859,10 @@ def vitamin_l_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -855,7 +894,10 @@ def vitamin_l2_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -887,7 +929,10 @@ def vitamin_l2_256_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -919,7 +964,10 @@ def vitamin_l2_336_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -951,7 +999,10 @@ def vitamin_xl_256_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -983,7 +1034,10 @@ def vitamin_xl_336_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1015,7 +1069,10 @@ def vitamin_xl_384_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1047,7 +1104,10 @@ def vitamin_l_256_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1079,7 +1139,10 @@ def vitamin_l_336_1b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1114,7 +1177,10 @@ def clipa_vitH14(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=32,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1149,7 +1215,10 @@ def clipa_vitL14(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=32,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1184,7 +1253,10 @@ def siglip_vitL16(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1219,7 +1291,10 @@ def roberta_vitB32(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1254,7 +1329,10 @@ def siglip_vitB16(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1289,7 +1367,10 @@ def siglip_vitB16_256(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1324,7 +1405,10 @@ def siglip_vitB16_384(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1359,7 +1443,10 @@ def siglip_vitB16_512(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1394,7 +1481,10 @@ def siglip_vitL16_384(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1429,7 +1519,10 @@ def siglip_so400_14(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=16,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1464,7 +1557,10 @@ def siglip_so400_14_378(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=16,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1499,7 +1595,10 @@ def siglip_so400_14_384(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=16,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1534,7 +1633,10 @@ def siglip2_so400_16_512(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1569,7 +1671,10 @@ def siglip2_so400_16_512(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1604,7 +1709,10 @@ def siglip2_so400_16_384(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1639,7 +1747,10 @@ def siglip2_so400_16_256(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1674,7 +1785,10 @@ def siglip2_so400_14_378(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1709,7 +1823,10 @@ def siglip2_so400_14(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1744,7 +1861,10 @@ def siglip2_vitL16_512(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1779,7 +1899,10 @@ def siglip2_vitL16_384(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1814,7 +1937,10 @@ def siglip2_vitL16_256(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1849,7 +1975,10 @@ def siglip2_vitB16_512(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1884,7 +2013,10 @@ def siglip2_vitB16_384(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1919,7 +2051,10 @@ def siglip2_vitB16_256(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1954,7 +2089,10 @@ def siglip2_vitB16(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -1989,7 +2127,10 @@ def siglip2_vitB32_256(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=64,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2023,7 +2164,10 @@ def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2057,7 +2201,10 @@ def openclip_vitB16_metaclip_400m(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2091,7 +2238,10 @@ def openclip_vitB32_metaclip_400m(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2125,7 +2275,10 @@ def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2159,7 +2312,10 @@ def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2193,7 +2349,10 @@ def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2227,7 +2386,10 @@ def openclip_vitL14_dfn2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2261,7 +2423,10 @@ def openclip_vitL14_metaclip_400(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2295,7 +2460,10 @@ def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2329,7 +2497,10 @@ def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2363,7 +2534,10 @@ def openclip_vitH14_dfn5b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2397,7 +2571,10 @@ def openclip_convnext_base(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2429,7 +2606,10 @@ def clip_vitB32(model_name, **kwargs):
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2463,7 +2643,10 @@ def openclip_vitB32_datacomp_s(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2497,7 +2680,10 @@ def openclip_vitB32_datacomp_m(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2531,7 +2717,10 @@ def openclip_vitB32_datacomp_xl(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2565,7 +2754,10 @@ def openclip_vitB16_datacomp_xl(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2599,7 +2791,10 @@ def openclip_vitB16_datacomp_l(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2633,7 +2828,10 @@ def openclip_vitH14(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2680,7 +2878,10 @@ def xvlm_flickr(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=384,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2713,7 +2914,10 @@ def flava_full(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=processor.size["height"],
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2747,7 +2951,10 @@ def openclip_vitL14_400m(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2781,7 +2988,10 @@ def openclip_vitL14_datacomp_xl(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2815,7 +3025,10 @@ def openclip_vitL14_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2847,7 +3060,10 @@ def clip_vitL14(model_name, **kwargs):
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2894,7 +3110,10 @@ def xvlm_coco(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=384,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2928,7 +3147,10 @@ def openclip_vitB32_400m(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2962,7 +3184,10 @@ def openclip_vitB32_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -2996,7 +3221,10 @@ def openclip_vitG14_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3030,7 +3258,10 @@ def openclip_vitbigG14_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3064,7 +3295,10 @@ def openclip_vitB16_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3098,7 +3332,10 @@ def openclip_vitB16_400m(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3133,7 +3370,10 @@ def opencoca_vitL14_2b(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=76,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3168,7 +3408,10 @@ def opencoca_vitB32_2b(model_name, **kwargs):
         logit_scale=model.logit_scale,
         context_length=76,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3208,7 +3451,10 @@ def negclip_vitB32(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3239,7 +3485,10 @@ def clip_vitB16(model_name, **kwargs):
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3269,7 +3518,10 @@ def clip_resnet50(model_name, **kwargs):
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3303,7 +3555,10 @@ def clip_resnet50_quickgelu(model_name, **kwargs):
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3337,7 +3592,10 @@ def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3371,7 +3629,10 @@ def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3403,7 +3664,10 @@ def openclip_resnet101_yfcc(model_name, **kwargs):
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3435,7 +3699,10 @@ def openclip_resnet50_yfcc(model_name, **kwargs):
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3467,7 +3734,10 @@ def openclip_resnet50_cc(model_name, **kwargs):
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3497,7 +3767,10 @@ def clip_resnet101(model_name, **kwargs):
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3531,7 +3804,10 @@ def clip_resnet101_quickgelu(model_name, **kwargs):
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3565,7 +3841,10 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3595,7 +3874,10 @@ def clip_resnet50x4(model_name, **kwargs):
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3625,7 +3907,10 @@ def clip_resnet50x16(model_name, **kwargs):
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
 
 
 @register_model(
@@ -3655,4 +3940,7 @@ def clip_resnet50x64(model_name, **kwargs):
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
         **kwargs
-    )
+    ), [
+        "zeroshot_classification",
+        "zeroshot_relation",
+    ]
