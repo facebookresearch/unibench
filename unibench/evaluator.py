@@ -79,14 +79,14 @@ class Evaluator(object):
     def __init__(
         self,
         seed: int = 1337,
-        num_workers=int(os.environ.get("SLURM_CPUS_PER_TASK") or 96),
+        num_workers=int(os.environ.get("SLURM_CPUS_PER_TASK") or 64),
         models: Union[List[str], str] = "all",
         benchmarks: Union[List[str], str] = "all",
         model_id: Union[int, None] = None,
         benchmark_id: Union[int, None] = None,
         output_dir: str = OUTPUT_DIR,
         benchmarks_dir: str = DATA_DIR,
-        download_aggregate_precomputed: bool = True,
+        download_aggregate_precomputed: bool = False,
         download_all_precomputed: bool = False,
     ):
         self.seed = seed
@@ -162,16 +162,19 @@ class Evaluator(object):
         )
         return model_mappings
 
-    def add_benchmark(self, benchmark, handler, meta_data={}):
+    def add_benchmark(self, benchmark_name, benchmark, handlers, meta_data={}):
         from unibench.benchmarks_zoo.registry import register_benchmark
         import unibench.benchmarks_zoo.benchmarks as benchmarks_module
 
         def temp_func(benchmark_name, transform=None, **kwargs):
-            bm = benchmark(transform=transform, **kwargs)
-
-            return handler(benchmark=bm)
-
-        benchmark_name = handler.keywords["benchmark_name"]
+            bm = benchmark(transform=transform)
+            hands = {}
+            for handler_name, handler_class in handlers.items():
+                hands[handler_name] = handler_class(
+                    benchmark_name=benchmark_name,
+                    benchmark=bm,
+                )
+            return hands
 
         temp_func.__name__ = benchmark_name
         register_benchmark("new_benchmark", meta_data)(temp_func)
@@ -232,7 +235,7 @@ class Evaluator(object):
         face_blur: bool = False,
         device="cpu",
         batch_per_gpu: int = 32,
-        tasks: Union[List[str], str] = ['clip_judge_relation'],
+        tasks: Union[List[str], str] = ['zeroshot_classification'],
         max_num_samples: int = 5000,
     ):
         """

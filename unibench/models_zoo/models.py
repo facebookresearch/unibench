@@ -7,8 +7,16 @@ LICENSE file in the root directory of this source tree.
 
 import os
 from unibench.models_zoo import register_model
-from unibench.common_utils.constants import HUB_CACHE_DIR, CURRENT_DIR, IMAGENET_INCEPTION_MEAN, IMAGENET_INCEPTION_STD, OPENAI_CLIP_MEAN, OPENAI_CLIP_STD
+from unibench.common_utils.constants import (
+    HUB_CACHE_DIR,
+    CURRENT_DIR,
+    IMAGENET_INCEPTION_MEAN,
+    IMAGENET_INCEPTION_STD,
+    OPENAI_CLIP_MEAN,
+    OPENAI_CLIP_STD,
+)
 import sys
+
 
 @register_model(
     "vllm",
@@ -18,6 +26,8 @@ import sys
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 1.5 7B",
+        "year": 2023,
+        "month": 9,  # September 2023 release
     },
 )
 def llava_1_5_7b(model_name, **kwargs):
@@ -28,9 +38,11 @@ def llava_1_5_7b(model_name, **kwargs):
 
     name = "llava-hf/llava-1.5-7b-hf"
     model = LlavaForConditionalGeneration.from_pretrained(
-        name, low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="balanced"
+        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="balanced"
     )
-    processor = AutoProcessor.from_pretrained(name, use_fast=True)
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
     return VLLModels(
         model=model,
         model_name=model_name,
@@ -45,12 +57,194 @@ def llava_1_5_7b(model_name, **kwargs):
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
-        "in_context_text_classification"
+        "in_context_text_classification",
     ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next Llama 8B",
+        "year": 2024,
+        "month": 1,  # March 2024 release
+    },
+)
+def llava_next_llama_8b(model_name, **kwargs):
+    from transformers import LlavaNextForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "llava-hf/llama3-llava-next-8b-hf"
+    model = LlavaNextForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="balanced"
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Chameleon",
+        "year": 2024,
+        "month": 4,  # April 2024 release
+    },
+)
+def chameleon_7b(model_name, **kwargs):
+    from transformers import ChameleonForConditionalGeneration
+    from transformers import ChameleonProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "facebook/chameleon-7b"
+    model = ChameleonForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=False,
+        device_map="cuda",
+        torch_dtype=torch.bfloat16,
+        trust_remote_code=True,
+    )
+
+    processor = ChameleonProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    model.generation_config.pad_token_id = processor.tokenizer.pad_token_id
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+        "year": 2024,
+        "month": 5,  # May 2024 release
+    },
+)
+def paligemma_3b_224(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/paligemma-3b-pt-224"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="balanced"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side="left")
+
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava",
+        "year": 2024,
+        "month": 6,  # June 2024 release
+    },
+)
+def paligemma_3b_mix_224(model_name, **kwargs):
+    from transformers import PaliGemmaForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/paligemma-3b-mix-224"
+    model = PaliGemmaForConditionalGeneration.from_pretrained(
+        name, low_cpu_mem_usage=True, torch_dtype=torch.bfloat16, device_map="balanced"
+    )
+    processor = AutoProcessor.from_pretrained(name, use_fast=True, padding_side="left")
+
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        image_token="<image>",
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
 
 def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs):
     from git import Repo
     from unibench.models_zoo.wrappers import BlipModel
+
     if not HUB_CACHE_DIR.joinpath("BLIP").exists():
         Repo.clone_from(
             "https://github.com/salesforce/BLIP.git", HUB_CACHE_DIR.joinpath("BLIP")
@@ -87,6 +281,8 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "BLIP ViT B 16 ",
+        "year": 2022,
+        "month": 1,
     },
 )
 def blip_vitB16_14m(model_name, **kwargs):
@@ -107,6 +303,8 @@ def blip_vitB16_14m(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "BLIP ViT L 16 ",
+        "year": 2022,
+        "month": 1,
     },
 )
 def blip_vitL16_129m(model_name, **kwargs):
@@ -127,6 +325,8 @@ def blip_vitL16_129m(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "BLIP ViT B 16 ",
+        "year": 2022,
+        "month": 1,
     },
 )
 def blip_vitB16_129m(model_name, **kwargs):
@@ -147,6 +347,8 @@ def blip_vitB16_129m(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "BLIP ViT B 16 ",
+        "year": 2022,
+        "month": 1,
     },
 )
 def blip_vitB16_coco(model_name, **kwargs):
@@ -167,6 +369,8 @@ def blip_vitB16_coco(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "BLIP ViT B 16 ",
+        "year": 2022,
+        "month": 1,
     },
 )
 def blip_vitB16_flickr(model_name, **kwargs):
@@ -187,6 +391,8 @@ def blip_vitB16_flickr(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "BLIP ViT L 16 ",
+        "year": 2022,
+        "month": 1,
     },
 )
 def blip_vitL16_coco(model_name, **kwargs):
@@ -207,6 +413,8 @@ def blip_vitL16_coco(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "BLIP ViT L 16 ",
+        "year": 2022,
+        "month": 1,
     },
 )
 def blip_vitL16_flickr(model_name, **kwargs):
@@ -227,11 +435,14 @@ def blip_vitL16_flickr(model_name, **kwargs):
         "learning_objective": "EVA02",
         "architecture": "vit",
         "name": "EVA02 ViT E 14",
+        "year": 2023,
+        "month": 3,
     },
 )
 def eva02_vitE14_plus_2b(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA02-E-14-plus", pretrained="laion2b_s9b_b144k"
     )
@@ -258,11 +469,14 @@ def eva02_vitE14_plus_2b(model_name, **kwargs):
         "learning_objective": "EVA02",
         "architecture": "vit",
         "name": "EVA02 ViT E 14",
+        "year": 2023,
+        "month": 3
     },
 )
 def eva02_vitE14_2b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA02-E-14", pretrained="laion2b_s4b_b115k"
     )
@@ -289,11 +503,14 @@ def eva02_vitE14_2b(model_name, **kwargs):
         "learning_objective": "EVA02",
         "architecture": "vit",
         "name": "EVA02 ViT L 14",
+        "year": 2023,
+        "month": 3
     },
 )
 def eva02_vitL14_2b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA02-L-14", pretrained="merged2b_s4b_b131k"
     )
@@ -320,11 +537,14 @@ def eva02_vitL14_2b(model_name, **kwargs):
         "learning_objective": "EVA02",
         "architecture": "vit",
         "name": "EVA02 ViT B 16",
+        "year": 2023,
+        "month": 3
     },
 )
 def eva02_vitB16_2b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA02-B-16", pretrained="merged2b_s8b_b131k"
     )
@@ -351,11 +571,14 @@ def eva02_vitB16_2b(model_name, **kwargs):
         "learning_objective": "EVA01",
         "architecture": "vit",
         "name": "EVA01 ViT g 14",
+        "year": 2022,
+        "month": 11
     },
 )
 def eva01_vitG14_plus_2b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA01-g-14-plus", pretrained="merged2b_s11b_b114k"
     )
@@ -382,11 +605,14 @@ def eva01_vitG14_plus_2b(model_name, **kwargs):
         "learning_objective": "EVA01",
         "architecture": "vit",
         "name": "EVA01 ViT g 14",
+        "year": 2022,
+        "month": 11
     },
 )
 def eva01_vitG14_400m(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "EVA01-g-14", pretrained="laion400m_s11b_b41k"
     )
@@ -413,11 +639,14 @@ def eva01_vitG14_400m(model_name, **kwargs):
         "learning_objective": "CLIPA",
         "architecture": "vit",
         "name": "CLIPA ViT G 14",
+        "year": 2023,
+        "month": 5
     },
 )
 def clipa_vitbigG14(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-bigG-14-CLIPA", pretrained="datacomp1b"
     )
@@ -445,11 +674,14 @@ def clipa_vitbigG14(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-S",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_s_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-S", pretrained="datacomp1b"
     )
@@ -474,11 +706,14 @@ def vitamin_s_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-S-LTT",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_s_ltt_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-S-LTT", pretrained="datacomp1b"
     )
@@ -503,11 +738,14 @@ def vitamin_s_ltt_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-B",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_b_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-B", pretrained="datacomp1b"
     )
@@ -532,11 +770,14 @@ def vitamin_b_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-B-LTT",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_b_ltt_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-B-LTT", pretrained="datacomp1b"
     )
@@ -561,11 +802,14 @@ def vitamin_b_ltt_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-L",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_l_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L", pretrained="datacomp1b"
     )
@@ -590,11 +834,14 @@ def vitamin_l_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-L2",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_l2_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L2", pretrained="datacomp1b"
     )
@@ -619,11 +866,14 @@ def vitamin_l2_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-L2-256",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_l2_256_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L2-256", pretrained="datacomp1b"
     )
@@ -648,11 +898,14 @@ def vitamin_l2_256_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-L2-336",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_l2_336_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L2-336", pretrained="datacomp1b"
     )
@@ -677,11 +930,14 @@ def vitamin_l2_336_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-XL-256",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_xl_256_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-XL-256", pretrained="datacomp1b"
     )
@@ -706,11 +962,14 @@ def vitamin_xl_256_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-XL-336",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_xl_336_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-XL-336", pretrained="datacomp1b"
     )
@@ -735,11 +994,14 @@ def vitamin_xl_336_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-XL-384",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_xl_384_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-XL-384", pretrained="datacomp1b"
     )
@@ -764,11 +1026,14 @@ def vitamin_xl_384_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-L-256",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_l_256_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L-256", pretrained="datacomp1b"
     )
@@ -793,11 +1058,14 @@ def vitamin_l_256_1b(model_name, **kwargs):
         "learning_objective": "ViTamin",
         "architecture": "vitamin",
         "name": "ViTamin-L-336",
+        "year": 2024,
+        "month": 4
     },
 )
 def vitamin_l_336_1b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViTamin-L-336", pretrained="datacomp1b"
     )
@@ -822,11 +1090,14 @@ def vitamin_l_336_1b(model_name, **kwargs):
         "learning_objective": "CLIPA",
         "architecture": "vit",
         "name": "CLIPA ViT H 14",
+        "year": 2023,
+        "month": 5
     },
 )
 def clipa_vitH14(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-H-14-CLIPA", pretrained="datacomp1b"
     )
@@ -854,11 +1125,14 @@ def clipa_vitH14(model_name, **kwargs):
         "learning_objective": "CLIPA",
         "architecture": "vit",
         "name": "CLIPA ViT L 14",
+        "year": 2023,
+        "month": 5
     },
 )
 def clipa_vitL14(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14-CLIPA", pretrained="datacomp1b"
     )
@@ -886,11 +1160,14 @@ def clipa_vitL14(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP ViT L 16",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_vitL16(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP-256", pretrained="webli"
     )
@@ -918,11 +1195,14 @@ def siglip_vitL16(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "Roberta ViT B 32",
+        "year": 2022,
+        "month": 11
     },
 )
 def roberta_vitB32(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "roberta-ViT-B-32", pretrained="laion2b_s12b_b32k"
     )
@@ -941,6 +1221,7 @@ def roberta_vitB32(model_name, **kwargs):
         **kwargs
     )
 
+
 @register_model(
     "vision_text",
     {
@@ -949,11 +1230,14 @@ def roberta_vitB32(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP ViT B 16",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_vitB16(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP", pretrained="webli"
     )
@@ -981,11 +1265,14 @@ def siglip_vitB16(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP ViT B 16 256",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_vitB16_256(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP-256", pretrained="webli"
     )
@@ -1013,11 +1300,14 @@ def siglip_vitB16_256(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP ViT B 16 384",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_vitB16_384(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP-384", pretrained="webli"
     )
@@ -1045,11 +1335,14 @@ def siglip_vitB16_384(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP ViT B 16 512",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_vitB16_512(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP-512", pretrained="webli"
     )
@@ -1077,11 +1370,14 @@ def siglip_vitB16_512(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP ViT L 16 384",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_vitL16_384(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP-384", pretrained="webli"
     )
@@ -1109,11 +1405,14 @@ def siglip_vitL16_384(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP So400 14",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_so400_14(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP", pretrained="webli"
     )
@@ -1141,11 +1440,14 @@ def siglip_so400_14(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP So400 14 378",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_so400_14_378(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP-378", pretrained="webli"
     )
@@ -1173,11 +1475,14 @@ def siglip_so400_14_378(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP So400 14 384",
+        "year": 2023,
+        "month": 3
     },
 )
 def siglip_so400_14_384(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP-384", pretrained="webli"
     )
@@ -1205,11 +1510,14 @@ def siglip_so400_14_384(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP 2 So400 16 512",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_so400_16_512(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-16-SigLIP2-512", pretrained="webli"
     )
@@ -1237,11 +1545,14 @@ def siglip2_so400_16_512(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP 2 So400 16 512",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_so400_16_512(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-16-SigLIP2-512", pretrained="webli"
     )
@@ -1269,11 +1580,14 @@ def siglip2_so400_16_512(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP 2 So400 16 384",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_so400_16_384(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-16-SigLIP2-384", pretrained="webli"
     )
@@ -1301,11 +1615,14 @@ def siglip2_so400_16_384(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP 2 So400 16 256",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_so400_16_256(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-16-SigLIP2-256", pretrained="webli"
     )
@@ -1333,11 +1650,14 @@ def siglip2_so400_16_256(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP 2 So400 14 378",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_so400_14_378(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP2-378", pretrained="webli"
     )
@@ -1365,11 +1685,14 @@ def siglip2_so400_14_378(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
         "name": "SigLIP 2 So400 14",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_so400_14(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-SO400M-14-SigLIP2", pretrained="webli"
     )
@@ -1397,11 +1720,14 @@ def siglip2_so400_14(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP 2 ViT L 16 512",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_vitL16_512(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP2-512", pretrained="webli"
     )
@@ -1429,11 +1755,14 @@ def siglip2_vitL16_512(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP 2 ViT L 16 384",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_vitL16_384(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP2-384", pretrained="webli"
     )
@@ -1461,11 +1790,14 @@ def siglip2_vitL16_384(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP 2 ViT L 16 256",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_vitL16_256(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-16-SigLIP2-256", pretrained="webli"
     )
@@ -1493,11 +1825,14 @@ def siglip2_vitL16_256(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP 2 ViT B 16 512",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_vitB16_512(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP2-512", pretrained="webli"
     )
@@ -1525,11 +1860,14 @@ def siglip2_vitB16_512(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP 2 ViT B 16 384",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_vitB16_384(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP2-384", pretrained="webli"
     )
@@ -1557,11 +1895,14 @@ def siglip2_vitB16_384(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP 2 ViT B 16 256",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_vitB16_256(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP2-256", pretrained="webli"
     )
@@ -1589,11 +1930,14 @@ def siglip2_vitB16_256(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP 2 ViT B 16",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_vitB16(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-SigLIP2", pretrained="webli"
     )
@@ -1621,11 +1965,14 @@ def siglip2_vitB16(model_name, **kwargs):
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "vit",
         "name": "SigLIP 2 ViT B 32 256",
+        "year": 2025,
+        "month": 2
     },
 )
 def siglip2_vitB32_256(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-SigLIP2-256", pretrained="webli"
     )
@@ -1653,11 +2000,14 @@ def siglip2_vitB32_256(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "MetaCLIP ViT B 32",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-quickgelu", pretrained="metaclip_fullcc"
     )
@@ -1684,11 +2034,14 @@ def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "MetaCLIP ViT B 16",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitB16_metaclip_400m(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-quickgelu", pretrained="metaclip_400m"
     )
@@ -1715,11 +2068,14 @@ def openclip_vitB16_metaclip_400m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "MetaCLIP ViT B 32",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitB32_metaclip_400m(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-quickgelu", pretrained="metaclip_400m"
     )
@@ -1746,11 +2102,14 @@ def openclip_vitB32_metaclip_400m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "ViT B 32 GeLU",
+        "year": 2021,
+        "month": 11
     },
 )
 def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-quickgelu", pretrained="laion400m_e32"
     )
@@ -1777,11 +2136,14 @@ def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "ViT B 32 GeLU",
+        "year": 2021,
+        "month": 1
     },
 )
 def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32-quickgelu", pretrained="openai"
     )
@@ -1808,11 +2170,14 @@ def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "MetaCLIP ViT B 16",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16-quickgelu", pretrained="metaclip_fullcc"
     )
@@ -1839,11 +2204,14 @@ def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT L 14",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitL14_dfn2b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14-quickgelu", pretrained="dfn2b"
     )
@@ -1870,11 +2238,14 @@ def openclip_vitL14_dfn2b(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "MetaCLIP ViT L 14",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitL14_metaclip_400(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14-quickgelu", pretrained="metaclip_400m"
     )
@@ -1901,11 +2272,14 @@ def openclip_vitL14_metaclip_400(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "MetaCLIP ViT L 14",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14-quickgelu", pretrained="metaclip_fullcc"
     )
@@ -1932,11 +2306,14 @@ def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "MetaCLIP ViT H 14",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-H-14-quickgelu", pretrained="metaclip_fullcc"
     )
@@ -1963,11 +2340,14 @@ def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT H 14",
+        "year": 2023,
+        "month": 9
     },
 )
 def openclip_vitH14_dfn5b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-H-14-quickgelu", pretrained="dfn5b"
     )
@@ -1994,11 +2374,14 @@ def openclip_vitH14_dfn5b(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "OpenCLIP ConvNext",
+        "year": 2021,
+        "month": 7
     },
 )
 def openclip_convnext_base(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "convnext_base", pretrained="laion400m_s13b_b51k"
     )
@@ -2025,11 +2408,14 @@ def openclip_convnext_base(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "CLIP ViT B 32",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_vitB32(model_name, **kwargs):
     import clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _ = clip.load("ViT-B/32", download_root=str(HUB_CACHE_DIR))
 
     tokenizer = clip.tokenize
@@ -2054,11 +2440,14 @@ def clip_vitB32(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "DataComp ViT B 32",
+        "year": 2023,
+        "month": 4
     },
 )
 def openclip_vitB32_datacomp_s(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="datacomp_s_s13m_b4k"
     )
@@ -2085,11 +2474,14 @@ def openclip_vitB32_datacomp_s(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "DataComp ViT B 32",
+        "year": 2023,
+        "month": 4
     },
 )
 def openclip_vitB32_datacomp_m(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="datacomp_m_s128m_b4k"
     )
@@ -2116,11 +2508,14 @@ def openclip_vitB32_datacomp_m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "DataComp ViT B 32",
+        "year": 2023,
+        "month": 4
     },
 )
 def openclip_vitB32_datacomp_xl(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="datacomp_xl_s13b_b90k"
     )
@@ -2147,11 +2542,14 @@ def openclip_vitB32_datacomp_xl(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "DataComp ViT B 16",
+        "year": 2023,
+        "month": 4
     },
 )
 def openclip_vitB16_datacomp_xl(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16", pretrained="datacomp_xl_s13b_b90k"
     )
@@ -2178,11 +2576,14 @@ def openclip_vitB16_datacomp_xl(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "DataComp ViT B 16",
+        "year": 2023,
+        "month": 4
     },
 )
 def openclip_vitB16_datacomp_l(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16", pretrained="datacomp_l_s1b_b8k"
     )
@@ -2209,11 +2610,14 @@ def openclip_vitB16_datacomp_l(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT H 14",
+        "year": 2021,
+        "month": 7
     },
 )
 def openclip_vitH14(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-H-14", pretrained="laion2b_s32b_b79k"
     )
@@ -2240,6 +2644,8 @@ def openclip_vitH14(model_name, **kwargs):
         "learning_objective": "XVLM",
         "architecture": "Swin",
         "name": "XVLM Swin B",
+        "year": 2021,
+        "month": 11
     },
 )
 def xvlm_flickr(model_name, **kwargs):
@@ -2285,6 +2691,8 @@ def xvlm_flickr(model_name, **kwargs):
         "learning_objective": "Other",
         "architecture": "vit",
         "name": "FLAVA ViT B 32",
+        "year": 2021,
+        "month": 12
     },
 )
 def flava_full(model_name, **kwargs):
@@ -2316,11 +2724,14 @@ def flava_full(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT L 14",
+        "year": 2021,
+        "month": 11
     },
 )
 def openclip_vitL14_400m(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14", pretrained="laion400m_e32"
     )
@@ -2347,11 +2758,14 @@ def openclip_vitL14_400m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "DataComp ViT L 14",
+        "year": 2023,
+        "month": 4
     },
 )
 def openclip_vitL14_datacomp_xl(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14", pretrained="datacomp_xl_s13b_b90k"
     )
@@ -2378,11 +2792,14 @@ def openclip_vitL14_datacomp_xl(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT L 14",
+        "year": 2021,
+        "month": 7
     },
 )
 def openclip_vitL14_2b(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-L-14", pretrained="laion2b_s32b_b82k"
     )
@@ -2409,11 +2826,14 @@ def openclip_vitL14_2b(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "CLIP ViT L 14",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_vitL14(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import clip
+
     model, _ = clip.load("ViT-L/14", download_root=str(HUB_CACHE_DIR))
 
     tokenizer = clip.tokenize
@@ -2438,6 +2858,8 @@ def clip_vitL14(model_name, **kwargs):
         "learning_objective": "XVLM",
         "architecture": "Swin",
         "name": "XVLM Swin B",
+        "year": 2021,
+        "month": 11
     },
 )
 def xvlm_coco(model_name, **kwargs):
@@ -2483,11 +2905,14 @@ def xvlm_coco(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT B 32",
+        "year": 2021,
+        "month": 11
     },
 )
 def openclip_vitB32_400m(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="laion400m_e32"
     )
@@ -2514,11 +2939,14 @@ def openclip_vitB32_400m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT B 32",
+        "year": 2021,
+        "month": 11
     },
 )
 def openclip_vitB32_2b(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-32", pretrained="laion2b_s34b_b79k"
     )
@@ -2545,11 +2973,14 @@ def openclip_vitB32_2b(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT g 14",
+        "year": 2021,
+        "month": 11
     },
 )
 def openclip_vitG14_2b(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-g-14", pretrained="laion2b_s34b_b88k"
     )
@@ -2576,11 +3007,14 @@ def openclip_vitG14_2b(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT G 14",
+        "year": 2021,
+        "month": 11
     },
 )
 def openclip_vitbigG14_2b(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-bigG-14", pretrained="laion2b_s39b_b160k"
     )
@@ -2607,11 +3041,14 @@ def openclip_vitbigG14_2b(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT B 16",
+        "year": 2021,
+        "month": 11
     },
 )
 def openclip_vitB16_2b(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16", pretrained="laion2b_s34b_b88k"
     )
@@ -2638,11 +3075,14 @@ def openclip_vitB16_2b(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "OpenCLIP ViT B 16",
+        "year": 2021,
+        "month": 11
     },
 )
 def openclip_vitB16_400m(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "ViT-B-16", pretrained="laion400m_e32"
     )
@@ -2669,11 +3109,14 @@ def openclip_vitB16_400m(model_name, **kwargs):
         "learning_objective": "Other",
         "architecture": "vit",
         "name": "OpenCOCA ViT L 14",
+        "year": 2022,
+        "month": 5
     },
 )
 def opencoca_vitL14_2b(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "coca_ViT-L-14", pretrained="laion2b_s13b_b90k"
     )
@@ -2701,11 +3144,14 @@ def opencoca_vitL14_2b(model_name, **kwargs):
         "learning_objective": "Other",
         "architecture": "vit",
         "name": "OpenCOCA ViT B 32",
+        "year": 2022,
+        "month": 5
     },
 )
 def opencoca_vitB32_2b(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "coca_ViT-B-32", pretrained="laion2b_s13b_b90k"
     )
@@ -2733,18 +3179,23 @@ def opencoca_vitB32_2b(model_name, **kwargs):
         "learning_objective": "Negative CLIP",
         "architecture": "vit",
         "name": "NegCLIP ViT B 32",
+        "year": 2023,
+        "month": 3
     },
 )
 def negclip_vitB32(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     path = os.path.join(HUB_CACHE_DIR, "negclip.pth")
     if not os.path.exists(path):
         print("Downloading the NegCLIP model...")
         import gdown
 
         gdown.download(id="1ooVVPxB-tvptgmHlIMMFGV3Cg-IrhbRZ", output=path, quiet=False)
-    model, _, _ = open_clip.create_model_and_transforms("ViT-B-32", pretrained=path, load_weights_only=False)
+    model, _, _ = open_clip.create_model_and_transforms(
+        "ViT-B-32", pretrained=path, load_weights_only=False
+    )
 
     tokenizer = open_clip.get_tokenizer("ViT-B-32")
 
@@ -2768,11 +3219,14 @@ def negclip_vitB32(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "vit",
         "name": "CLIP ViT B 16",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_vitB16(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import clip
+
     model, _ = clip.load("ViT-B/16", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
 
@@ -2796,11 +3250,14 @@ def clip_vitB16(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet50",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_resnet50(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import clip
+
     model, _ = clip.load("RN50", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
@@ -2823,11 +3280,14 @@ def clip_resnet50(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet50 GeLU",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_resnet50_quickgelu(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "RN50-quickgelu", pretrained="openai"
     )
@@ -2854,11 +3314,14 @@ def clip_resnet50_quickgelu(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet50 GeLU",
+        "year": 2021,
+        "month": 7
     },
 )
 def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "RN50-quickgelu", pretrained="yfcc15m"
     )
@@ -2885,11 +3348,14 @@ def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet50 GeLU",
+        "year": 2021,
+        "month": 7
     },
 )
 def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms(
         "RN50-quickgelu", pretrained="cc12m"
     )
@@ -2916,11 +3382,14 @@ def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "OpenCLIP ResNet101",
+        "year": 2021,
+        "month": 7
     },
 )
 def openclip_resnet101_yfcc(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms("RN101", pretrained="yfcc15m")
 
     tokenizer = open_clip.get_tokenizer("RN101")
@@ -2945,11 +3414,14 @@ def openclip_resnet101_yfcc(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "OpenCLIP ResNet50",
+        "year": 2021,
+        "month": 7
     },
 )
 def openclip_resnet50_yfcc(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms("RN50", pretrained="yfcc15m")
 
     tokenizer = open_clip.get_tokenizer("RN50")
@@ -2974,11 +3446,14 @@ def openclip_resnet50_yfcc(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "OpenCLIP ResNet50",
+        "year": 2021,
+        "month": 7
     },
 )
 def openclip_resnet50_cc(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import open_clip
+
     model, _, _ = open_clip.create_model_and_transforms("RN50", pretrained="cc12m")
 
     tokenizer = open_clip.get_tokenizer("RN50")
@@ -3003,11 +3478,14 @@ def openclip_resnet50_cc(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet101",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_resnet101(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import clip
+
     model, _ = clip.load("RN101", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
@@ -3030,11 +3508,14 @@ def clip_resnet101(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet101 GeLU",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_resnet101_quickgelu(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "RN101-quickgelu", pretrained="openai"
     )
@@ -3061,11 +3542,14 @@ def clip_resnet101_quickgelu(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet101 GeLU",
+        "year": 2021,
+        "month": 7
     },
 )
 def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
     import open_clip
     from unibench.models_zoo.wrappers import ClipModel
+
     model, _, _ = open_clip.create_model_and_transforms(
         "RN101-quickgelu", pretrained="yfcc15m"
     )
@@ -3092,11 +3576,14 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet50x4",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_resnet50x4(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import clip
+
     model, _ = clip.load("RN50x4", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
@@ -3119,11 +3606,14 @@ def clip_resnet50x4(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet50x16",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_resnet50x16(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import clip
+
     model, _ = clip.load("RN50x16", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
@@ -3146,11 +3636,14 @@ def clip_resnet50x16(model_name, **kwargs):
         "learning_objective": "Contrastive",
         "architecture": "conv",
         "name": "CLIP ResNet50x64",
+        "year": 2021,
+        "month": 1
     },
 )
 def clip_resnet50x64(model_name, **kwargs):
     from unibench.models_zoo.wrappers import ClipModel
     import clip
+
     model, _ = clip.load("RN50x64", download_root=str(HUB_CACHE_DIR))
     tokenizer = clip.tokenize
     return ClipModel(
