@@ -1548,7 +1548,7 @@ def countbench(benchmark_name, transform=None, **kwargs):
         transform=transform, dataset_url="haideraltahan/wds_countbench", **kwargs
     )
     return {
-        "zero_shot_relation": RelationBenchmarkHandler(
+        "zeroshot_relation": RelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2064,7 +2064,7 @@ def vg_relation(benchmark_name, transform=None, **kwargs):
         transform=transform, dataset_url="haideraltahan/wds_vg_relation", **kwargs
     )
     return {
-        "zero_shot_relation": RelationBenchmarkHandler(
+        "zeroshot_relation": RelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2093,7 +2093,7 @@ def flickr30k_order(benchmark_name, transform=None, **kwargs):
         transform=transform, dataset_url="haideraltahan/wds_flickr30k_order", **kwargs
     )
     return {
-        "zero_shot_relation": RelationBenchmarkHandler(
+        "zeroshot_relation": RelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2122,7 +2122,7 @@ def sugarcrepe(benchmark_name, transform=None, **kwargs):
         transform=transform, dataset_url="haideraltahan/wds_sugarcrepe", **kwargs
     )
     return {
-        "zero_shot_relation": RelationBenchmarkHandler(
+        "zeroshot_relation": RelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2151,7 +2151,7 @@ def bivlc(benchmark_name, transform=None, **kwargs):
         transform=transform, dataset_url="haideraltahan/wds_bivlc", **kwargs
     )
     return {
-        "zero_shot_relation": RelationBenchmarkHandler(
+        "zeroshot_relation": RelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2180,7 +2180,7 @@ def winoground(benchmark_name, transform=None, **kwargs):
         transform=transform, dataset_url="haideraltahan/wds_winoground", **kwargs
     )
     return {
-        "zero_shot_relation": RelationBenchmarkHandler(
+        "zeroshot_relation": RelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2209,7 +2209,7 @@ def vg_attribution(benchmark_name, transform=None, **kwargs):
         transform=transform, dataset_url="haideraltahan/wds_vg_attribution", **kwargs
     )
     return {
-        "zero_shot_relation": RelationBenchmarkHandler(
+        "zeroshot_relation": RelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2238,7 +2238,7 @@ def coco_order(benchmark_name, transform=None, **kwargs):
         transform=transform, dataset_url="haideraltahan/wds_coco_order", **kwargs
     )
     return {
-        "zero_shot_relation": RelationBenchmarkHandler(
+        "zeroshot_relation": RelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),

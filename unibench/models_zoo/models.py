@@ -2834,54 +2834,54 @@ def openclip_vitH14(model_name, **kwargs):
     ]
 
 
-@register_model(
-    "vision_text",
-    {
-        "dataset_size": 16,
-        "model_size": 86,
-        "learning_objective": "XVLM",
-        "architecture": "Swin",
-        "name": "XVLM Swin B",
-        "year": 2021,
-        "month": 11
-    },
-)
-def xvlm_flickr(model_name, **kwargs):
-    from unibench.models_zoo.wrappers import XVLMModel
-    from .wrappers.xvlm_util.xvlm import XVLM
-    from .wrappers.xvlm_util.tokenization_bert import BertTokenizer
-    from .wrappers.xvlm_util.tokenization_roberta import RobertaTokenizer
-    from .wrappers.xvlm_util.utils import get_config
+# @register_model(
+#     "vision_text",
+#     {
+#         "dataset_size": 16,
+#         "model_size": 86,
+#         "learning_objective": "XVLM",
+#         "architecture": "Swin",
+#         "name": "XVLM Swin B",
+#         "year": 2021,
+#         "month": 11
+#     },
+# )
+# def xvlm_flickr(model_name, **kwargs):
+#     from unibench.models_zoo.wrappers import XVLMModel
+#     from .wrappers.xvlm_util.xvlm import XVLM
+#     from .wrappers.xvlm_util.tokenization_bert import BertTokenizer
+#     from .wrappers.xvlm_util.tokenization_roberta import RobertaTokenizer
+#     from .wrappers.xvlm_util.utils import get_config
 
-    config, model_path = get_config("xvlm-flickr")
+#     config, model_path = get_config("xvlm-flickr")
 
-    model = XVLM(config)
+#     model = XVLM(config)
 
-    model.load_pretrained(
-        model_path,
-        config,
-        is_eval=True,
-        is_pretrained=False,  # never used pretrained in NegCLIP paper?
-    )
+#     model.load_pretrained(
+#         model_path,
+#         config,
+#         is_eval=True,
+#         is_pretrained=False,  # never used pretrained in NegCLIP paper?
+#     )
 
-    if config["use_roberta"]:
-        tokenizer = RobertaTokenizer.from_pretrained(config["text_encoder"])
-    else:
-        # TODO: Hack. We should use the tokenizer from the config
-        tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+#     if config["use_roberta"]:
+#         tokenizer = RobertaTokenizer.from_pretrained(config["text_encoder"])
+#     else:
+#         # TODO: Hack. We should use the tokenizer from the config
+#         tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
-    return XVLMModel(
-        model=model,
-        model_name=model_name,
-        tokenizer=tokenizer,
-        norm_mean=OPENAI_CLIP_MEAN,
-        norm_std=OPENAI_CLIP_STD,
-        input_resolution=384,
-        **kwargs
-    ), [
-        "zeroshot_classification",
-        "zeroshot_relation",
-    ]
+#     return XVLMModel(
+#         model=model,
+#         model_name=model_name,
+#         tokenizer=tokenizer,
+#         norm_mean=OPENAI_CLIP_MEAN,
+#         norm_std=OPENAI_CLIP_STD,
+#         input_resolution=384,
+#         **kwargs
+#     ), [
+#         "zeroshot_classification",
+#         "zeroshot_relation",
+#     ]
 
 
 @register_model(
@@ -3066,54 +3066,54 @@ def clip_vitL14(model_name, **kwargs):
     ]
 
 
-@register_model(
-    "vision_text",
-    {
-        "dataset_size": 16,
-        "model_size": 86,
-        "learning_objective": "XVLM",
-        "architecture": "Swin",
-        "name": "XVLM Swin B",
-        "year": 2021,
-        "month": 11
-    },
-)
-def xvlm_coco(model_name, **kwargs):
-    from unibench.models_zoo.wrappers import XVLMModel
-    from .wrappers.xvlm_util.xvlm import XVLM
-    from .wrappers.xvlm_util.tokenization_bert import BertTokenizer
-    from .wrappers.xvlm_util.tokenization_roberta import RobertaTokenizer
-    from .wrappers.xvlm_util.utils import get_config
+# @register_model(
+#     "vision_text",
+#     {
+#         "dataset_size": 16,
+#         "model_size": 86,
+#         "learning_objective": "XVLM",
+#         "architecture": "Swin",
+#         "name": "XVLM Swin B",
+#         "year": 2021,
+#         "month": 11
+#     },
+# )
+# def xvlm_coco(model_name, **kwargs):
+#     from unibench.models_zoo.wrappers import XVLMModel
+#     from .wrappers.xvlm_util.xvlm import XVLM
+#     from .wrappers.xvlm_util.tokenization_bert import BertTokenizer
+#     from .wrappers.xvlm_util.tokenization_roberta import RobertaTokenizer
+#     from .wrappers.xvlm_util.utils import get_config
 
-    config, model_path = get_config("xvlm-coco")
+#     config, model_path = get_config("xvlm-coco")
 
-    model = XVLM(config)
+#     model = XVLM(config)
 
-    model.load_pretrained(
-        model_path,
-        config,
-        is_eval=True,
-        is_pretrained=False,  # never used pretrained in NegCLIP paper?
-    )
+#     model.load_pretrained(
+#         model_path,
+#         config,
+#         is_eval=True,
+#         is_pretrained=False,  # never used pretrained in NegCLIP paper?
+#     )
 
-    if config["use_roberta"]:
-        tokenizer = RobertaTokenizer.from_pretrained(config["text_encoder"])
-    else:
-        # TODO: Hack. We should use the tokenizer from the config
-        tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+#     if config["use_roberta"]:
+#         tokenizer = RobertaTokenizer.from_pretrained(config["text_encoder"])
+#     else:
+#         # TODO: Hack. We should use the tokenizer from the config
+#         tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
-    return XVLMModel(
-        model=model,
-        model_name=model_name,
-        tokenizer=tokenizer,
-        norm_mean=OPENAI_CLIP_MEAN,
-        norm_std=OPENAI_CLIP_STD,
-        input_resolution=384,
-        **kwargs
-    ), [
-        "zeroshot_classification",
-        "zeroshot_relation",
-    ]
+#     return XVLMModel(
+#         model=model,
+#         model_name=model_name,
+#         tokenizer=tokenizer,
+#         norm_mean=OPENAI_CLIP_MEAN,
+#         norm_std=OPENAI_CLIP_STD,
+#         input_resolution=384,
+#         **kwargs
+#     ), [
+#         "zeroshot_classification",
+#         "zeroshot_relation",
+#     ]
 
 
 @register_model(
