@@ -235,7 +235,7 @@ class Evaluator(object):
         face_blur: bool = False,
         device="cpu",
         batch_per_gpu: int = 32,
-        tasks: Union[List[str], str] = ['zeroshot_classification'],
+        tasks: Union[List[str], str] = ['zeroshot_classification', 'text_classification'],
         max_num_samples: int = 5000,
     ):
         """
