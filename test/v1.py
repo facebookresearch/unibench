@@ -41,7 +41,8 @@ import fire
 
 def main(task_name="text_classification", idx=2):
     evaluator = Evaluator(
-        download_aggregate_precomputed=False, model_id=idx, models=models
+        download_aggregate_precomputed=False, model_id=idx, models=models,
+        benchmarks="unibench1"
     )
 
     print("-" * 20)

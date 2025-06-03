@@ -18,4 +18,4 @@ export UNIBENCH_HUB=/storage/home/hcoda1/6/haltahan6/p-rmurty7-0/haider/.cache/u
 export TORCH_HOME=/storage/home/hcoda1/6/haltahan6/p-rmurty7-0/haider/.cache/torch
 cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/test
 
-python run_siglip2_evaluation.py --task_name=$1 --idx=$SLURM_ARRAY_TASK_ID
+python v1.py --task_name=$1 --idx=$SLURM_ARRAY_TASK_ID
