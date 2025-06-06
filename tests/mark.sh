@@ -12,4 +12,4 @@ source /private/home/marksibrahim/Projects/Unibench/unibench/unibench2/bin/activ
 which python
 cd /private/home/marksibrahim/Projects/Unibench/unibench/test
 
-python run_siglip2_evaluation.py --task_name=$1 --idx=$SLURM_ARRAY_TASK_ID
+python main.py --idx=$SLURM_ARRAY_TASK_ID --num_workers=80
