@@ -1,10 +1,10 @@
 from functools import partial
 from typing import List
 
+import fire
 import torch
 from unibench import Evaluator
 from unibench.benchmarks_zoo.handlers import ZeroShotBenchmarkHandler
-from wildlife_datasets.datasets import AnimalCLEF2025
 
 import requests
 import json
@@ -26,7 +26,7 @@ data = response.json()
 # Step 2: Extract the ImageNet-1K prompts
 templates = [x.replace("{c}", "{}") for x in data["imagenet1k"]]
 
-data_path = '/research/haider/.cache/datasets'
+data_path = '/storage/home/hcoda1/6/haltahan6/p-rmurty7-0/haider/.cache/datasets'
 
 class FungiTastic(torch.nn.Module):
     """
@@ -156,156 +156,179 @@ class FungiTastic(torch.nn.Module):
         """
         return self.df[self.df.category_id == category_id].index.tolist()
 
+def main(model_id: int = 4, num_workers: int = 8):
+    # Create benchmark using TestDataset with the correct paths
+    benchmark = FungiTastic(
+        root=data_path,
+        split='val',  # Use 'test' split for evaluation
+        transform=None,  # Add your transforms here if needed
+    )
 
-# Create benchmark using TestDataset with the correct paths
-benchmark = FungiTastic(
-    root=data_path,
-    split='val',  # Use 'test' split for evaluation
-    transform=None,  # Add your transforms here if needed
-)
+    # Get class names from the benchmark dataset
+    class_names = benchmark.class_names
 
-# Get class names from the benchmark dataset
-class_names = benchmark.class_names
-
-benchmark = partial(
-    FungiTastic,
-    root=data_path,
-    split='val',  # Use 
-)
+    benchmark = partial(
+        FungiTastic,
+        root=data_path,
+        split='val',  # Use 
+    )
 
 
-eval = Evaluator(models=[
-    'llava_1_5_7b',
-    'llava_next_llama_8b',
-    'chameleon_7b',
-    'paligemma_3b_224',
-    'paligemma_3b_mix_224'
-])
+    eval = Evaluator(
+        model_id=model_id,
+        num_workers=num_workers,
+        models=[
+        'llava_1_5_7b',
+        'llava_next_llama_8b',
+        'chameleon_7b',
+        'paligemma_3b_224',
+        'paligemma_3b_mix_224'
+    ])
 
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025_num_classes_2",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-            num_classes=2,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025_num_classes_4",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-            num_classes=4,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025_num_classes_8",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-            num_classes=8,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025_num_classes_16",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-            num_classes=16,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025_num_classes_32",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-            num_classes=32,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025_num_classes_64",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-            num_classes=64,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025_num_classes_128",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-            num_classes=128,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.add_benchmark(
-    benchmark_name="fungi_tastic_2025_num_classes_256",
-    benchmark=benchmark,
-    handlers={
-        "text_classification": partial(
-            TextClassificationBenchmarkHandler,
-            class_names=class_names,
-            num_classes=128,
-        ),
-    },
-    meta_data={
-        "benchmark_type": "object recognition",
-    },
-)
-eval.update_benchmark_list(["fungi_tastic_2025"])
-eval.evaluate()
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_2",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=2,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_4",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=4,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_8",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=8,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_16",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=16,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_32",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=32,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_64",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=64,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_128",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=128,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_256",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=256,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.add_benchmark(
+        benchmark_name="fungi_tastic_2025_num_classes_512",
+        benchmark=benchmark,
+        handlers={
+            "text_classification": partial(
+                TextClassificationBenchmarkHandler,
+                class_names=class_names,
+                num_classes=512,
+            ),
+        },
+        meta_data={
+            "benchmark_type": "object recognition",
+        },
+    )
+    eval.update_benchmark_list(["fungi_tastic_2025", "fungi_tastic_2025_num_classes_2", "fungi_tastic_2025_num_classes_4",
+                                "fungi_tastic_2025_num_classes_8", "fungi_tastic_2025_num_classes_16",
+                                "fungi_tastic_2025_num_classes_32", "fungi_tastic_2025_num_classes_64",
+                                "fungi_tastic_2025_num_classes_128", "fungi_tastic_2025_num_classes_256", "fungi_tastic_2025_num_classes_512"])
+    eval.evaluate(batch_per_gpu=8)
+
+if __name__ == "__main__":
+    fire.Fire(main)

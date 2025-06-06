@@ -39,7 +39,9 @@ new_benchmark_requirements = [
     'gdown',
     'scipy',
     'accelerate',
-    'openai'
+    'openai',
+    "backoff",
+    "sentencepiece"
 ]
 
 setuptools.setup(

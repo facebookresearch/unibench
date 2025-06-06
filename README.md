@@ -1,4 +1,3 @@
-
 |      ![header](./assets/header.png "header")       |
 | :------------------------------------------------: |
 | *[[Arxiv link](https://arxiv.org/abs/2408.04810)]* |
@@ -34,23 +33,81 @@ For full details, refer to the [UPDATES.md](./assets/UPDATES.md) file.
 
 ## Getting Started
 
-Install the package: 
-```
-pip install unibench -U
+Choose the UniBench installation that best fits your use case:
+
+### 🔧 Standard Installation
+For full functionality including evaluation, visualization, and analysis:
+```bash
+pip install unibench[all]
 ```
 
-<details > 
-<summary><b>[option 2]</b> Install Dependencies
-</summary>
+### 📊 Minimal Version
+**Best for:** Analyzing existing results without running new evaluations
+```bash
+pip install unibench
+```
 
-1. Install the necessary dependencies by:
-    - Option 1, creating a new conda env: `conda env create -f environment.yml`
-    - Option 2, updating your conda env with required libraries: `conda env update --file environment.yml --prune`
-2. Activate the environment: `conda activate unibench`
-3. Install Spacy english language model: `python -m spacy download en_core_web_sm`
-4. Install the package: `pip install git+https://github.com/facebookresearch/unibench`
-  
-</details> 
+<details>
+<summary><b>What's included:</b></summary>
+
+- Download existing benchmark results
+- Visualize performance data with charts and graphs  
+- Load results into pandas DataFrames for analysis
+- Compare model performance across benchmarks
+- Minimal dependencies for faster installation
+
+For detailed usage, see the [minimal installation guide](./assets/versions/basic.md).
+</details>
+
+### 🤖 New Model Evaluation
+**Best for:** Testing your models against UniBench benchmarks
+```bash
+pip install unibench[new_model]
+```
+
+<details>
+<summary><b>What's included:</b></summary>
+
+- Evaluate HuggingFace models on all UniBench benchmarks
+- Test custom vision-language models
+- Add new model architectures to the evaluation pipeline
+- Support for CLIP, BLIP, and other VLM architectures
+- Comprehensive model performance analysis
+
+For detailed usage, see the [new model evaluation guide](./assets/versions/new_model.md).
+</details>
+
+### 📋 New Benchmark Evaluation  
+**Best for:** Adding custom datasets and benchmarks
+```bash
+pip install unibench[new_benchmark]
+```
+
+<details>
+<summary><b>What's included:</b></summary>
+
+- Add custom datasets as new benchmarks
+- Evaluate all UniBench models on your benchmark
+- Support for classification, detection, and custom tasks
+- Flexible benchmark integration framework
+- Contribute new evaluation tasks to the community
+
+For detailed usage, see the [new benchmark evaluation guide](./assets/versions/new_benchmark.md).
+</details>
+
+### 🚀 Quick Start
+After installation, verify your setup:
+```bash
+# List available models and benchmarks
+unibench list_models
+unibench list_benchmarks
+
+# View existing results (all versions)
+unibench show_results
+
+# Run evaluation (standard installation only)
+unibench evaluate
+```
 
 ## Usage
 
