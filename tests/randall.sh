@@ -4,7 +4,7 @@
 #SBATCH --mem-per-gpu=64GB
 #SBATCH --cpus-per-gpu=10
 #SBATCH --gres=gpu:8
-#SBATCH --time=24:00:00
+#SBATCH --time=48:00:00
 #SBATCH --output=./scripts_log/%A_%a.out
 #SBATCH --partition=scavenge
 
