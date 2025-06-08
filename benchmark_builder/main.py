@@ -16,18 +16,18 @@ from class_names import CLASS_NAMES
 from templates import TEMPLATES
 from utils import *
 import os
-from benchmarks import SUN397
+from benchmarks import SUN397, Caltech101
 from datasets import load_dataset
 import numpy as np
 
 def main(
     dataset_name,
-    root_dir="/research/haider/Datasets",
+    root_dir,
     language="en",
-    upload2huggingface=True,
+    upload2huggingface=False,
     image_format="webp",
     max_size=500_000_000,
-    num_workers=64,
+    num_workers=24,
 ):
     transform = PIL_to_bytes(image_format)
     classnames = (
@@ -47,10 +47,14 @@ def main(
         ds = ds.map(lambda example: {"image": [transform(example["image"]), transform(example["negative_image"])], "captions": [example['caption'], example['negative_caption']], "split": f"{example['type']}\n{example['subtype']}"}, num_proc=num_workers)
         ds = [(example['image'], example['captions'], example['split']) for example in ds] 
         ds = ListDataset(ds)
+    elif dataset_name == "caltech101":
+        ds = Caltech101(root=root_dir, transform=transform, download=True)
+        ds.templates = templates
+        ds.classes = classnames
     else:
         raise ValueError(f"Unknown dataset: {dataset_name}")
     
-    output_dir = Path(root_dir) / dataset_name
+    output_dir = Path(root_dir) / dataset_name / 'output'
     split_dir = output_dir / "test"
     if output_dir.exists():
         shutil.rmtree(output_dir)
@@ -87,6 +91,7 @@ def main(
         maxsize=max_size
     )
     nsamples = 0
+    split = None
     for index, batch in enumerate(tqdm(dataloader, desc="Converting")):
         if len(batch) == 2:
             input, output = batch
