@@ -20,13 +20,8 @@ minimal_requirements = [
     "pyarrow",
 ]
 
-new_model_requirements = [
+complete_requirements = [
     "datasets",
-    "torch",
-    "torchvision",
-]
-
-new_benchmark_requirements = [
     "torch",
     "torchvision",
     "open_clip_torch",    
@@ -58,12 +53,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=setuptools.find_packages(),
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     install_requires=minimal_requirements,
     extras_require={
-        "new_benchmark": minimal_requirements + new_benchmark_requirements,
-        "new_model": minimal_requirements + new_model_requirements,
-        "all": list(set(minimal_requirements + new_model_requirements + new_benchmark_requirements)),
+        "all": list(set(minimal_requirements + complete_requirements)),
     },
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],
