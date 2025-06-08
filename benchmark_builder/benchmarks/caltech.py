@@ -1,4 +1,9 @@
 """
+Copyright (c) Meta Platforms, Inc. and affiliates.
+All rights reserved.
+This source code is licensed under the license found in the
+LICENSE file in the root directory of this source tree.
+
 Code adapted from https://github.com/LAION-AI/CLIP_benchmark/blob/a23028288ed914efb31c5ff32a1e702123cbd0ff/clip_benchmark/datasets/caltech101.py
 modified with working link to the dataset: https://data.caltech.edu/records/mzrjq-6wc02/files/caltech-101.zip?download=1
 """
