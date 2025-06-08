@@ -1,1 +1,1 @@
-## Here we have documentations on how we generate teh huggingface cdatasets
+## Here we have documentations on how we generate the huggingface benchmarks
