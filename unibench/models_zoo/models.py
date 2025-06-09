@@ -271,7 +271,7 @@ def llava_next_llama_8b(model_name, **kwargs):
         "month": 1,  # March 2024 release
     },
 )
-def llama_4_scout(model_name, **kwargs):
+def llama_4_scout_instruct(model_name, **kwargs):
     from transformers import Llama4ForConditionalGeneration
     from transformers import AutoProcessor
     import torch
@@ -304,6 +304,239 @@ def llama_4_scout(model_name, **kwargs):
         "clip_judge_relation",
         "in_context_text_classification",
     ]
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next Llama 8B",
+        "year": 2024,
+        "month": 1,  # March 2024 release
+    },
+)
+def llama_4_scout(model_name, **kwargs):
+    from transformers import Llama4ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "meta-llama/Llama-4-Scout-17B-16E"
+    model = Llama4ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size['width'],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next Llama 8B",
+        "year": 2024,
+        "month": 1,  # March 2024 release
+    },
+)
+def llama_4_maverick_instruct(model_name, **kwargs):
+    from transformers import Llama4ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "meta-llama/Llama-4-Maverick-17B-128E-Instruct"
+    model = Llama4ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size['width'],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next Llama 8B",
+        "year": 2024,
+        "month": 1,  # March 2024 release
+    },
+)
+def llama_4_maverick(model_name, **kwargs):
+    from transformers import Llama4ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "meta-llama/Llama-4-Maverick-17B-128E"
+    model = Llama4ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size['width'],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next Llama 8B",
+        "year": 2024,
+        "month": 1,  # March 2024 release
+    },
+)
+def llama_3_2_11b_vision_instruct(model_name, **kwargs):
+    from transformers import MllamaForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "meta-llama/Llama-3.2-11B-Vision-Instruct"
+    model = MllamaForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size['width'],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava Next Llama 8B",
+        "year": 2024,
+        "month": 1,  # March 2024 release
+    },
+)
+def llama_3_2_90b_vision_instruct(model_name, **kwargs):
+    from transformers import MllamaForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "meta-llama/Llama-3.2-90B-Vision-Instruct"
+    model = MllamaForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size['width'],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
 
 @register_model(
     "vllm",
