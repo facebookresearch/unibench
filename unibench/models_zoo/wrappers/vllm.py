@@ -18,12 +18,14 @@ class AbstractVLLM(AbstractModel):
         output_func=None,
         max_new_tokens=32,
         image_token=None,
+        use_img_size=False,
         **kwargs,
     ):
         kwargs["device"] = None
         super(AbstractVLLM, self).__init__(
             model, model_name, use_transforms=False, **kwargs
         )
+        self.use_img_size = use_img_size
         self.processor = processor
         self.max_new_tokens = max_new_tokens
         self.output_func = output_func
@@ -78,9 +80,9 @@ class VLLModels(AbstractVLLM):
             .to(self.model.dtype)
         )
         
-        if "image_sizes" in inputs:
+        if "image_sizes" in inputs and not self.use_img_size:
             del inputs["image_sizes"]
-        output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens, do_sample=False)
+        output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens, do_sample=False, temperature=None, top_p=None, top_k=None)
         gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
         res = []
         for i, text in enumerate(gen_res):
@@ -89,50 +91,3 @@ class VLLModels(AbstractVLLM):
                 p = prompts[i].replace(self.image_token, "")
             res.append(self.output_func(text.split(p)[-1]))
         return res
-
-
-# class PaliGemma(AbstractModel):
-#     @torch.no_grad()
-#     def get_text_from_image(self, images, prompts):
-#         res = []
-#         for image, prompt in zip(images, prompts):
-#             if self.processor.chat_template is not None:
-#                 prompt = self.processor.apply_chat_template(
-#                     [
-#                         {
-#                             "role": "user",
-#                             "content": [
-#                                 {"type": "image"},
-#                                 {"type": "text", "text": prompt},
-#                             ],
-#                         },
-#                     ],
-#                     add_generation_prompt=True,
-#                 )
-#             elif self.image_token is not None:
-#                 prompt = self.image_token + prompt
-#             inputs = (
-#                 (
-#                     self.processor(
-#                         text=prompt,
-#                         images=[(image * 255).int()],
-#                         padding=True,
-#                         return_tensors="pt",
-#                     )
-#                 )
-#                 .to(self.model.device)
-#                 .to(self.model.dtype)
-#             )
-#             if len(inputs["pixel_values"].shape) > 4:
-#                 inputs["pixel_values"] = inputs["pixel_values"].squeeze()
-
-#             if "image_sizes" in inputs:
-#                 del inputs["image_sizes"]
-#             output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens)
-#             gen_res = self.processor.batch_decode(output, skip_special_tokens=True)
-#             p = prompt
-#             if self.image_token is not None:
-#                 p = prompt.replace(self.image_token, "")
-#             res.append(self.output_func(gen_res[0].split(p)[-1]))
-
-#         return res
