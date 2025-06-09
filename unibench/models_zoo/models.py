@@ -2578,7 +2578,7 @@ def openclip_convnext_base(model_name, **kwargs):
 
 
 @register_model(
-    "clipHero",
+    "vision_text",
     {
         "dataset_size": 400,
         "model_size": 86,

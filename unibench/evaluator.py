@@ -348,7 +348,7 @@ class Evaluator(object):
                         dl = torch.utils.data.DataLoader(
                             ds,
                             batch_size=model.get_batch_size(),
-                            shuffle=True,
+                            shuffle=False,
                             num_workers=self.num_workers,
                             pin_memory=True,
                         )
