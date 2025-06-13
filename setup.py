@@ -41,7 +41,8 @@ new_benchmark_requirements = [
     'accelerate',
     'openai',
     "backoff",
-    "sentencepiece"
+    "sentencepiece",
+    "fsspec>=2025.5.1"
 ]
 
 setuptools.setup(
@@ -62,7 +63,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=setuptools.find_packages(),
-    python_requires=">=3.8",
+    python_requires=">=3.10",
     install_requires=minimal_requirements,
     extras_require={
         "new_benchmark": minimal_requirements + new_benchmark_requirements,

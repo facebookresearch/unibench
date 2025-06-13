@@ -235,7 +235,10 @@ class Evaluator(object):
         face_blur: bool = False,
         device="cpu",
         batch_per_gpu: int = 32,
-        tasks: Union[List[str], str] = ['zeroshot_classification', 'text_classification'],
+        tasks: Union[List[str], str] = [
+            "zeroshot_classification",
+            "text_classification",
+        ],
         max_num_samples: int = 5000,
     ):
         """
@@ -275,26 +278,23 @@ class Evaluator(object):
                     pg_models, description=f"[green]Processing {model_name}..."
                 )
 
-                model = None
+                model, model_tasks = load_model(
+                    model_name=model_name,
+                    batch_per_gpu=batch_per_gpu,
+                    face_blur=face_blur,
+                    device=device,
+                )
+
+                if model is None:
+                    raise ValueError(
+                        f"{model_name} does not exist in the currently supported models"
+                    )
 
                 for benchmark_name in self.benchmarks:
                     progress.update(
                         pg_benchmarks,
                         description=f"[green]Processing {benchmark_name}...",
                     )
-
-                    if model is None:
-                        model, model_tasks = load_model(
-                            model_name=model_name,
-                            batch_per_gpu=batch_per_gpu,
-                            face_blur=face_blur,
-                            device=device,
-                        )
-
-                    if model is None:
-                        raise ValueError(
-                            f"{model_name} does not exist in the currently supported models"
-                        )
 
                     benchmark = load_benchmark(
                         benchmark_name,
@@ -310,20 +310,26 @@ class Evaluator(object):
                         visible=True,
                     )
 
-                    tasks_to_process = [task for task in model_tasks if task in benchmark and task in tasks]
-                    
+                    tasks_to_process = [
+                        task
+                        for task in model_tasks
+                        if task in benchmark and task in tasks
+                    ]
+
                     if not tasks_to_process:
-                        print(f"Warning: No overlapping tasks between model {model_name} and benchmark {benchmark_name}")
+                        print(
+                            f"Warning: No overlapping tasks between model {model_name} and benchmark {benchmark_name}"
+                        )
                         progress.update(pg_benchmarks, advance=1, refresh=True)
                         continue
-                        
+
                     progress.update(
                         pg_tasks,
                         description=f"[green]Processing...",
                         total=len(tasks_to_process),
                         visible=True,
                     )
-                    
+
                     for task in tasks_to_process:
                         progress.update(
                             pg_tasks,
@@ -359,7 +365,9 @@ class Evaluator(object):
                         elif number_entries > len(ds) or (0 < number_entries < len(ds)):
                             print(f"Reseting results for {model_name}")
                             self.outputhandler.delete_rows(
-                                model_name=model_name, benchmark_name=benchmark_name, task_name=task,
+                                model_name=model_name,
+                                benchmark_name=benchmark_name,
+                                task_name=task,
                             )
 
                         progress.update(
@@ -394,11 +402,10 @@ class Evaluator(object):
                         self.outputhandler.save_aggregate_results(
                             model_name, benchmark_name, task
                         )
-                    
+
                     progress.update(pg_benchmarks, advance=1)
                     del model
                 progress.update(pg_models, advance=1)
-                
 
         Console().print(
             df_to_table(
