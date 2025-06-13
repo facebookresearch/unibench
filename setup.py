@@ -21,7 +21,7 @@ minimal_requirements = [
 ]
 
 new_model_requirements = [
-    "datasets",
+    "datasets>=3.6.0",
     "torch",
     "torchvision",
 ]
@@ -42,7 +42,6 @@ new_benchmark_requirements = [
     'openai',
     "backoff",
     "sentencepiece",
-    "fsspec>=2025.5.1"
 ]
 
 setuptools.setup(
