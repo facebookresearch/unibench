@@ -8,9 +8,9 @@
 #SBATCH --output=./scripts_log/%A_%a.out
 #SBATCH --account=a100-memorization
 
-source /home/marksibrahim/Projects/UniBench/unibench/.venv/bin/activate
+source /fsx-robust/marksibrahim/tmp/UniBench/unibench/.venv/bin/activate
 which python
-cd /home/marksibrahim/Projects/UniBench/unibench/tests/mark
+cd /fsx-robust/marksibrahim/tmp/UniBench/unibench/tests/mark
 
 export HF_HOME=/fsx-robust/marksibrahim/datasets/hf_home
 export HUGGINGFACE_HUB_CACHE=/fsx-robust/marksibrahim/datasets/hf
