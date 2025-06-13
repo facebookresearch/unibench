@@ -10,7 +10,7 @@
 
 source /fsx-robust/marksibrahim/tmp/UniBench/unibench/.venv/bin/activate
 which python
-cd /fsx-robust/marksibrahim/tmp/UniBench/unibench/tests/mark
+cd /fsx-robust/marksibrahim/tmp/UniBench/unibench/tests
 
 export HF_HOME=/fsx-robust/marksibrahim/datasets/hf_home
 export HUGGINGFACE_HUB_CACHE=/fsx-robust/marksibrahim/datasets/hf
