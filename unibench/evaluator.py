@@ -404,7 +404,6 @@ class Evaluator(object):
                         )
 
                     progress.update(pg_benchmarks, advance=1)
-                    del model
                 progress.update(pg_models, advance=1)
 
         Console().print(
