@@ -404,6 +404,7 @@ class Evaluator(object):
                         )
 
                     progress.update(pg_benchmarks, advance=1)
+                    print(f"Finished processing {benchmark_name} for {model_name}")
                 progress.update(pg_models, advance=1)
 
         Console().print(

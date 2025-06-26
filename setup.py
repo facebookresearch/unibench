@@ -42,6 +42,8 @@ new_benchmark_requirements = [
     'openai',
     "backoff",
     "sentencepiece",
+    "protobuf",
+    "google",
 ]
 
 setuptools.setup(
