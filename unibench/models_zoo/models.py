@@ -74,7 +74,7 @@ def llava_1_5_7b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava 1.5 7B",
+        "name": "Llava 1.5 13B",
         "year": 2023,
         "month": 9,  # September 2023 release
     },
@@ -121,7 +121,7 @@ def llava_1_5_13b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next",
+        "name": "Aya Vision 8B",
     },
 )
 def aya_vision_8b(model_name, **kwargs):
@@ -135,7 +135,7 @@ def aya_vision_8b(model_name, **kwargs):
         name,
         low_cpu_mem_usage=True,
         torch_dtype=torch.bfloat16,
-        device_map="balanced",
+        device_map="auto",
         trust_remote_code=True,
     )
     processor = AutoProcessor.from_pretrained(
@@ -169,7 +169,7 @@ def aya_vision_8b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next",
+        "name": "Aya Vision 32B",
     },
 )
 def aya_vision_32b(model_name, **kwargs):
@@ -294,7 +294,7 @@ def llama_4_scout_instruct(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size['width'],
+        input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
         **kwargs
     ), [
@@ -304,6 +304,7 @@ def llama_4_scout_instruct(model_name, **kwargs):
         "clip_judge_relation",
         "in_context_text_classification",
     ]
+
 
 @register_model(
     "vllm",
@@ -340,7 +341,7 @@ def llama_4_scout(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size['width'],
+        input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
         **kwargs
     ), [
@@ -359,7 +360,7 @@ def llama_4_scout(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llava 4 Maverick Instruct",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -387,7 +388,7 @@ def llama_4_maverick_instruct(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size['width'],
+        input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
         **kwargs
     ), [
@@ -398,6 +399,7 @@ def llama_4_maverick_instruct(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
@@ -405,7 +407,7 @@ def llama_4_maverick_instruct(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llava 4 Maverick",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -433,7 +435,7 @@ def llama_4_maverick(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size['width'],
+        input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
         **kwargs
     ), [
@@ -443,6 +445,7 @@ def llama_4_maverick(model_name, **kwargs):
         "clip_judge_relation",
         "in_context_text_classification",
     ]
+
 
 @register_model(
     "vllm",
@@ -479,7 +482,7 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size['width'],
+        input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
         **kwargs
     ), [
@@ -490,6 +493,7 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
@@ -497,7 +501,7 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llama 3.2 90B Vision Instruct",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -525,7 +529,7 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
         processor=processor,
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size['width'],
+        input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
         **kwargs
     ), [
@@ -537,7 +541,6 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
     ]
 
 
-
 @register_model(
     "vllm",
     {
@@ -545,7 +548,7 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Phi 4 Multimodal Instruct",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -563,7 +566,7 @@ def phi_4(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        _attn_implementation='eager',
+        _attn_implementation="eager",
     )
     model.load_adapter(
         name,
@@ -595,6 +598,7 @@ def phi_4(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
@@ -602,7 +606,7 @@ def phi_4(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llava 1.6 34B",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -642,6 +646,7 @@ def llava_1_6_34b(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
@@ -649,7 +654,7 @@ def llava_1_6_34b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Gemma 3 4B",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -678,9 +683,7 @@ def gemma3_4b(model_name, **kwargs):
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
-        output_func=lambda x: x.split("\nmodel\n")[-1]
-        .strip()
-        .replace("\n", ""),
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
         **kwargs
     ), [
         "text_classification",
@@ -698,7 +701,7 @@ def gemma3_4b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Gemma 3 27B",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -727,9 +730,7 @@ def gemma3_27b(model_name, **kwargs):
         norm_mean=processor.image_processor.image_mean,
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
-        output_func=lambda x: x.split("\nmodel\n")[-1]
-        .strip()
-        .replace("\n", ""),
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
         **kwargs
     ), [
         "text_classification",
@@ -739,6 +740,7 @@ def gemma3_27b(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
@@ -746,7 +748,7 @@ def gemma3_27b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llava 1.6 72B",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -794,7 +796,7 @@ def llava_1_6_72b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llava 1.6 110B",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -842,7 +844,7 @@ def llava_1_6_110b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llava 1.6 Mistral 7B",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -892,7 +894,7 @@ def llava_1_6_mistral_7b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llava 1.6 Vicuna 7B",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -941,7 +943,7 @@ def llava_1_6_vicuna_7b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava Next Llama 8B",
+        "name": "Llava 1.6 Vicuna 13B",
         "year": 2024,
         "month": 1,  # March 2024 release
     },
@@ -1039,7 +1041,7 @@ def chameleon_7b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Chameleon",
+        "name": "Chameleon 30B",
         "year": 2024,
         "month": 4,  # April 2024 release
     },
@@ -1088,7 +1090,7 @@ def chameleon_30b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "PaliGemma 3B",
+        "name": "PaliGemma 3B 224",
         "year": 2024,
         "month": 5,  # May 2024 release
     },
@@ -1135,7 +1137,7 @@ def paligemma_3b_224(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava",
+        "name": "PaliGemma 3B 448",
         "year": 2024,
         "month": 5,  # May 2024 release
     },
@@ -1182,7 +1184,7 @@ def paligemma_3b_448(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "PaliGemma 3B Mix",
+        "name": "PaliGemma 3B Mix 224",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1229,7 +1231,7 @@ def paligemma_3b_mix_224(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava",
+        "name": "PaliGemma 2 3B Mix 224",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1276,7 +1278,7 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava",
+        "name": "PaliGemma 2 3B Mix 448",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1323,7 +1325,7 @@ def paligemma_3b_mix_448(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava",
+        "name": "PaliGemma 2 3B Mix 448",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1370,7 +1372,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava",
+        "name": "PaliGemma 2 10B Mix 224",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1417,7 +1419,7 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava",
+        "name": "PaliGemma 2 10B Mix 448",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1464,7 +1466,7 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava",
+        "name": "PaliGemma 2 28B Mix 448",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1511,7 +1513,7 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava",
+        "name": "PaliGemma 2 28B Mix 224",
         "year": 2024,
         "month": 6,  # June 2024 release
     },

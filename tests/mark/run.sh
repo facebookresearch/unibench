@@ -18,4 +18,4 @@ uv pip install -U /fsx-robust/marksibrahim/tmp/UniBench/unibench[all]
 cd /fsx-robust/marksibrahim/tmp/UniBench/unibench/tests/mark
 
 # === Submit the job ===
-sbatch --output="${LOG_FILE}" --array=0-24 evaluation.sh "${OUT_DIR}"
+sbatch --output="${LOG_FILE}" --array=0-32 evaluation.sh "${OUT_DIR}"
