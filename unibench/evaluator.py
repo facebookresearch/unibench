@@ -296,6 +296,8 @@ class Evaluator(object):
                         description=f"[green]Processing {benchmark_name}...",
                     )
 
+                    print("New Version")
+
                     benchmark = load_benchmark(
                         benchmark_name,
                         transform=model.get_preprocess_transforms(),
@@ -404,7 +406,7 @@ class Evaluator(object):
                         )
 
                     progress.update(pg_benchmarks, advance=1)
-                    del model
+                    print(f"Finished processing {benchmark_name} for {model_name}")
                 progress.update(pg_models, advance=1)
 
         Console().print(
