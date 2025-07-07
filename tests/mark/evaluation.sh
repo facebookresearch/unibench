@@ -4,7 +4,7 @@
 #SBATCH --mem-per-gpu=64GB
 #SBATCH --cpus-per-gpu=12
 #SBATCH --gres=gpu:8
-#SBATCH --time=48:00:00
+#SBATCH --time=72:00:00
 #SBATCH --account=a100-memorization
 
 source /fsx-robust/marksibrahim/tmp/UniBench/unibench/.venv/bin/activate

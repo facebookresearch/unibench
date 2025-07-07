@@ -296,8 +296,6 @@ class Evaluator(object):
                         description=f"[green]Processing {benchmark_name}...",
                     )
 
-                    print("New Version")
-
                     benchmark = load_benchmark(
                         benchmark_name,
                         transform=model.get_preprocess_transforms(),
