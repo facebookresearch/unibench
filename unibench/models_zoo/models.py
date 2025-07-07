@@ -135,7 +135,7 @@ def aya_vision_8b(model_name, **kwargs):
         name,
         low_cpu_mem_usage=True,
         torch_dtype=torch.bfloat16,
-        device_map="balanced",
+        device_map="auto",
         trust_remote_code=True,
     )
     processor = AutoProcessor.from_pretrained(
