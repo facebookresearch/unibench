@@ -541,62 +541,60 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
     ]
 
 
-@register_model(
-    "vllm",
-    {
-        "dataset_size": 14,
-        "model_size": 7000,
-        "learning_objective": "BLIP",
-        "architecture": "vit",
-        "name": "Phi 4 Multimodal Instruct",
-        "year": 2024,
-        "month": 1,  # March 2024 release
-    },
-)
-def phi_4(model_name, **kwargs):
-    from transformers import AutoModelForCausalLM
-    from transformers import AutoProcessor
-    import torch
-    from unibench.models_zoo.wrappers.vllm import VLLModels
+# @register_model(
+#     "vllm",
+#     {
+#         "dataset_size": 14,
+#         "model_size": 7000,
+#         "learning_objective": "BLIP",
+#         "architecture": "vit",
+#         "name": "Phi 4 Multimodal Instruct",
+#         "year": 2024,
+#         "month": 1,  # March 2024 release
+#     },
+# )
+# def phi_4(model_name, **kwargs):
+#     from transformers import AutoModelForCausalLM
+#     from transformers import AutoProcessor
+#     import torch
+#     from unibench.models_zoo.wrappers.vllm import VLLModels
 
-    name = "microsoft/Phi-4-multimodal-instruct"
-    model = AutoModelForCausalLM.from_pretrained(
-        name,
-        low_cpu_mem_usage=True,
-        torch_dtype=torch.bfloat16,
-        device_map="balanced",
-        trust_remote_code=True,
-        _attn_implementation="eager",
-    )
-    model.load_adapter(
-        name,
-        adapter_name="vision",
-        device_map="balanced",
-        adapter_kwargs={"subfolder": "vision-lora"},
-    )
-    model.set_adapter("vision")
+#     name = "Lexius/Phi-4-multimodal-instruct"
+#     model = AutoModelForCausalLM.from_pretrained(
+#         name,
+#         low_cpu_mem_usage=True,
+#         torch_dtype=torch.bfloat16,
+#         device_map="balanced",
+#         trust_remote_code=True,
+#         _attn_implementation='flash_attention_2',
+#     )
+#     model.load_adapter(
+#         "microsoft/Phi-4-multimodal-instruct",
+#         adapter_name="vision",
+#         device_map="balanced",
+#         adapter_kwargs={"subfolder": "vision-lora"},
+#     )
+#     model.set_adapter("vision")
 
-    processor = AutoProcessor.from_pretrained(
-        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
-    )
-    return VLLModels(
-        model=model,
-        model_name=model_name,
-        processor=processor,
-        norm_mean=processor.image_processor.image_mean,
-        norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.crop_size["width"],
-        output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
-        .strip()
-        .replace("\n", ""),
-        **kwargs
-    ), [
-        "text_classification",
-        "clip_judge_classification",
-        "llm_judge_classification",
-        "clip_judge_relation",
-        "in_context_text_classification",
-    ]
+#     processor = AutoProcessor.from_pretrained(
+#         name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16, trust_remote_code=True
+#     )
+#     return VLLModels(
+#         model=model,
+#         model_name=model_name,
+#         processor=processor,
+#         inp_processor_func=lambda x: f'<|user|><|image_1|>{x}<|end|><|assistant|>',
+#         output_func=lambda x: x.split("<|assistant|>")[-1]
+#         .strip()
+#         .replace("\n", ""),
+#         **kwargs
+#     ), [
+#         "text_classification",
+#         "clip_judge_classification",
+#         "llm_judge_classification",
+#         "clip_judge_relation",
+#         "in_context_text_classification",
+#     ]
 
 
 @register_model(

@@ -30,7 +30,7 @@ class AbstractVLLM(AbstractModel):
         self.max_new_tokens = max_new_tokens
         self.output_func = output_func
         self.image_token = image_token
-        # self.model = torch.compile(self.model, mode="max-autotune", fullgraph=False)
+        self.model = torch.compile(self.model, dynamic=False)
 
     def get_text_from_image(self, images, prompts):
         pass
