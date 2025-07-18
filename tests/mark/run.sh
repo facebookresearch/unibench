@@ -17,5 +17,7 @@ source /fsx-robust/marksibrahim/tmp/UniBench/unibench/.venv/bin/activate
 uv pip install -U /fsx-robust/marksibrahim/tmp/UniBench/unibench[all]
 cd /fsx-robust/marksibrahim/tmp/UniBench/unibench/tests/mark
 
+unibench version
+
 # === Submit the job ===
 sbatch --output="${LOG_FILE}" --array=0-32 evaluation.sh "${OUT_DIR}"
