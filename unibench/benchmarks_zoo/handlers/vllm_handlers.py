@@ -27,7 +27,7 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
         benchmark,
         task_name,
         class_names,
-        num_classes=5,
+        num_classes=4,
         prompt="What type of object is in this photo? Choose one from {class_names}.",
         random_seed=1337,
     ):
@@ -40,11 +40,13 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
 
     def get_prompts(self, targets_names):
         prompts = []
+        prompt_classes = []
         for target in targets_names:
             if self.num_classes == -1:
                 prompts.append(
                     self.prompt.format(class_names=", ".join(self.class_names))
                 )
+                prompt_classes.append('all')
             else:
                 random_classes = [target]
                 random_classes += random.sample(
@@ -59,7 +61,8 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
                 prompts.append(
                     self.prompt.format(class_names=", ".join(random_classes))
                 )
-        return prompts
+                prompt_classes.append(', '.join(random_classes))
+        return prompts, prompt_classes
 
 
 class TextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
@@ -83,7 +86,7 @@ class TextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
             targets_names = [self.class_names[i.argmax() - 1].lower() for i in targets]
         else:
             targets_names = [self.class_names[i - 1].lower() for i in targets]
-        prompts = self.get_prompts(targets_names)
+        prompts, prompt_classes = self.get_prompts(targets_names)
         text_outputs = model.get_text_from_image(images, prompts)
 
         correct = [
@@ -93,11 +96,14 @@ class TextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
 
         res = {
             "image_class": targets,
+            "target_class": targets_names,
+            "prompt_classes": prompt_classes,
             "split": split,
             "benchmark_name": self.benchmark_name,
             "correctness": correct,
-            "prompt": prompts,
+            "prompt": self.prompt,
             "num_classes": self.num_classes,
+            "model_output": text_outputs
         }
 
         if len(batch) > 2:

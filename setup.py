@@ -4,10 +4,12 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+
 import setuptools
 
 # read the contents of your README file
 from pathlib import Path
+
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
@@ -24,17 +26,17 @@ complete_requirements = [
     "datasets",
     "torch",
     "torchvision",
-    "open_clip_torch",    
+    "open_clip_torch",
     "openai-clip",
     "timm",
     "opencv-python",
     "transformers",
-    'GitPython',
-    'fairscale',
-    'gdown',
-    'scipy',
-    'accelerate',
-    'openai',
+    "GitPython",
+    "fairscale",
+    "gdown",
+    "scipy",
+    "accelerate",
+    "openai",
     "backoff",
     "sentencepiece",
     "protobuf",
@@ -43,7 +45,7 @@ complete_requirements = [
 
 setuptools.setup(
     name="unibench",
-    version="0.4.0",
+    version="0.4.4",
     author="Haider Al-Tahan",
     author_email="haideraltahan@meta.com",
     description="This repository is designed to simplify the evaluation process of vision-language models. It provides a comprehensive set of tools and scripts for evaluating VLM models and benchmarks.",
