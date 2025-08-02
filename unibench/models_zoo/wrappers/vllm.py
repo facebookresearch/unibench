@@ -7,7 +7,7 @@ LICENSE file in the root directory of this source tree.
 
 import torch
 from .base import AbstractModel
-
+import torch._dynamo
 
 class AbstractVLLM(AbstractModel):
     def __init__(
@@ -31,6 +31,7 @@ class AbstractVLLM(AbstractModel):
         self.output_func = output_func
         self.image_token = image_token
         self.model = torch.compile(self.model, dynamic=False)
+        torch._dynamo.config.recompile_limit = 64 
 
     def get_text_from_image(self, images, prompts):
         pass

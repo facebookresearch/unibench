@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# === Get current date ===
+RUN_DATE=$(date +%Y%m%d_%H%M%S)
+
+# === Define output dirs based on date ===
+LOG_DIR=./scripts_log/${RUN_DATE}
+OUT_DIR=$(realpath ./script_outputs/)
+
+# === Create the directories ===
+mkdir -p "${LOG_DIR}" "${OUT_DIR}"
+
+# === Define output file for SLURM ===
+LOG_FILE=${LOG_DIR}/slurm_%A_%a.out  # %A: job ID, %a: array index
+
+. "/work/nvme/beym/haltahan/miniconda3/etc/profile.d/conda.sh"
+conda activate vllm
+pip install -U /work/nvme/beym/haltahan/unibench[all]
+cd /work/nvme/beym/haltahan/unibench/tests/haider/delta_cluster
+
+# === Submit the job ===
+sbatch --output="${LOG_FILE}" --array=0-6,12,13,17,18 evaluation.sh "${OUT_DIR}"
