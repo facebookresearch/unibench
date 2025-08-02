@@ -18,5 +18,7 @@ conda activate vllm
 pip install -U /storage/home/hcoda1/6/haltahan6/scratch/unibench[all]
 cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/tests/haider
 
+unibench version
+
 # === Submit the job ===
 sbatch --output="${LOG_FILE}" --array=0-2 evaluation.sh "${OUT_DIR}"
