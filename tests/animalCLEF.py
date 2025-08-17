@@ -195,16 +195,16 @@ def main(model_id: int = 4, num_workers: int = 8):
         # model_id=model_id,
         num_workers=num_workers,
         models=[
-            "llama_4_maverick",
-            "llama_4_maverick_instruct",
+            # "llama_4_maverick",
+            # "llama_4_maverick_instruct",
             # 'llama_4_scout',
             # 'llama_4_scout_instruct',
-            "llama_3_2_90b_vision_instruct",
-            "llama_3_2_11b_vision_instruct",
-            "llava_1_5_7b",
-            "llava_next_llama_8b",
-            "chameleon_7b",
-            "paligemma_3b_224",
+            # "llama_3_2_90b_vision_instruct",
+            # "llama_3_2_11b_vision_instruct",
+            # "llava_1_5_7b",
+            # "llava_next_llama_8b",
+            # "chameleon_7b",
+            # "paligemma_3b_224",
             "paligemma_3b_mix_224",
         ],
     )
@@ -351,7 +351,7 @@ def main(model_id: int = 4, num_workers: int = 8):
     # )
     eval.update_benchmark_list(
         [
-            "fungi_tastic_2025",
+            # "fungi_tastic_2025",
             "imagenet1k",
             # "fungi_tastic_2025_num_classes_2", "fungi_tastic_2025_num_classes_4",
             # "fungi_tastic_2025_num_classes_8", "fungi_tastic_2025_num_classes_16",
@@ -359,7 +359,7 @@ def main(model_id: int = 4, num_workers: int = 8):
             # "fungi_tastic_2025_num_classes_128", "fungi_tastic_2025_num_classes_256", "fungi_tastic_2025_num_classes_512"
         ]
     )
-    eval.evaluate(batch_per_gpu=2)
+    eval.evaluate(batch_per_gpu=1)
 
 
 if __name__ == "__main__":

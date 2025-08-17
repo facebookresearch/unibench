@@ -4,6 +4,7 @@
 basic_test.py
 dataset_builder/
 test_*
+*.f
 
 ### Python ###
 .vscode/

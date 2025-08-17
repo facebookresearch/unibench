@@ -60,6 +60,8 @@ def llava_1_5_7b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -107,6 +109,8 @@ def llava_1_5_13b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -155,6 +159,8 @@ def aya_vision_8b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -203,6 +209,8 @@ def aya_vision_32b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -252,6 +260,8 @@ def llava_next_llama_8b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -299,6 +309,8 @@ def llama_4_scout_instruct(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -346,6 +358,8 @@ def llama_4_scout(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -393,6 +407,8 @@ def llama_4_maverick_instruct(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -440,6 +456,8 @@ def llama_4_maverick(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -487,6 +505,8 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -534,6 +554,8 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -590,6 +612,8 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
 #         **kwargs
 #     ), [
 #         "text_classification",
+"multi_choice_classification",
+"multi_choice_relation",
 #         "clip_judge_classification",
 #         "llm_judge_classification",
 #         "clip_judge_relation",
@@ -638,6 +662,8 @@ def llava_1_6_34b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -685,6 +711,8 @@ def gemma3_4b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -732,6 +760,8 @@ def gemma3_27b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -780,6 +810,8 @@ def llava_1_6_72b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -828,6 +860,8 @@ def llava_1_6_110b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -878,6 +912,8 @@ def llava_1_6_mistral_7b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -927,6 +963,8 @@ def llava_1_6_vicuna_7b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -976,6 +1014,8 @@ def llava_1_6_vicuna_13b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1025,6 +1065,8 @@ def chameleon_7b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1074,6 +1116,8 @@ def chameleon_30b(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1121,6 +1165,8 @@ def paligemma_3b_224(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1168,6 +1214,8 @@ def paligemma_3b_448(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1215,6 +1263,8 @@ def paligemma_3b_mix_224(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1262,6 +1312,8 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1309,6 +1361,8 @@ def paligemma_3b_mix_448(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1356,6 +1410,8 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1403,6 +1459,8 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1450,6 +1508,8 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1497,6 +1557,8 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",
@@ -1544,6 +1606,8 @@ def paligemma2_28b_mix_224(model_name, **kwargs):
         **kwargs
     ), [
         "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
         "clip_judge_classification",
         "llm_judge_classification",
         "clip_judge_relation",

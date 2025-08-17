@@ -49,6 +49,8 @@ class AbstractVLLM(AbstractModel):
 class VLLModels(AbstractVLLM):
     @torch.no_grad()
     def get_text_from_image(self, images, prompts):
+        prompts = list(prompts)
+        images = images.clone()
         for i in range(len(prompts)):
             if self.processor.chat_template is not None:
                 prompts[i] = self.processor.apply_chat_template(
