@@ -2408,10 +2408,10 @@ def bivlc(benchmark_name, transform=None, **kwargs):
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
-        # "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
-        #     benchmark_name=benchmark_name,
-        #     benchmark=benchmark,
-        # ),
+        "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
     }
 
 
