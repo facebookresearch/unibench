@@ -106,4 +106,5 @@ def download_all_results(output_dir):
         local_dir=output_dir,
         local_dir_use_symlinks=False,
         repo_type="dataset",
+        num_proc=1,
     )
