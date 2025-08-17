@@ -28,8 +28,9 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 1.5 7B",
+        "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
-        "month": 9,  # September 2023 release
+        "month": 10,  # September 2023 release
     },
 )
 def llava_1_5_7b(model_name, **kwargs):
@@ -75,8 +76,9 @@ def llava_1_5_7b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 1.5 13B",
+        "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
-        "month": 9,  # September 2023 release
+        "month": 10,  # September 2023 release
     },
 )
 def llava_1_5_13b(model_name, **kwargs):
@@ -113,15 +115,17 @@ def llava_1_5_13b(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
-
 @register_model(
     "vllm",
     {
         "dataset_size": 14,
-        "model_size": 7000,
+        "model_size": 8000,
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Aya Vision 8B",
+        "vision_encoder": "EVA-CLIP ViT-g/14",
+        "year": 2024,
+        "month": 11, 
     },
 )
 def aya_vision_8b(model_name, **kwargs):
@@ -170,6 +174,9 @@ def aya_vision_8b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Aya Vision 32B",
+        "vision_encoder": "EVA-CLIP ViT-g/14",
+        "year": 2024,
+        "month": 11, 
     },
 )
 def aya_vision_32b(model_name, **kwargs):
@@ -218,8 +225,9 @@ def aya_vision_32b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava Next Llama 3 8B",
+        "vision_encoder": "CLIP ViT-L/14",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 4,  # April 2024 release
     },
 )
 def llava_next_llama_8b(model_name, **kwargs):
@@ -267,8 +275,8 @@ def llava_next_llama_8b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 4 Scout Instruct",
-        "year": 2024,
-        "month": 1,  # March 2024 release
+        "year": 2025,
+        "month": 1,  # January 2025 release
     },
 )
 def llama_4_scout_instruct(model_name, **kwargs):
@@ -314,7 +322,7 @@ def llama_4_scout_instruct(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 4 Scout",
-        "year": 2024,
+        "year": 2025,
         "month": 1,  # March 2024 release
     },
 )
@@ -361,7 +369,7 @@ def llama_4_scout(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 4 Maverick Instruct",
-        "year": 2024,
+        "year": 2025,
         "month": 1,  # March 2024 release
     },
 )
@@ -408,8 +416,8 @@ def llama_4_maverick_instruct(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 4 Maverick",
-        "year": 2024,
-        "month": 1,  # March 2024 release
+        "year": 2025,
+        "month": 1,   # March 2024 release
     },
 )
 def llama_4_maverick(model_name, **kwargs):
@@ -455,8 +463,9 @@ def llama_4_maverick(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llama 3.2 11B Vision Instruct",
+        "vision_encoder": "CLIP ViT-L/14",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 9,  # September 2024 release
     },
 )
 def llama_3_2_11b_vision_instruct(model_name, **kwargs):
@@ -503,7 +512,7 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         "architecture": "vit",
         "name": "Llama 3.2 90B Vision Instruct",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 9,  # March 2024 release
     },
 )
 def llama_3_2_90b_vision_instruct(model_name, **kwargs):
@@ -550,7 +559,7 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
         "architecture": "vit",
         "name": "Phi 4 Multimodal Instruct",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 12,  # December 2024 release
     },
 )
 def phi_4(model_name, **kwargs):
@@ -608,7 +617,7 @@ def phi_4(model_name, **kwargs):
         "architecture": "vit",
         "name": "Llava 1.6 34B",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 4,  # April 2024 release
     },
 )
 def llava_1_6_34b(model_name, **kwargs):
@@ -655,8 +664,9 @@ def llava_1_6_34b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Gemma 3 4B",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 12,  # December 2024 release
     },
 )
 def gemma3_4b(model_name, **kwargs):
@@ -702,8 +712,9 @@ def gemma3_4b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Gemma 3 27B",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 12,  # March 2024 release
     },
 )
 def gemma3_27b(model_name, **kwargs):
@@ -739,8 +750,6 @@ def gemma3_27b(model_name, **kwargs):
         "clip_judge_relation",
         "in_context_text_classification",
     ]
-
-
 @register_model(
     "vllm",
     {
@@ -750,7 +759,7 @@ def gemma3_27b(model_name, **kwargs):
         "architecture": "vit",
         "name": "Llava 1.6 72B",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 4,  # April 2024 release
     },
 )
 def llava_1_6_72b(model_name, **kwargs):
@@ -798,7 +807,7 @@ def llava_1_6_72b(model_name, **kwargs):
         "architecture": "vit",
         "name": "Llava 1.6 110B",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 4,   # March 2024 release
     },
 )
 def llava_1_6_110b(model_name, **kwargs):
@@ -845,8 +854,9 @@ def llava_1_6_110b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 1.6 Mistral 7B",
+        "vision_encoder": "CLIP ViT-L/14",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 1,  # January 2024 release
     },
 )
 def llava_1_6_mistral_7b(model_name, **kwargs):
@@ -895,8 +905,9 @@ def llava_1_6_mistral_7b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 1.6 Vicuna 7B",
+        "vision_encoder": "CLIP ViT-L/14",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 1, 
     },
 )
 def llava_1_6_vicuna_7b(model_name, **kwargs):
@@ -944,8 +955,9 @@ def llava_1_6_vicuna_7b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Llava 1.6 Vicuna 13B",
+        "vision_encoder": "CLIP ViT-L/14",
         "year": 2024,
-        "month": 1,  # March 2024 release
+        "month": 1,  # January 2024 release
     },
 )
 def llava_1_6_vicuna_13b(model_name, **kwargs):
@@ -993,6 +1005,7 @@ def llava_1_6_vicuna_13b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Chameleon 7B",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 4,  # April 2024 release
     },
@@ -1042,6 +1055,7 @@ def chameleon_7b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "Chameleon 30B",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 4,  # April 2024 release
     },
@@ -1091,6 +1105,7 @@ def chameleon_30b(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 3B 224",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 5,  # May 2024 release
     },
@@ -1138,6 +1153,7 @@ def paligemma_3b_224(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 3B 448",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 5,  # May 2024 release
     },
@@ -1185,6 +1201,7 @@ def paligemma_3b_448(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 3B Mix 224",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1232,6 +1249,7 @@ def paligemma_3b_mix_224(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 2 3B Mix 224",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1279,6 +1297,7 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 2 3B Mix 448",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1326,6 +1345,7 @@ def paligemma_3b_mix_448(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 2 3B Mix 448",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1373,6 +1393,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 2 10B Mix 224",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1420,6 +1441,7 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 2 10B Mix 448",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1467,6 +1489,7 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 2 28B Mix 448",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
@@ -1514,6 +1537,7 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
         "learning_objective": "BLIP",
         "architecture": "vit",
         "name": "PaliGemma 2 28B Mix 224",
+        "vision_encoder": "SigLIP‑So400 m",
         "year": 2024,
         "month": 6,  # June 2024 release
     },
