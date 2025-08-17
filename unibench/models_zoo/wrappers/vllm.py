@@ -7,7 +7,7 @@ LICENSE file in the root directory of this source tree.
 
 import torch
 from .base import AbstractModel
-
+import torch._dynamo
 
 class AbstractVLLM(AbstractModel):
     def __init__(
@@ -30,7 +30,8 @@ class AbstractVLLM(AbstractModel):
         self.max_new_tokens = max_new_tokens
         self.output_func = output_func
         self.image_token = image_token
-        self.model = torch.compile(self.model, mode="max-autotune")
+        self.model = torch.compile(self.model, dynamic=False)
+        torch._dynamo.config.recompile_limit = 64 
 
     def get_text_from_image(self, images, prompts):
         pass
@@ -48,6 +49,8 @@ class AbstractVLLM(AbstractModel):
 class VLLModels(AbstractVLLM):
     @torch.no_grad()
     def get_text_from_image(self, images, prompts):
+        prompts = list(prompts)
+        images = images.clone()
         for i in range(len(prompts)):
             if self.processor.chat_template is not None:
                 prompts[i] = self.processor.apply_chat_template(

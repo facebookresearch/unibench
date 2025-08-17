@@ -6,6 +6,9 @@ LICENSE file in the root directory of this source tree.
 """
 
 
+from unibench.benchmarks_zoo.handlers.vllm_handlers import MultiChoiceClassificationBenchmarkHandler, MultiChoiceRelationBenchmarkHandler
+
+
 try:
     from unibench.benchmarks_zoo import register_benchmark
     from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
@@ -48,6 +51,11 @@ def cifar10(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -95,6 +103,11 @@ def imagenet1k(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -134,6 +147,11 @@ def cifar100(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -181,6 +199,11 @@ def food101(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -220,6 +243,11 @@ def cars(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -267,6 +295,11 @@ def fgvc_aircraft(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -306,6 +339,11 @@ def pets(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -353,6 +391,11 @@ def dtd(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -392,6 +435,11 @@ def sun397(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -439,6 +487,11 @@ def caltech101(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -478,6 +531,11 @@ def mnist(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -525,6 +583,11 @@ def fashion_mnist(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -564,6 +627,11 @@ def pug_imagenet(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -611,6 +679,11 @@ def gtsrb(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -650,6 +723,11 @@ def renderedsst2(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -697,6 +775,11 @@ def stl10(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -736,6 +819,11 @@ def svhn(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -783,6 +871,11 @@ def eurosat(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -822,6 +915,11 @@ def country211(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -869,6 +967,11 @@ def imagenet_sketch(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -908,6 +1011,11 @@ def dmlab(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -955,6 +1063,11 @@ def imageneta(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -994,6 +1107,11 @@ def imageneto(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1041,6 +1159,11 @@ def imagenetr(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1080,6 +1203,11 @@ def pcam(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1127,6 +1255,11 @@ def imagenete(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1166,6 +1299,11 @@ def imagenet9(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1213,6 +1351,11 @@ def imagenetc(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1252,6 +1395,11 @@ def flowers102(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1299,6 +1447,11 @@ def imagenetv2(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1338,6 +1491,11 @@ def objectnet(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1385,6 +1543,11 @@ def cub(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1424,6 +1587,11 @@ def places365(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1473,6 +1641,11 @@ def clevr_distance(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1512,6 +1685,11 @@ def clevr_count(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1556,6 +1734,10 @@ def countbench(benchmark_name, transform=None, **kwargs):
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
+        "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
     }
 
 
@@ -1584,6 +1766,11 @@ def inaturalist(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1631,6 +1818,11 @@ def voc2007(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1670,6 +1862,11 @@ def resisc45(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1719,6 +1916,11 @@ def dspr_orientation(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1760,6 +1962,11 @@ def kitti_distance(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1809,6 +2016,11 @@ def smallnorb_azimuth(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1850,6 +2062,11 @@ def smallnorb_elevation(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1899,6 +2116,11 @@ def dspr_x_position(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -1940,6 +2162,11 @@ def dspr_y_position(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -1989,6 +2216,11 @@ def retinopathy(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
             class_names=benchmark.classes,
         ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
         "clip_judge_classification": CLIPJudgeBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
@@ -2028,6 +2260,11 @@ def dollar_street(benchmark_name, transform=None, **kwargs):
             templates=benchmark.templates,
         ),
         "text_classification": TextClassificationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=benchmark.classes,
+        ),
+        "multi_choice_classification": MultiChoiceClassificationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
             class_names=benchmark.classes,
@@ -2072,6 +2309,10 @@ def vg_relation(benchmark_name, transform=None, **kwargs):
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
+        "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
     }
 
 
@@ -2098,6 +2339,10 @@ def flickr30k_order(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
         ),
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2130,6 +2375,10 @@ def sugarcrepe(benchmark_name, transform=None, **kwargs):
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
+        "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
     }
 
 
@@ -2159,6 +2408,10 @@ def bivlc(benchmark_name, transform=None, **kwargs):
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
+        # "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
+        #     benchmark_name=benchmark_name,
+        #     benchmark=benchmark,
+        # ),
     }
 
 
@@ -2185,6 +2438,10 @@ def winoground(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
         ),
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
@@ -2217,6 +2474,10 @@ def vg_attribution(benchmark_name, transform=None, **kwargs):
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),
+        "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
     }
 
 
@@ -2243,6 +2504,10 @@ def coco_order(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
         ),
         "clip_judge_relation": CLIPJudgeRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+        "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),

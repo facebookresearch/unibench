@@ -198,6 +198,11 @@ class Evaluator(object):
         )
         return benchmark_mappings
 
+    def version(self):
+        from unibench import __version__
+
+        print(f"unibench version: {__version__}")
+    
     def add_model(
         self,
         model,
@@ -295,8 +300,6 @@ class Evaluator(object):
                         pg_benchmarks,
                         description=f"[green]Processing {benchmark_name}...",
                     )
-
-                    print("New Version")
 
                     benchmark = load_benchmark(
                         benchmark_name,

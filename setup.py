@@ -4,10 +4,12 @@ All rights reserved.
 This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
+
 import setuptools
 
 # read the contents of your README file
 from pathlib import Path
+
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
@@ -20,26 +22,21 @@ minimal_requirements = [
     "pyarrow",
 ]
 
-new_model_requirements = [
-    "datasets>=3.6.0",
+complete_requirements = [
+    "datasets",
     "torch",
     "torchvision",
-]
-
-new_benchmark_requirements = [
-    "torch",
-    "torchvision",
-    "open_clip_torch",    
+    "open_clip_torch",
     "openai-clip",
     "timm",
     "opencv-python",
     "transformers",
-    'GitPython',
-    'fairscale',
-    'gdown',
-    'scipy',
-    'accelerate',
-    'openai',
+    "GitPython",
+    "fairscale",
+    "gdown",
+    "scipy",
+    "accelerate",
+    "openai",
     "backoff",
     "sentencepiece",
     "protobuf",
@@ -48,7 +45,7 @@ new_benchmark_requirements = [
 
 setuptools.setup(
     name="unibench",
-    version="0.4.0",
+    version="0.4.4",
     author="Haider Al-Tahan",
     author_email="haideraltahan@meta.com",
     description="This repository is designed to simplify the evaluation process of vision-language models. It provides a comprehensive set of tools and scripts for evaluating VLM models and benchmarks.",
@@ -67,9 +64,7 @@ setuptools.setup(
     python_requires=">=3.10",
     install_requires=minimal_requirements,
     extras_require={
-        "new_benchmark": minimal_requirements + new_benchmark_requirements,
-        "new_model": minimal_requirements + new_model_requirements,
-        "all": list(set(minimal_requirements + new_model_requirements + new_benchmark_requirements)),
+        "all": list(set(minimal_requirements + complete_requirements)),
     },
     setup_requires=["pytest-runner"],
     tests_require=["pytest"],

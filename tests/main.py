@@ -30,7 +30,7 @@ def main(output_dir=OUTPUT_DIR, num_workers=8, idx=1, model_name=None):
         )
     evaluator.evaluate(
         batch_per_gpu=2,
-        tasks=["text_classification"],
+        tasks=["multi_choice_classification", "multi_choice_relation"],
     )
 
 

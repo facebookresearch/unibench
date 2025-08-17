@@ -27,7 +27,7 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
         benchmark,
         task_name,
         class_names,
-        num_classes=5,
+        num_classes=4,
         prompt="What type of object is in this photo? Choose one from {class_names}.",
         random_seed=1337,
     ):
@@ -40,11 +40,13 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
 
     def get_prompts(self, targets_names):
         prompts = []
+        prompt_classes = []
         for target in targets_names:
             if self.num_classes == -1:
                 prompts.append(
                     self.prompt.format(class_names=", ".join(self.class_names))
                 )
+                prompt_classes.append("all")
             else:
                 random_classes = [target]
                 random_classes += random.sample(
@@ -59,7 +61,8 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
                 prompts.append(
                     self.prompt.format(class_names=", ".join(random_classes))
                 )
-        return prompts
+                prompt_classes.append(", ".join(random_classes))
+        return prompts, prompt_classes
 
 
 class TextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
@@ -83,7 +86,7 @@ class TextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
             targets_names = [self.class_names[i.argmax() - 1].lower() for i in targets]
         else:
             targets_names = [self.class_names[i - 1].lower() for i in targets]
-        prompts = self.get_prompts(targets_names)
+        prompts, prompt_classes = self.get_prompts(targets_names)
         text_outputs = model.get_text_from_image(images, prompts)
 
         correct = [
@@ -93,15 +96,190 @@ class TextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
 
         res = {
             "image_class": targets,
+            "target_class": targets_names,
+            "prompt_classes": prompt_classes,
+            "split": split,
+            "benchmark_name": self.benchmark_name,
+            "correctness": correct,
+            "prompt": self.prompt,
+            "num_classes": self.num_classes,
+            "model_output": text_outputs,
+        }
+
+        if len(batch) > 2:
+            res["image_name"] = sample_id
+
+        res["task_name"] = self.task_name
+
+        return res
+
+
+class MultiChoiceClassificationBenchmarkHandler(VLLMBenchmarkHandler):
+    def __init__(
+        self,
+        task_name="multi_choice_classification",
+        prompt="What type of object is in this photo? Choose one of the following options: {class_names}.\n",
+        **kwargs,
+    ):
+        VLLMBenchmarkHandler.__init__(
+            self, task_name=task_name, prompt=prompt, **kwargs
+        )
+
+    def get_prompts(self, targets_names):
+        prompts = []
+        prompt_classes = []
+        target_letters = []
+        for target in targets_names:
+            if self.num_classes == -1:
+                class_list = self.class_names
+            else:
+                class_list = [target]
+                class_list += random.sample(
+                    [cls for cls in self.class_names if cls != target],
+                    (
+                        self.num_classes - 1
+                        if len(self.class_names) > self.num_classes
+                        else len(self.class_names) - 1
+                    ),
+                )
+                random.shuffle(class_list)
+
+            # Find the correct answer letter
+            target_index = class_list.index(target)
+            target_letter = chr(65 + target_index)  # A, B, C, etc.
+            target_letters.append(target_letter)
+
+            # Multiple choice formatting: A. class1 B. class2 ...
+            choices = [f"({chr(65+i)}) {name}" for i, name in enumerate(class_list)]
+            prompt_text = self.prompt.replace(
+                "{class_names}", f"\n" + " ".join(choices)
+            )
+            prompts.append(prompt_text)
+            prompt_classes.append(", ".join(class_list))
+        return prompts, prompt_classes, target_letters
+
+    def eval_batch(self, model, batch):
+        split = ""
+        if len(batch) == 4:
+            images, targets, sample_id, split = batch
+        elif len(batch) == 3:
+            images, targets, sample_id = batch
+        else:
+            images, targets = batch
+
+        if len(targets.shape) > 1:
+            targets_names = [self.class_names[i.argmax() - 1].lower() for i in targets]
+        else:
+            targets_names = [self.class_names[i - 1].lower() for i in targets]
+        prompts, prompt_classes, target_letters = self.get_prompts(targets_names)
+        text_outputs = model.get_text_from_image(images, prompts)
+
+        # Check if the model output contains the correct letter option
+        correct = []
+        for text_output, target_letter in zip(text_outputs, target_letters):
+            # Look for the target letter in the output (e.g., "A", "(A)", "A.", etc.)
+            output_upper = text_output
+            is_correct = (
+                target_letter in output_upper
+                or f"({target_letter})" in output_upper
+                or f"{target_letter}." in output_upper
+                or f"{target_letter}:" in output_upper
+            )
+            correct.append(1 if is_correct else 0)
+
+        res = {
+            "image_class": targets,
+            "target_class": targets_names,
+            "target_letters": target_letters,
+            "prompt_classes": prompt_classes,
             "split": split,
             "benchmark_name": self.benchmark_name,
             "correctness": correct,
             "prompt": prompts,
             "num_classes": self.num_classes,
+            "model_output": text_outputs,
         }
 
         if len(batch) > 2:
             res["image_name"] = sample_id
+
+        res["task_name"] = self.task_name
+
+        return res
+
+
+class MultiChoiceRelationBenchmarkHandler(VLLMBenchmarkHandler):
+    def __init__(
+        self,
+        task_name="multi_choice_relation",
+        prompt="What type of object is in this photo? Choose the more accurate option: {class_names}.\n",
+        num_classes=-1,
+        **kwargs,
+    ):
+        VLLMBenchmarkHandler.__init__(
+            self,
+            task_name=task_name,
+            prompt=prompt,
+            num_classes=num_classes,
+            class_names=None,
+            **kwargs,
+        )
+
+    def get_prompts(self, captions):
+        prompts = []
+        for caption in captions:
+            choices = [f"({chr(65+i)}) {c}" for i, c in enumerate(caption)]
+            prompt_text = self.prompt.replace(
+                "{class_names}", f"\n" + " ".join(choices)
+            )
+            prompts.append(prompt_text)
+        return prompts
+
+    def eval_batch(self, model, batch):
+        attribute = None
+        if len(batch) == 4:
+            images, captions, sample_id, attribute = batch
+        else:
+            images, captions, sample_id = batch
+
+        if len(images) != len(captions):
+            res = []
+            for j in range(len(captions[0])):
+                c = []
+                for i in range(len(captions)):
+                    c.append(captions[i][j])
+                res.append(c)
+            captions = res
+
+        prompts = self.get_prompts(captions)
+        
+        if isinstance(images, list):
+            c_i0 = model.get_text_from_image(images[0], prompts)
+            correct_i0 = [1 if 'A' in text else 0 for text in c_i0]
+            c_i1 = model.get_text_from_image(images[1], prompts)
+            correct_i1 = [1 if 'B' in text else 0 for text in c_i1]
+
+            correct = [int(a & b) for a, b in zip(correct_i0, correct_i1)]
+            outputs = [f"{a};{b}" for a, b in zip(c_i0, c_i1)]
+        else:    
+            outputs = model.get_text_from_image(images, prompts)
+            correct = [1 if 'A' in text else 0 for text in outputs]
+
+        res = {
+            "benchmark_name": self.benchmark_name,
+            "correctness": correct,
+            "prompt": prompts,
+            "num_classes": self.num_classes,
+            "model_output": outputs,
+        }
+
+        if len(batch) > 2:
+            res["image_name"] = sample_id
+
+        if attribute is not None:
+            if isinstance(attribute[0], str) and "\n" in attribute[0]:
+                attribute = [x.split("\n") for x in attribute]
+            res["attribute"] = attribute
 
         res["task_name"] = self.task_name
 
@@ -440,6 +618,7 @@ class CLIPJudgeRelationBenchmarkHandler(VLLMBenchmarkHandler):
 
         return res
 
+
 class InContextTextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
     def __init__(
         self,
@@ -450,7 +629,9 @@ class InContextTextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
         llm_max_new_tokens=32,
         **kwargs,
     ):
-        VLLMBenchmarkHandler.__init__(self, task_name=task_name, prompt=prompt, **kwargs)
+        VLLMBenchmarkHandler.__init__(
+            self, task_name=task_name, prompt=prompt, **kwargs
+        )
         self.description_prompt = description_prompt
         self.class_descriptions = {}
         self.llm_model = llm_model
@@ -464,47 +645,60 @@ class InContextTextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
                 self.class_descriptions = torch.load(self.cache_file)
                 return None
             except:
-                print(f"Failed to load class descriptions from {self.cache_file}. Regenerating.")
-        
+                print(
+                    f"Failed to load class descriptions from {self.cache_file}. Regenerating."
+                )
+
         # Initialize LLM for generating class descriptions
         if "deepseek" in self.llm_model:
             self.llm = DeepSeekJudge(model_name=self.llm_model)
         elif "llama" in self.llm_model:
-            self.llm = LlamaJudge(model_name=self.llm_model, max_new_tokens=self.llm_max_new_tokens)
+            self.llm = LlamaJudge(
+                model_name=self.llm_model, max_new_tokens=self.llm_max_new_tokens
+            )
         else:
             raise ValueError(
                 f"LLM model {self.llm_model} not supported. Please use either DeepSeek or Llama models."
             )
-            
+
         # Generate descriptions for each class using the LLM in batches
         batch_size = 8  # Process 8 class descriptions at a time
         for i in range(0, len(self.class_names), batch_size):
-            batch_classes = self.class_names[i:i+batch_size]
-            
+            batch_classes = self.class_names[i : i + batch_size]
+
             # Create prompts for the batch
-            prompts = [self.description_prompt.format(class_name=class_name) for class_name in batch_classes]
+            prompts = [
+                self.description_prompt.format(class_name=class_name)
+                for class_name in batch_classes
+            ]
             processed_prompts = self.llm.pre_process_text(prompts)
-            
+
             # Get descriptions for the batch
             descriptions = self.llm.eval_batch(processed_prompts, return_output=True)
-            
+
             # Store the descriptions
             for class_name, description in zip(batch_classes, descriptions):
                 if class_name.lower() in self.class_descriptions:
-                    print(f"Warning: Class {class_name} already has a description. Overwriting.")
-                self.class_descriptions[class_name.lower()] = f"{class_name}: {description}"
-        
+                    print(
+                        f"Warning: Class {class_name} already has a description. Overwriting."
+                    )
+                self.class_descriptions[class_name.lower()] = (
+                    f"{class_name}: {description}"
+                )
+
         # Save the class descriptions to cache
         self.cache_file.parent.mkdir(parents=True, exist_ok=True)
         torch.save(self.class_descriptions, self.cache_file)
         del self.llm
-            
+
     def get_prompts(self, targets_names):
         prompts = []
         for target in targets_names:
             if self.num_classes == -1:
                 # Include all class descriptions
-                class_descs = [self.class_descriptions[c.lower()] for c in self.class_names]
+                class_descs = [
+                    self.class_descriptions[c.lower()] for c in self.class_names
+                ]
                 prompts.append(
                     self.prompt.format(class_descriptions="\n".join(class_descs))
                 )
@@ -520,9 +714,14 @@ class InContextTextClassificationBenchmarkHandler(VLLMBenchmarkHandler):
                     ),
                 )
                 random.shuffle(random_classes)
-                class_descs = [self.class_descriptions[c.lower()] for c in random_classes]
+                class_descs = [
+                    self.class_descriptions[c.lower()] for c in random_classes
+                ]
                 prompts.append(
-                    self.prompt.format(class_names=", ".join(random_classes), class_descriptions="\n".join(class_descs))
+                    self.prompt.format(
+                        class_names=", ".join(random_classes),
+                        class_descriptions="\n".join(class_descs),
+                    )
                 )
         return prompts
 
