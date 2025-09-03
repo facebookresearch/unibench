@@ -118,7 +118,7 @@ class MultiChoiceClassificationBenchmarkHandler(VLLMBenchmarkHandler):
     def __init__(
         self,
         task_name="multi_choice_classification",
-        prompt="What type of object is in this photo? Choose one of the following options: {class_names}.\n",
+        prompt="Look carefully at the image. Only one of the following options correctly describes the objects and their relationships. Choose the most accurate option and respond with **only the letter**.\n{class_names}",
         **kwargs,
     ):
         VLLMBenchmarkHandler.__init__(

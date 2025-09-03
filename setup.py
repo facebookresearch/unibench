@@ -30,7 +30,7 @@ complete_requirements = [
     "openai-clip",
     "timm",
     "opencv-python",
-    "transformers",
+    "transformers>=4.52.0,<4.53",
     "GitPython",
     "fairscale",
     "gdown",
@@ -41,6 +41,9 @@ complete_requirements = [
     "sentencepiece",
     "protobuf",
     "google",
+    "einops",
+    "flash-attn",
+    "peft"
 ]
 
 setuptools.setup(

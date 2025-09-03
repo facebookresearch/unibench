@@ -77,6 +77,650 @@ def llava_1_5_7b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
+        "name": "Llava 1.5 7B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_2_5_3b(model_name, **kwargs):
+    from transformers import Qwen2_5_VLForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen2.5-VL-3B-Instruct"
+    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava 1.5 7B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_2_5_7b(model_name, **kwargs):
+    from transformers import Qwen2_5_VLForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen2.5-VL-7B-Instruct"
+    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava 1.5 7B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_2_5_32b(model_name, **kwargs):
+    from transformers import Qwen2_5_VLForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen2.5-VL-32B-Instruct"
+    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava 1.5 7B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_2_5_72b(model_name, **kwargs):
+    from transformers import Qwen2_5_VLForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen2.5-VL-72B-Instruct"
+    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_3_5_1b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL3_5-1B-Instruct"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        cache_dir=HUB_CACHE_DIR,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_3_5_2b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL3_5-2B-Instruct"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        cache_dir=HUB_CACHE_DIR,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_3_5_4b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL3_5-4B-Instruct"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        cache_dir=HUB_CACHE_DIR,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_3_5_8b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL3_5-8B-Instruct"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        cache_dir=HUB_CACHE_DIR,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_3_5_14b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL3_5-14B-Instruct"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        cache_dir=HUB_CACHE_DIR,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_3_5_38b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL3_5-38B-Instruct"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        cache_dir=HUB_CACHE_DIR,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_3_5_30b_a3b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL3_5-30B-A3B-Instruct"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        cache_dir=HUB_CACHE_DIR,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_3_5_241b_a28b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL3_5-241B-A28B-Instruct"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        cache_dir=HUB_CACHE_DIR,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
         "name": "Llava 1.5 13B",
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
@@ -119,6 +763,7 @@ def llava_1_5_13b(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
@@ -129,7 +774,60 @@ def llava_1_5_13b(model_name, **kwargs):
         "name": "Aya Vision 8B",
         "vision_encoder": "EVA-CLIP ViT-g/14",
         "year": 2024,
-        "month": 11, 
+        "month": 11,
+    },
+)
+def molmoact_7b(model_name, **kwargs):
+    from transformers import AutoModelForImageTextToText
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "allenai/MolmoAct-7B-O-0812"
+    model = AutoModelForImageTextToText.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="auto",
+        trust_remote_code=True,
+        attn_implementation='sdpa'
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16, trust_remote_code=True,
+    )
+
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        # norm_mean=processor.image_processor.image_mean,
+        # norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.base_image_input_size[0],
+        output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
+        .strip()
+        .replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 8000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Aya Vision 8B",
+        "vision_encoder": "EVA-CLIP ViT-g/14",
+        "year": 2024,
+        "month": 11,
     },
 )
 def aya_vision_8b(model_name, **kwargs):
@@ -182,7 +880,7 @@ def aya_vision_8b(model_name, **kwargs):
         "name": "Aya Vision 32B",
         "vision_encoder": "EVA-CLIP ViT-g/14",
         "year": 2024,
-        "month": 11, 
+        "month": 11,
     },
 )
 def aya_vision_32b(model_name, **kwargs):
@@ -433,7 +1131,7 @@ def llama_4_maverick_instruct(model_name, **kwargs):
         "architecture": "vit",
         "name": "Llava 4 Maverick",
         "year": 2025,
-        "month": 1,   # March 2024 release
+        "month": 1,  # March 2024 release
     },
 )
 def llama_4_maverick(model_name, **kwargs):
@@ -522,7 +1220,6 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
-
 @register_model(
     "vllm",
     {
@@ -572,64 +1269,121 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
     ]
 
 
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Phi 4 Multimodal Instruct",
+        "year": 2024,
+        "month": 1,  # March 2024 release
+    },
+)
+def phi_4(model_name, **kwargs):
+    from transformers import AutoModelForCausalLM, GenerationConfig
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import PHIModels
 
-# @register_model(
-#     "vllm",
-#     {
-#         "dataset_size": 14,
-#         "model_size": 7000,
-#         "learning_objective": "BLIP",
-#         "architecture": "vit",
-#         "name": "Phi 4 Multimodal Instruct",
-#         "year": 2024,
-#         "month": 1,  # March 2024 release
-#     },
-# )
-# def phi_4(model_name, **kwargs):
-#     from transformers import AutoModelForCausalLM
-#     from transformers import AutoProcessor
-#     import torch
-#     from unibench.models_zoo.wrappers.vllm import VLLModels
+    name = "Lexius/Phi-4-multimodal-instruct"
+    model = AutoModelForCausalLM.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+        _attn_implementation='flash_attention_2',
+    )
+    model.load_adapter(
+        "microsoft/Phi-4-multimodal-instruct",
+        adapter_name="vision",
+        device_map="balanced",
+        adapter_kwargs={"subfolder": "vision-lora"},
+    )
+    model.set_adapter("vision")
 
-#     name = "Lexius/Phi-4-multimodal-instruct"
-#     model = AutoModelForCausalLM.from_pretrained(
-#         name,
-#         low_cpu_mem_usage=True,
-#         torch_dtype=torch.bfloat16,
-#         device_map="balanced",
-#         trust_remote_code=True,
-#         _attn_implementation='flash_attention_2',
-#     )
-#     model.load_adapter(
-#         "microsoft/Phi-4-multimodal-instruct",
-#         adapter_name="vision",
-#         device_map="balanced",
-#         adapter_kwargs={"subfolder": "vision-lora"},
-#     )
-#     model.set_adapter("vision")
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16, trust_remote_code=True
+    )
 
-#     processor = AutoProcessor.from_pretrained(
-#         name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16, trust_remote_code=True
-#     )
-#     return VLLModels(
-#         model=model,
-#         model_name=model_name,
-#         processor=processor,
-#         inp_processor_func=lambda x: f'<|user|><|image_1|>{x}<|end|><|assistant|>',
-#         output_func=lambda x: x.split("<|assistant|>")[-1]
-#         .strip()
-#         .replace("\n", ""),
-#         **kwargs
-#     ), [
-#         "text_classification",
-# "multi_choice_classification",
-# "multi_choice_relation",
-#         "clip_judge_classification",
-#         "llm_judge_classification",
-#         "clip_judge_relation",
-#         "in_context_text_classification",
-#     ]
+    generation_config = GenerationConfig.from_pretrained(name)
 
+
+    return PHIModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        input_resolution=448,
+        inp_processor_func=lambda x: f'<|user|><|image_1|>{x}<|end|><|assistant|>',
+        output_func=lambda x: x,
+        generation_config=generation_config,
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava 1.6 34B",
+        "year": 2024,
+        "month": 4,  # April 2024 release
+    },
+)
+def pixtral_12b(model_name, **kwargs):
+    from transformers import LlavaForConditionalGeneration
+    from transformers import AutoProcessor, AutoTokenizer
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "mistral-community/pixtral-12b"
+    model = LlavaForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+
+    
+    tokenizer = AutoTokenizer.from_pretrained("mistral-community/pixtral-12b")
+    processor.tokenizer.pad_token = tokenizer.eos_token
+
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["longest_edge"],
+        use_img_size=True,
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
 
 @register_model(
     "vllm",
@@ -779,6 +1533,158 @@ def gemma3_27b(model_name, **kwargs):
         "clip_judge_relation",
         "in_context_text_classification",
     ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Gemma 3 27B",
+        "vision_encoder": "SigLIP‑So400 m",
+        "year": 2024,
+        "month": 12,  # March 2024 release
+    },
+)
+def gemma3_270m(model_name, **kwargs):
+    from transformers import Gemma3ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/gemma-3-270m-it"
+    model = Gemma3ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Gemma 3 27B",
+        "vision_encoder": "SigLIP‑So400 m",
+        "year": 2024,
+        "month": 12,  # March 2024 release
+    },
+)
+def gemma3_1b(model_name, **kwargs):
+    from transformers import Gemma3ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/gemma-3-1b-it"
+    model = Gemma3ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Gemma 3 27B",
+        "vision_encoder": "SigLIP‑So400 m",
+        "year": 2024,
+        "month": 12,  # March 2024 release
+    },
+)
+def gemma3_12b(model_name, **kwargs):
+    from transformers import Gemma3ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/gemma-3-12b-it"
+    model = Gemma3ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
 @register_model(
     "vllm",
     {
@@ -836,9 +1742,59 @@ def llava_1_6_72b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
+        "name": "Llama 3.2 11B Vision Instruct",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2024,
+        "month": 9,  # September 2024 release
+    },
+)
+def llama_3_2_11b_vision_instruct_cot(model_name, **kwargs):
+    from transformers import MllamaForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Xkev/Llama-3.2V-11B-cot"
+    model = MllamaForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
+        **kwargs
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
         "name": "Llava 1.6 110B",
         "year": 2024,
-        "month": 4,   # March 2024 release
+        "month": 4,  # March 2024 release
     },
 )
 def llava_1_6_110b(model_name, **kwargs):
@@ -942,7 +1898,7 @@ def llava_1_6_mistral_7b(model_name, **kwargs):
         "name": "Llava 1.6 Vicuna 7B",
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2024,
-        "month": 1, 
+        "month": 1,
     },
 )
 def llava_1_6_vicuna_7b(model_name, **kwargs):
@@ -1051,7 +2007,7 @@ def llava_1_6_vicuna_13b(model_name, **kwargs):
 )
 def chameleon_7b(model_name, **kwargs):
     from transformers import ChameleonForConditionalGeneration
-    from transformers import ChameleonProcessor
+    from transformers import ChameleonProcessor, AutoTokenizer
     import torch
     from unibench.models_zoo.wrappers.vllm import VLLModels
 
@@ -1063,10 +2019,11 @@ def chameleon_7b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,
     )
-
+    tokenizer = AutoTokenizer.from_pretrained(name, use_fast=True)
     processor = ChameleonProcessor.from_pretrained(
         name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
     )
+
     return VLLModels(
         model=model,
         model_name=model_name,
@@ -1076,6 +2033,10 @@ def chameleon_7b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
+        gen_kwargs={
+            'pad_token_id':tokenizer.pad_token_id,
+            'eos_token_id':tokenizer.eos_token_id,
+        },
         **kwargs
     ), [
         "text_classification",
@@ -1103,7 +2064,7 @@ def chameleon_7b(model_name, **kwargs):
 )
 def chameleon_30b(model_name, **kwargs):
     from transformers import ChameleonForConditionalGeneration
-    from transformers import ChameleonProcessor
+    from transformers import ChameleonProcessor, AutoTokenizer
     import torch
     from unibench.models_zoo.wrappers.vllm import VLLModels
 
@@ -1116,9 +2077,11 @@ def chameleon_30b(model_name, **kwargs):
         trust_remote_code=True,
     )
 
+    tokenizer = AutoTokenizer.from_pretrained(name, use_fast=True)
     processor = ChameleonProcessor.from_pretrained(
         name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
     )
+
     return VLLModels(
         model=model,
         model_name=model_name,
@@ -1128,6 +2091,10 @@ def chameleon_30b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
+        gen_kwargs={
+            'pad_token_id':tokenizer.pad_token_id,
+            'eos_token_id':tokenizer.eos_token_id,
+        },
         **kwargs
     ), [
         "text_classification",
