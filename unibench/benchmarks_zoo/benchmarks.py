@@ -990,7 +990,7 @@ def imagenet_sketch(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (spatial)",
         "capability": "depth estimation",
         "curated": True,
         "object_centric": False,
@@ -1614,7 +1614,7 @@ def places365(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (spatial)",
         "capability": "spatial understanding",
         "curated": True,
         "object_centric": False,
@@ -1664,7 +1664,7 @@ def clevr_distance(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (counting)",
         "capability": "counting",
         "curated": True,
         "object_centric": False,
@@ -1712,7 +1712,7 @@ def clevr_count(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (counting)",
         "capability": "counting",
         "curated": False,
         "object_centric": False,
@@ -1889,7 +1889,7 @@ def resisc45(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (spatial)",
         "capability": "pose detection",
         "curated": True,
         "object_centric": False,
@@ -1939,7 +1939,7 @@ def dspr_orientation(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (spatial)",
         "capability": "depth estimation",
         "curated": False,
         "object_centric": False,
@@ -1989,7 +1989,7 @@ def kitti_distance(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (spatial)",
         "capability": "pose detection",
         "curated": True,
         "object_centric": False,
@@ -2039,7 +2039,7 @@ def smallnorb_azimuth(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (spatial)",
         "capability": "spatial understanding",
         "curated": True,
         "object_centric": False,
@@ -2089,7 +2089,7 @@ def smallnorb_elevation(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (spatial)",
         "capability": "spatial understanding",
         "curated": True,
         "object_centric": False,
@@ -2139,7 +2139,7 @@ def dspr_x_position(benchmark_name, transform=None, **kwargs):
     "vtab",
     {
         "benchmark": "zero-shot",
-        "benchmark_type": "reasoning",
+        "benchmark_type": "reasoning (spatial)",
         "capability": "spatial understanding",
         "curated": True,
         "object_centric": False,

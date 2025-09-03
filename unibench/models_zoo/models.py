@@ -3045,44 +3045,6 @@ def siglip2_so400_16_512(model_name, **kwargs):
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
         "architecture": "So400",
-        "name": "SigLIP 2 So400/16 512",
-        "year": 2025,
-        "month": 2,
-    },
-)
-def siglip2_so400_16_512(model_name, **kwargs):
-    import open_clip
-    from unibench.models_zoo.wrappers import ClipModel
-
-    model, _, _ = open_clip.create_model_and_transforms(
-        "ViT-SO400M-16-SigLIP2-512", pretrained="webli"
-    )
-
-    tokenizer = open_clip.get_tokenizer("ViT-SO400M-16-SigLIP2-512")
-
-    return ClipModel(
-        model,
-        model_name,
-        tokenizer=tokenizer,
-        norm_mean=IMAGENET_INCEPTION_MEAN,
-        norm_std=IMAGENET_INCEPTION_STD,
-        input_resolution=model.visual.image_size[0],
-        logit_scale=model.logit_scale,
-        context_length=64,
-        **kwargs
-    ), [
-        "zeroshot_classification",
-        "zeroshot_relation",
-    ]
-
-
-@register_model(
-    "contrastive",
-    {
-        "dataset_size": 10000,
-        "model_size": 400,
-        "learning_objective": "Contrastive (sigmoid-based)",
-        "architecture": "So400",
         "name": "SigLIP 2 So400/16 384",
         "year": 2025,
         "month": 2,
