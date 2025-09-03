@@ -118,7 +118,7 @@ class MultiChoiceClassificationBenchmarkHandler(VLLMBenchmarkHandler):
     def __init__(
         self,
         task_name="multi_choice_classification",
-        prompt="What type of object is in this photo? Choose one of the following options: {class_names}.\n",
+        prompt="Look carefully at the image. Only one of the following options correctly describes the objects and their relationships. Choose the most accurate option and respond with **only the letter**.\n{class_names}",
         **kwargs,
     ):
         VLLMBenchmarkHandler.__init__(
@@ -212,7 +212,7 @@ class MultiChoiceRelationBenchmarkHandler(VLLMBenchmarkHandler):
     def __init__(
         self,
         task_name="multi_choice_relation",
-        prompt="What type of object is in this photo? Choose the more accurate option: {class_names}.\n",
+        prompt="Look carefully at the image. Only one of the following options correctly describes the objects and their relationships. Choose the most accurate option and respond with **only the letter**.\n{class_names}",
         num_classes=-1,
         **kwargs,
     ):
@@ -230,7 +230,7 @@ class MultiChoiceRelationBenchmarkHandler(VLLMBenchmarkHandler):
         for caption in captions:
             choices = [f"({chr(65+i)}) {c}" for i, c in enumerate(caption)]
             prompt_text = self.prompt.replace(
-                "{class_names}", f"\n" + " ".join(choices)
+                "{class_names}", "\n".join(choices)
             )
             prompts.append(prompt_text)
         return prompts
@@ -242,15 +242,8 @@ class MultiChoiceRelationBenchmarkHandler(VLLMBenchmarkHandler):
         else:
             images, captions, sample_id = batch
 
-        if len(images) != len(captions):
-            res = []
-            for j in range(len(captions[0])):
-                c = []
-                for i in range(len(captions)):
-                    c.append(captions[i][j])
-                res.append(c)
-            captions = res
-
+        captions = [list(items) for items in zip(*captions)]
+        
         prompts = self.get_prompts(captions)
         
         if isinstance(images, list):

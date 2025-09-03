@@ -5,7 +5,7 @@ RUN_DATE=$(date +%Y%m%d_%H%M%S)
 
 # === Define output dirs based on date ===
 LOG_DIR=./scripts_log/${RUN_DATE}
-OUT_DIR=./script_outputs/
+OUT_DIR=$(realpath ./script_outputs/)
 
 # === Create the directories ===
 mkdir -p "${LOG_DIR}" "${OUT_DIR}"
@@ -20,4 +20,4 @@ cd /fsx-robust/marksibrahim/tmp/UniBench/unibench/tests/mark
 unibench version
 
 # === Submit the job ===
-sbatch --output="${LOG_FILE}" --array=0-32 evaluation.sh "${OUT_DIR}"
+sbatch --output="${LOG_FILE}" --array=0-50 evaluation.sh "${OUT_DIR}"
