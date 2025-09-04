@@ -23,6 +23,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -73,6 +74,7 @@ def llava_1_5_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -124,6 +126,7 @@ def qwen_2_5_3b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -175,6 +178,7 @@ def qwen_2_5_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -183,6 +187,7 @@ def qwen_2_5_7b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def qwen_2_5_32b(model_name, **kwargs):
@@ -226,6 +231,7 @@ def qwen_2_5_32b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -234,6 +240,7 @@ def qwen_2_5_32b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def qwen_2_5_72b(model_name, **kwargs):
@@ -277,6 +284,7 @@ def qwen_2_5_72b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -285,6 +293,7 @@ def qwen_2_5_72b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def internvl_3_5_1b(model_name, **kwargs):
@@ -332,6 +341,7 @@ def internvl_3_5_1b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -340,6 +350,7 @@ def internvl_3_5_1b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def internvl_3_5_2b(model_name, **kwargs):
@@ -387,6 +398,7 @@ def internvl_3_5_2b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -395,6 +407,7 @@ def internvl_3_5_2b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def internvl_3_5_4b(model_name, **kwargs):
@@ -442,6 +455,7 @@ def internvl_3_5_4b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -450,6 +464,7 @@ def internvl_3_5_4b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def internvl_3_5_8b(model_name, **kwargs):
@@ -497,6 +512,7 @@ def internvl_3_5_8b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -505,6 +521,7 @@ def internvl_3_5_8b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def internvl_3_5_14b(model_name, **kwargs):
@@ -552,6 +569,7 @@ def internvl_3_5_14b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -560,6 +578,7 @@ def internvl_3_5_14b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def internvl_3_5_38b(model_name, **kwargs):
@@ -607,6 +626,7 @@ def internvl_3_5_38b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -615,6 +635,7 @@ def internvl_3_5_38b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def internvl_3_5_30b_a3b(model_name, **kwargs):
@@ -662,6 +683,7 @@ def internvl_3_5_30b_a3b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -670,6 +692,7 @@ def internvl_3_5_30b_a3b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def internvl_3_5_241b_a28b(model_name, **kwargs):
@@ -717,6 +740,7 @@ def internvl_3_5_241b_a28b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -725,6 +749,7 @@ def internvl_3_5_241b_a28b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+
     },
 )
 def llava_1_5_13b(model_name, **kwargs):
@@ -767,6 +792,7 @@ def llava_1_5_13b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 8000,
         "learning_objective": "BLIP",
@@ -775,6 +801,7 @@ def llava_1_5_13b(model_name, **kwargs):
         "vision_encoder": "EVA-CLIP ViT-g/14",
         "year": 2024,
         "month": 11,
+
     },
 )
 def molmoact_7b(model_name, **kwargs):
@@ -820,6 +847,8 @@ def molmoact_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
+
         "dataset_size": 14,
         "model_size": 8000,
         "learning_objective": "BLIP",
@@ -873,6 +902,7 @@ def aya_vision_8b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -926,6 +956,7 @@ def aya_vision_32b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -978,6 +1009,7 @@ def llava_next_llama_8b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1027,6 +1059,7 @@ def llama_4_scout_instruct(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1076,6 +1109,7 @@ def llama_4_scout(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1125,6 +1159,7 @@ def llama_4_maverick_instruct(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1174,6 +1209,7 @@ def llama_4_maverick(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1223,6 +1259,7 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1272,6 +1309,7 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1334,6 +1372,7 @@ def phi_4(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1388,6 +1427,7 @@ def pixtral_12b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1438,6 +1478,7 @@ def llava_1_6_34b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1488,6 +1529,7 @@ def gemma3_4b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1534,110 +1576,10 @@ def gemma3_27b(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
-
 @register_model(
     "vllm",
     {
-        "dataset_size": 14,
-        "model_size": 7000,
-        "learning_objective": "BLIP",
-        "architecture": "vit",
-        "name": "Gemma 3 27B",
-        "vision_encoder": "SigLIP‑So400 m",
-        "year": 2024,
-        "month": 12,  # March 2024 release
-    },
-)
-def gemma3_270m(model_name, **kwargs):
-    from transformers import Gemma3ForConditionalGeneration
-    from transformers import AutoProcessor
-    import torch
-    from unibench.models_zoo.wrappers.vllm import VLLModels
-
-    name = "google/gemma-3-270m-it"
-    model = Gemma3ForConditionalGeneration.from_pretrained(
-        name,
-        low_cpu_mem_usage=True,
-        torch_dtype=torch.bfloat16,
-        device_map="balanced",
-        trust_remote_code=True,
-    )
-    processor = AutoProcessor.from_pretrained(
-        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
-    )
-    return VLLModels(
-        model=model,
-        model_name=model_name,
-        processor=processor,
-        norm_mean=processor.image_processor.image_mean,
-        norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size["width"],
-        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
-        **kwargs
-    ), [
-        "text_classification",
-        "multi_choice_classification",
-        "multi_choice_relation",
-        "clip_judge_classification",
-        "llm_judge_classification",
-        "clip_judge_relation",
-        "in_context_text_classification",
-    ]
-
-
-@register_model(
-    "vllm",
-    {
-        "dataset_size": 14,
-        "model_size": 7000,
-        "learning_objective": "BLIP",
-        "architecture": "vit",
-        "name": "Gemma 3 27B",
-        "vision_encoder": "SigLIP‑So400 m",
-        "year": 2024,
-        "month": 12,  # March 2024 release
-    },
-)
-def gemma3_1b(model_name, **kwargs):
-    from transformers import Gemma3ForConditionalGeneration
-    from transformers import AutoProcessor
-    import torch
-    from unibench.models_zoo.wrappers.vllm import VLLModels
-
-    name = "google/gemma-3-1b-it"
-    model = Gemma3ForConditionalGeneration.from_pretrained(
-        name,
-        low_cpu_mem_usage=True,
-        torch_dtype=torch.bfloat16,
-        device_map="balanced",
-        trust_remote_code=True,
-    )
-    processor = AutoProcessor.from_pretrained(
-        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
-    )
-    return VLLModels(
-        model=model,
-        model_name=model_name,
-        processor=processor,
-        norm_mean=processor.image_processor.image_mean,
-        norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size["width"],
-        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
-        **kwargs
-    ), [
-        "text_classification",
-        "multi_choice_classification",
-        "multi_choice_relation",
-        "clip_judge_classification",
-        "llm_judge_classification",
-        "clip_judge_relation",
-        "in_context_text_classification",
-    ]
-
-
-@register_model(
-    "vllm",
-    {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1688,6 +1630,7 @@ def gemma3_12b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1738,6 +1681,7 @@ def llava_1_6_72b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1788,6 +1732,7 @@ def llama_3_2_11b_vision_instruct_cot(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1838,6 +1783,7 @@ def llava_1_6_110b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1891,6 +1837,7 @@ def llava_1_6_mistral_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1943,6 +1890,7 @@ def llava_1_6_vicuna_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1995,6 +1943,7 @@ def llava_1_6_vicuna_13b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2052,6 +2001,7 @@ def chameleon_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2110,6 +2060,7 @@ def chameleon_30b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2160,6 +2111,7 @@ def paligemma_3b_224(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2210,6 +2162,7 @@ def paligemma_3b_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2260,6 +2213,7 @@ def paligemma_3b_mix_224(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2310,6 +2264,7 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2360,6 +2315,7 @@ def paligemma_3b_mix_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2410,6 +2366,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2460,6 +2417,7 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2510,6 +2468,7 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2560,6 +2519,7 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
+"model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2645,6 +2605,7 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 14,
         "model_size": 86,
         "learning_objective": "BLIP",
@@ -2667,6 +2628,7 @@ def blip_vitB16_14m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 307,
         "learning_objective": "BLIP",
@@ -2689,6 +2651,7 @@ def blip_vitL16_129m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 86,
         "learning_objective": "BLIP",
@@ -2711,6 +2674,7 @@ def blip_vitB16_129m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 86,
         "learning_objective": "BLIP",
@@ -2733,6 +2697,7 @@ def blip_vitB16_coco(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 86,
         "learning_objective": "BLIP",
@@ -2755,6 +2720,7 @@ def blip_vitB16_flickr(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 307,
         "learning_objective": "BLIP",
@@ -2777,6 +2743,7 @@ def blip_vitL16_coco(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 307,
         "learning_objective": "BLIP",
@@ -2799,6 +2766,7 @@ def blip_vitL16_flickr(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 4350,
         "learning_objective": "EVA02",
@@ -2836,6 +2804,7 @@ def eva02_vitE14_plus_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 4350,
         "learning_objective": "EVA02",
@@ -2873,6 +2842,7 @@ def eva02_vitE14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 307,
         "learning_objective": "EVA02",
@@ -2910,6 +2880,7 @@ def eva02_vitL14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "EVA02",
@@ -2947,6 +2918,7 @@ def eva02_vitB16_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 1011,
         "learning_objective": "EVA01",
@@ -2984,6 +2956,7 @@ def eva01_vitG14_plus_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 1011,
         "learning_objective": "EVA01",
@@ -3021,6 +2994,7 @@ def eva01_vitG14_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 1843,
         "learning_objective": "CLIPA",
@@ -3059,6 +3033,7 @@ def clipa_vitbigG14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 22,
         "learning_objective": "ViTamin",
@@ -3094,6 +3069,7 @@ def vitamin_s_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 22,
         "learning_objective": "ViTamin",
@@ -3129,6 +3105,7 @@ def vitamin_s_ltt_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 87,
         "learning_objective": "ViTamin",
@@ -3164,6 +3141,7 @@ def vitamin_b_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 87,
         "learning_objective": "ViTamin",
@@ -3199,6 +3177,7 @@ def vitamin_b_ltt_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3234,6 +3213,7 @@ def vitamin_l_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3269,6 +3249,7 @@ def vitamin_l2_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3304,6 +3285,7 @@ def vitamin_l2_256_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3339,6 +3321,7 @@ def vitamin_l2_336_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 436,
         "learning_objective": "ViTamin",
@@ -3374,6 +3357,7 @@ def vitamin_xl_256_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 436,
         "learning_objective": "ViTamin",
@@ -3409,6 +3393,7 @@ def vitamin_xl_336_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 436,
         "learning_objective": "ViTamin",
@@ -3444,6 +3429,7 @@ def vitamin_xl_384_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3479,6 +3465,7 @@ def vitamin_l_256_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3514,6 +3501,7 @@ def vitamin_l_336_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 633,
         "learning_objective": "CLIPA",
@@ -3552,6 +3540,7 @@ def clipa_vitH14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 307,
         "learning_objective": "CLIPA",
@@ -3590,6 +3579,7 @@ def clipa_vitL14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3628,6 +3618,7 @@ def siglip_vitL16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -3666,6 +3657,7 @@ def roberta_vitB32(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3704,6 +3696,7 @@ def siglip_vitB16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3742,6 +3735,7 @@ def siglip_vitB16_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3780,6 +3774,7 @@ def siglip_vitB16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3818,6 +3813,7 @@ def siglip_vitB16_512(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3856,6 +3852,7 @@ def siglip_vitL16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3894,6 +3891,7 @@ def siglip_so400_14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3932,6 +3930,7 @@ def siglip_so400_14_378(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3970,6 +3969,7 @@ def siglip_so400_14_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4008,6 +4008,7 @@ def siglip2_so400_16_512(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4046,6 +4047,7 @@ def siglip2_so400_16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4084,6 +4086,7 @@ def siglip2_so400_16_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4122,6 +4125,7 @@ def siglip2_so400_14_378(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4160,6 +4164,7 @@ def siglip2_so400_14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4198,6 +4203,7 @@ def siglip2_vitL16_512(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4236,6 +4242,7 @@ def siglip2_vitL16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4274,6 +4281,7 @@ def siglip2_vitL16_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4312,6 +4320,7 @@ def siglip2_vitB16_512(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4350,6 +4359,7 @@ def siglip2_vitB16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4388,6 +4398,7 @@ def siglip2_vitB16_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4426,6 +4437,7 @@ def siglip2_vitB16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4464,6 +4476,7 @@ def siglip2_vitB32_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2500,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4501,6 +4514,7 @@ def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4538,6 +4552,7 @@ def openclip_vitB16_metaclip_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4575,6 +4590,7 @@ def openclip_vitB32_metaclip_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4612,6 +4628,7 @@ def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4649,6 +4666,7 @@ def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2500,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4686,6 +4704,7 @@ def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -4723,6 +4742,7 @@ def openclip_vitL14_dfn2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -4760,6 +4780,7 @@ def openclip_vitL14_metaclip_400(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2500,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -4797,6 +4818,7 @@ def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2500,
         "model_size": 633,
         "learning_objective": "Contrastive",
@@ -4834,6 +4856,7 @@ def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 5000,
         "model_size": 633,
         "learning_objective": "Contrastive",
@@ -4871,6 +4894,7 @@ def openclip_vitH14_dfn5b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 88,
         "learning_objective": "Contrastive",
@@ -4908,6 +4932,7 @@ def openclip_convnext_base(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4943,6 +4968,7 @@ def clip_vitB32(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 13,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4980,6 +5006,7 @@ def openclip_vitB32_datacomp_s(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 128,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5017,6 +5044,7 @@ def openclip_vitB32_datacomp_m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 12800,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5054,6 +5082,7 @@ def openclip_vitB32_datacomp_xl(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 12800,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5091,6 +5120,7 @@ def openclip_vitB16_datacomp_xl(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5128,6 +5158,7 @@ def openclip_vitB16_datacomp_l(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 633,
         "learning_objective": "Contrastive",
@@ -5215,6 +5246,7 @@ def openclip_vitH14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 70,
         "model_size": 86,
         "learning_objective": "Other",
@@ -5251,6 +5283,7 @@ def flava_full(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -5288,6 +5321,7 @@ def openclip_vitL14_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 12800,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -5325,6 +5359,7 @@ def openclip_vitL14_datacomp_xl(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -5362,6 +5397,7 @@ def openclip_vitL14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -5447,6 +5483,7 @@ def clip_vitL14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5484,6 +5521,7 @@ def openclip_vitB32_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5521,6 +5559,7 @@ def openclip_vitB32_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 1011,
         "learning_objective": "Contrastive",
@@ -5558,6 +5597,7 @@ def openclip_vitG14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 1843,
         "learning_objective": "Contrastive",
@@ -5595,6 +5635,7 @@ def openclip_vitbigG14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5632,6 +5673,7 @@ def openclip_vitB16_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5669,6 +5711,7 @@ def openclip_vitB16_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 307,
         "learning_objective": "Other",
@@ -5707,6 +5750,7 @@ def opencoca_vitL14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "Other",
@@ -5745,6 +5789,7 @@ def opencoca_vitB32_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Negative CLIP",
@@ -5788,6 +5833,7 @@ def negclip_vitB32(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5822,6 +5868,7 @@ def clip_vitB16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -5855,6 +5902,7 @@ def clip_resnet50(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -5892,6 +5940,7 @@ def clip_resnet50_quickgelu(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 15,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -5929,6 +5978,7 @@ def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 12,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -5966,6 +6016,7 @@ def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 15,
         "model_size": 56,
         "learning_objective": "Contrastive",
@@ -6001,6 +6052,7 @@ def openclip_resnet101_yfcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 15,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -6036,6 +6088,7 @@ def openclip_resnet50_yfcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 12,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -6071,6 +6124,7 @@ def openclip_resnet50_cc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 56,
         "learning_objective": "Contrastive",
@@ -6104,6 +6158,7 @@ def clip_resnet101(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 56,
         "learning_objective": "Contrastive",
@@ -6141,6 +6196,7 @@ def clip_resnet101_quickgelu(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 15,
         "model_size": 56,
         "learning_objective": "Contrastive",
@@ -6178,6 +6234,7 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 87,
         "learning_objective": "Contrastive",
@@ -6211,6 +6268,7 @@ def clip_resnet50x4(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+"model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 167,
         "learning_objective": "Contrastive",
@@ -6244,6 +6302,7 @@ def clip_resnet50x16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 420,
         "learning_objective": "Contrastive",
