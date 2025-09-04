@@ -75,6 +75,7 @@ class VLLModels(AbstractVLLM):
             elif self.image_token is not None:
                 prompts[i] = self.image_token + prompts[i]
 
+        
         inputs = (
             (
                 self.processor(

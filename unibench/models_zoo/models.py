@@ -23,7 +23,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -59,7 +59,7 @@ def llava_1_5_7b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -74,7 +74,58 @@ def llava_1_5_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Llava 1.5 7B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def glm_4_5(model_name, **kwargs):
+    from transformers import Glm4vMoeForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "zai-org/GLM-4.5V"
+    model = Glm4vMoeForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=448,
+        output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -111,7 +162,7 @@ def qwen_2_5_3b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         # input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -126,7 +177,7 @@ def qwen_2_5_3b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -163,7 +214,7 @@ def qwen_2_5_7b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         # input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -178,7 +229,7 @@ def qwen_2_5_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -187,7 +238,6 @@ def qwen_2_5_7b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def qwen_2_5_32b(model_name, **kwargs):
@@ -216,7 +266,7 @@ def qwen_2_5_32b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         # input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -231,7 +281,7 @@ def qwen_2_5_32b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -240,7 +290,6 @@ def qwen_2_5_32b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def qwen_2_5_72b(model_name, **kwargs):
@@ -269,7 +318,7 @@ def qwen_2_5_72b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         # input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -284,7 +333,7 @@ def qwen_2_5_72b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -293,7 +342,6 @@ def qwen_2_5_72b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def internvl_3_5_1b(model_name, **kwargs):
@@ -310,7 +358,6 @@ def internvl_3_5_1b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        cache_dir=HUB_CACHE_DIR,
     )
 
     processor = AutoTokenizer.from_pretrained(
@@ -326,7 +373,7 @@ def internvl_3_5_1b(model_name, **kwargs):
         input_resolution=448,
         image_token="<image>\n",
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -341,7 +388,7 @@ def internvl_3_5_1b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -350,7 +397,116 @@ def internvl_3_5_1b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
+    },
+)
+def internvl_2_5_1b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
 
+    name = "OpenGVLab/InternVL2_5-1B"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def internvl_2_5_4b(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoTokenizer
+    import torch
+    import timm
+    from unibench.models_zoo.wrappers.vllm import InternVLModels
+
+    name = "OpenGVLab/InternVL2_5-4B"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        trust_remote_code=True,
+    )
+
+    processor = AutoTokenizer.from_pretrained(
+        name, trust_remote_code=True, use_fast=False, torch_dtype=torch.bfloat16
+    )
+
+    return InternVLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=timm.data.constants.IMAGENET_DEFAULT_MEAN,
+        norm_std=timm.data.constants.IMAGENET_DEFAULT_STD,
+        input_resolution=448,
+        image_token="<image>\n",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "InternVL 3.5 1B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
     },
 )
 def internvl_3_5_2b(model_name, **kwargs):
@@ -367,7 +523,6 @@ def internvl_3_5_2b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        cache_dir=HUB_CACHE_DIR,
     )
 
     processor = AutoTokenizer.from_pretrained(
@@ -383,7 +538,7 @@ def internvl_3_5_2b(model_name, **kwargs):
         input_resolution=448,
         image_token="<image>\n",
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -398,7 +553,7 @@ def internvl_3_5_2b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -407,7 +562,6 @@ def internvl_3_5_2b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def internvl_3_5_4b(model_name, **kwargs):
@@ -424,7 +578,6 @@ def internvl_3_5_4b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        cache_dir=HUB_CACHE_DIR,
     )
 
     processor = AutoTokenizer.from_pretrained(
@@ -440,7 +593,7 @@ def internvl_3_5_4b(model_name, **kwargs):
         input_resolution=448,
         image_token="<image>\n",
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -455,7 +608,7 @@ def internvl_3_5_4b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -464,7 +617,6 @@ def internvl_3_5_4b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def internvl_3_5_8b(model_name, **kwargs):
@@ -481,7 +633,6 @@ def internvl_3_5_8b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        cache_dir=HUB_CACHE_DIR,
     )
 
     processor = AutoTokenizer.from_pretrained(
@@ -497,7 +648,7 @@ def internvl_3_5_8b(model_name, **kwargs):
         input_resolution=448,
         image_token="<image>\n",
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -512,7 +663,7 @@ def internvl_3_5_8b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -521,7 +672,6 @@ def internvl_3_5_8b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def internvl_3_5_14b(model_name, **kwargs):
@@ -538,7 +688,6 @@ def internvl_3_5_14b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        cache_dir=HUB_CACHE_DIR,
     )
 
     processor = AutoTokenizer.from_pretrained(
@@ -554,7 +703,7 @@ def internvl_3_5_14b(model_name, **kwargs):
         input_resolution=448,
         image_token="<image>\n",
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -569,7 +718,7 @@ def internvl_3_5_14b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -578,7 +727,6 @@ def internvl_3_5_14b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def internvl_3_5_38b(model_name, **kwargs):
@@ -595,7 +743,6 @@ def internvl_3_5_38b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        cache_dir=HUB_CACHE_DIR,
     )
 
     processor = AutoTokenizer.from_pretrained(
@@ -611,7 +758,7 @@ def internvl_3_5_38b(model_name, **kwargs):
         input_resolution=448,
         image_token="<image>\n",
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -626,7 +773,7 @@ def internvl_3_5_38b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -635,7 +782,6 @@ def internvl_3_5_38b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def internvl_3_5_30b_a3b(model_name, **kwargs):
@@ -652,7 +798,6 @@ def internvl_3_5_30b_a3b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        cache_dir=HUB_CACHE_DIR,
     )
 
     processor = AutoTokenizer.from_pretrained(
@@ -668,7 +813,7 @@ def internvl_3_5_30b_a3b(model_name, **kwargs):
         input_resolution=448,
         image_token="<image>\n",
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -683,7 +828,7 @@ def internvl_3_5_30b_a3b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -692,7 +837,6 @@ def internvl_3_5_30b_a3b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def internvl_3_5_241b_a28b(model_name, **kwargs):
@@ -709,7 +853,6 @@ def internvl_3_5_241b_a28b(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
-        cache_dir=HUB_CACHE_DIR,
     )
 
     processor = AutoTokenizer.from_pretrained(
@@ -725,7 +868,7 @@ def internvl_3_5_241b_a28b(model_name, **kwargs):
         input_resolution=448,
         image_token="<image>\n",
         output_func=lambda x: x,
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -740,7 +883,7 @@ def internvl_3_5_241b_a28b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -749,7 +892,6 @@ def internvl_3_5_241b_a28b(model_name, **kwargs):
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
-
     },
 )
 def llava_1_5_13b(model_name, **kwargs):
@@ -777,7 +919,7 @@ def llava_1_5_13b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -792,48 +934,43 @@ def llava_1_5_13b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
-        "model_size": 8000,
+        "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Aya Vision 8B",
-        "vision_encoder": "EVA-CLIP ViT-g/14",
-        "year": 2024,
-        "month": 11,
-
+        "name": "Llava 1.5 13B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
     },
 )
-def molmoact_7b(model_name, **kwargs):
-    from transformers import AutoModelForImageTextToText
-    from transformers import AutoProcessor
+def blip2(model_name, **kwargs):
+    from transformers import Blip2ForConditionalGeneration
+    from transformers import Blip2Processor
     import torch
     from unibench.models_zoo.wrappers.vllm import VLLModels
 
-    name = "allenai/MolmoAct-7B-O-0812"
-    model = AutoModelForImageTextToText.from_pretrained(
+    name = "Salesforce/blip2-opt-6.7b"
+    model = Blip2ForConditionalGeneration.from_pretrained(
         name,
         low_cpu_mem_usage=True,
         torch_dtype=torch.bfloat16,
-        device_map="auto",
+        device_map="balanced",
         trust_remote_code=True,
-        attn_implementation='sdpa'
     )
-    processor = AutoProcessor.from_pretrained(
-        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16, trust_remote_code=True,
+    processor = Blip2Processor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
     )
-
     return VLLModels(
         model=model,
         model_name=model_name,
         processor=processor,
-        # norm_mean=processor.image_processor.image_mean,
-        # norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.base_image_input_size[0],
-        output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
-        .strip()
-        .replace("\n", ""),
-        **kwargs
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        input_resolution=processor.image_processor.size["width"],
+        output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -844,11 +981,11 @@ def molmoact_7b(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
-
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 8000,
         "learning_objective": "BLIP",
@@ -887,7 +1024,7 @@ def aya_vision_8b(model_name, **kwargs):
         output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
         .strip()
         .replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -902,7 +1039,7 @@ def aya_vision_8b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -941,7 +1078,7 @@ def aya_vision_32b(model_name, **kwargs):
         output_func=lambda x: x.split("<|CHATBOT_TOKEN|>")[-1]
         .strip()
         .replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -956,7 +1093,7 @@ def aya_vision_32b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -994,7 +1131,7 @@ def llava_next_llama_8b(model_name, **kwargs):
         input_resolution=processor.image_processor.crop_size["width"],
         use_img_size=True,
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1009,7 +1146,7 @@ def llava_next_llama_8b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1032,6 +1169,7 @@ def llama_4_scout_instruct(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
+        attn_implementation="flex_attention",
     )
     processor = AutoProcessor.from_pretrained(
         name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
@@ -1044,7 +1182,7 @@ def llama_4_scout_instruct(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1059,7 +1197,7 @@ def llama_4_scout_instruct(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1082,6 +1220,7 @@ def llama_4_scout(model_name, **kwargs):
         torch_dtype=torch.bfloat16,
         device_map="balanced",
         trust_remote_code=True,
+        attn_implementation="flex_attention",
     )
     processor = AutoProcessor.from_pretrained(
         name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
@@ -1094,7 +1233,7 @@ def llama_4_scout(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1109,107 +1248,7 @@ def llama_4_scout(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
-        "dataset_size": 14,
-        "model_size": 7000,
-        "learning_objective": "BLIP",
-        "architecture": "vit",
-        "name": "Llava 4 Maverick Instruct",
-        "year": 2025,
-        "month": 1,  # March 2024 release
-    },
-)
-def llama_4_maverick_instruct(model_name, **kwargs):
-    from transformers import Llama4ForConditionalGeneration
-    from transformers import AutoProcessor
-    import torch
-    from unibench.models_zoo.wrappers.vllm import VLLModels
-
-    name = "meta-llama/Llama-4-Maverick-17B-128E-Instruct"
-    model = Llama4ForConditionalGeneration.from_pretrained(
-        name,
-        low_cpu_mem_usage=True,
-        torch_dtype=torch.bfloat16,
-        device_map="balanced",
-        trust_remote_code=True,
-    )
-    processor = AutoProcessor.from_pretrained(
-        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
-    )
-    return VLLModels(
-        model=model,
-        model_name=model_name,
-        processor=processor,
-        norm_mean=processor.image_processor.image_mean,
-        norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size["width"],
-        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
-    ), [
-        "text_classification",
-        "multi_choice_classification",
-        "multi_choice_relation",
-        "clip_judge_classification",
-        "llm_judge_classification",
-        "clip_judge_relation",
-        "in_context_text_classification",
-    ]
-
-
-@register_model(
-    "vllm",
-    {
-"model_type": "vllm",
-        "dataset_size": 14,
-        "model_size": 7000,
-        "learning_objective": "BLIP",
-        "architecture": "vit",
-        "name": "Llava 4 Maverick",
-        "year": 2025,
-        "month": 1,  # March 2024 release
-    },
-)
-def llama_4_maverick(model_name, **kwargs):
-    from transformers import Llama4ForConditionalGeneration
-    from transformers import AutoProcessor
-    import torch
-    from unibench.models_zoo.wrappers.vllm import VLLModels
-
-    name = "meta-llama/Llama-4-Maverick-17B-128E"
-    model = Llama4ForConditionalGeneration.from_pretrained(
-        name,
-        low_cpu_mem_usage=True,
-        torch_dtype=torch.bfloat16,
-        device_map="balanced",
-        trust_remote_code=True,
-    )
-    processor = AutoProcessor.from_pretrained(
-        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
-    )
-    return VLLModels(
-        model=model,
-        model_name=model_name,
-        processor=processor,
-        norm_mean=processor.image_processor.image_mean,
-        norm_std=processor.image_processor.image_std,
-        input_resolution=processor.image_processor.size["width"],
-        output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
-    ), [
-        "text_classification",
-        "multi_choice_classification",
-        "multi_choice_relation",
-        "clip_judge_classification",
-        "llm_judge_classification",
-        "clip_judge_relation",
-        "in_context_text_classification",
-    ]
-
-
-@register_model(
-    "vllm",
-    {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1245,7 +1284,7 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1256,10 +1295,11 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1294,7 +1334,7 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1309,70 +1349,7 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
-        "dataset_size": 14,
-        "model_size": 7000,
-        "learning_objective": "BLIP",
-        "architecture": "vit",
-        "name": "Phi 4 Multimodal Instruct",
-        "year": 2024,
-        "month": 1,  # March 2024 release
-    },
-)
-def phi_4(model_name, **kwargs):
-    from transformers import AutoModelForCausalLM, GenerationConfig
-    from transformers import AutoProcessor
-    import torch
-    from unibench.models_zoo.wrappers.vllm import PHIModels
-
-    name = "Lexius/Phi-4-multimodal-instruct"
-    model = AutoModelForCausalLM.from_pretrained(
-        name,
-        low_cpu_mem_usage=True,
-        torch_dtype=torch.bfloat16,
-        device_map="balanced",
-        trust_remote_code=True,
-        _attn_implementation='flash_attention_2',
-    )
-    model.load_adapter(
-        "microsoft/Phi-4-multimodal-instruct",
-        adapter_name="vision",
-        device_map="balanced",
-        adapter_kwargs={"subfolder": "vision-lora"},
-    )
-    model.set_adapter("vision")
-
-    processor = AutoProcessor.from_pretrained(
-        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16, trust_remote_code=True
-    )
-
-    generation_config = GenerationConfig.from_pretrained(name)
-
-
-    return PHIModels(
-        model=model,
-        model_name=model_name,
-        processor=processor,
-        input_resolution=448,
-        inp_processor_func=lambda x: f'<|user|><|image_1|>{x}<|end|><|assistant|>',
-        output_func=lambda x: x,
-        generation_config=generation_config,
-        **kwargs
-    ), [
-        "text_classification",
-        "multi_choice_classification",
-        "multi_choice_relation",
-        "clip_judge_classification",
-        "llm_judge_classification",
-        "clip_judge_relation",
-        "in_context_text_classification",
-    ]
-
-
-@register_model(
-    "vllm",
-    {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1400,7 +1377,6 @@ def pixtral_12b(model_name, **kwargs):
         name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
     )
 
-    
     tokenizer = AutoTokenizer.from_pretrained("mistral-community/pixtral-12b")
     processor.tokenizer.pad_token = tokenizer.eos_token
 
@@ -1413,7 +1389,7 @@ def pixtral_12b(model_name, **kwargs):
         input_resolution=processor.image_processor.size["longest_edge"],
         use_img_size=True,
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1424,10 +1400,11 @@ def pixtral_12b(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1463,7 +1440,7 @@ def llava_1_6_34b(model_name, **kwargs):
         input_resolution=processor.image_processor.crop_size["width"],
         use_img_size=True,
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1478,7 +1455,7 @@ def llava_1_6_34b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1514,7 +1491,7 @@ def gemma3_4b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1529,7 +1506,7 @@ def gemma3_4b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1565,7 +1542,7 @@ def gemma3_27b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1576,10 +1553,11 @@ def gemma3_27b(model_name, **kwargs):
         "in_context_text_classification",
     ]
 
+
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1615,7 +1593,7 @@ def gemma3_12b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1630,7 +1608,7 @@ def gemma3_12b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1666,7 +1644,7 @@ def llava_1_6_72b(model_name, **kwargs):
         use_img_size=True,
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1681,7 +1659,7 @@ def llava_1_6_72b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1717,7 +1695,7 @@ def llama_3_2_11b_vision_instruct_cot(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1732,7 +1710,7 @@ def llama_3_2_11b_vision_instruct_cot(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1768,7 +1746,7 @@ def llava_1_6_110b(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.split("assistant")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1783,7 +1761,7 @@ def llava_1_6_110b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1822,7 +1800,7 @@ def llava_1_6_mistral_7b(model_name, **kwargs):
         use_img_size=True,
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.split("[/INST]")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1837,7 +1815,7 @@ def llava_1_6_mistral_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1875,7 +1853,7 @@ def llava_1_6_vicuna_7b(model_name, **kwargs):
         input_resolution=processor.image_processor.crop_size["width"],
         use_img_size=True,
         output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1890,7 +1868,7 @@ def llava_1_6_vicuna_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1928,7 +1906,7 @@ def llava_1_6_vicuna_13b(model_name, **kwargs):
         input_resolution=processor.image_processor.crop_size["width"],
         use_img_size=True,
         output_func=lambda x: x.split("ASSISTANT:")[-1].strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -1943,7 +1921,7 @@ def llava_1_6_vicuna_13b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -1983,10 +1961,10 @@ def chameleon_7b(model_name, **kwargs):
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
         gen_kwargs={
-            'pad_token_id':tokenizer.pad_token_id,
-            'eos_token_id':tokenizer.eos_token_id,
+            "pad_token_id": tokenizer.pad_token_id,
+            "eos_token_id": tokenizer.eos_token_id,
         },
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2001,7 +1979,7 @@ def chameleon_7b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2042,10 +2020,10 @@ def chameleon_30b(model_name, **kwargs):
         input_resolution=processor.image_processor.crop_size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
         gen_kwargs={
-            'pad_token_id':tokenizer.pad_token_id,
-            'eos_token_id':tokenizer.eos_token_id,
+            "pad_token_id": tokenizer.pad_token_id,
+            "eos_token_id": tokenizer.eos_token_id,
         },
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2060,7 +2038,7 @@ def chameleon_30b(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2096,7 +2074,7 @@ def paligemma_3b_224(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2111,7 +2089,7 @@ def paligemma_3b_224(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2147,7 +2125,7 @@ def paligemma_3b_448(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2162,7 +2140,7 @@ def paligemma_3b_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2198,7 +2176,7 @@ def paligemma_3b_mix_224(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2213,7 +2191,7 @@ def paligemma_3b_mix_224(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2249,7 +2227,7 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2264,7 +2242,7 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2300,7 +2278,7 @@ def paligemma_3b_mix_448(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2315,7 +2293,7 @@ def paligemma_3b_mix_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2351,7 +2329,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2366,7 +2344,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2402,7 +2380,7 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2417,7 +2395,7 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2453,7 +2431,7 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2468,7 +2446,7 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2504,7 +2482,7 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2519,7 +2497,7 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
 @register_model(
     "vllm",
     {
-"model_type": "vllm",
+        "model_type": "vllm",
         "dataset_size": 14,
         "model_size": 7000,
         "learning_objective": "BLIP",
@@ -2555,7 +2533,7 @@ def paligemma2_28b_mix_224(model_name, **kwargs):
         norm_std=processor.image_processor.image_std,
         input_resolution=processor.image_processor.size["width"],
         output_func=lambda x: x.strip().replace("\n", ""),
-        **kwargs
+        **kwargs,
     ), [
         "text_classification",
         "multi_choice_classification",
@@ -2595,7 +2573,7 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
         norm_std=OPENAI_CLIP_STD,
         use_itm_head=True,
         input_resolution=image_size,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -2605,7 +2583,7 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 14,
         "model_size": 86,
         "learning_objective": "BLIP",
@@ -2621,14 +2599,14 @@ def blip_vitB16_14m(model_name, **kwargs):
         model_url="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_14M.pth",
         model_size="base",
         image_size=224,
-        **kwargs
+        **kwargs,
     )
 
 
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 307,
         "learning_objective": "BLIP",
@@ -2644,14 +2622,14 @@ def blip_vitL16_129m(model_name, **kwargs):
         model_url="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_large.pth",
         model_size="large",
         image_size=224,
-        **kwargs
+        **kwargs,
     )
 
 
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 86,
         "learning_objective": "BLIP",
@@ -2667,14 +2645,14 @@ def blip_vitB16_129m(model_name, **kwargs):
         model_url="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base.pth",
         model_size="base",
         image_size=224,
-        **kwargs
+        **kwargs,
     )
 
 
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 86,
         "learning_objective": "BLIP",
@@ -2690,14 +2668,14 @@ def blip_vitB16_coco(model_name, **kwargs):
         model_url="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_retrieval_coco.pth",
         model_size="base",
         image_size=384,
-        **kwargs
+        **kwargs,
     )
 
 
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 86,
         "learning_objective": "BLIP",
@@ -2713,14 +2691,14 @@ def blip_vitB16_flickr(model_name, **kwargs):
         model_url="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_base_retrieval_flickr.pth",
         model_size="base",
         image_size=384,
-        **kwargs
+        **kwargs,
     )
 
 
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 307,
         "learning_objective": "BLIP",
@@ -2736,14 +2714,14 @@ def blip_vitL16_coco(model_name, **kwargs):
         model_url="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_large_retrieval_coco.pth",
         model_size="large",
         image_size=384,
-        **kwargs
+        **kwargs,
     )
 
 
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 129,
         "model_size": 307,
         "learning_objective": "BLIP",
@@ -2759,14 +2737,14 @@ def blip_vitL16_flickr(model_name, **kwargs):
         model_url="https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/model_large_retrieval_flickr.pth",
         model_size="large",
         image_size=384,
-        **kwargs
+        **kwargs,
     )
 
 
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 4350,
         "learning_objective": "EVA02",
@@ -2794,7 +2772,7 @@ def eva02_vitE14_plus_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -2804,7 +2782,7 @@ def eva02_vitE14_plus_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 4350,
         "learning_objective": "EVA02",
@@ -2832,7 +2810,7 @@ def eva02_vitE14_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -2842,7 +2820,7 @@ def eva02_vitE14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 307,
         "learning_objective": "EVA02",
@@ -2870,7 +2848,7 @@ def eva02_vitL14_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -2880,7 +2858,7 @@ def eva02_vitL14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "EVA02",
@@ -2908,7 +2886,7 @@ def eva02_vitB16_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -2918,7 +2896,7 @@ def eva02_vitB16_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 1011,
         "learning_objective": "EVA01",
@@ -2946,7 +2924,7 @@ def eva01_vitG14_plus_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -2956,7 +2934,7 @@ def eva01_vitG14_plus_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 1011,
         "learning_objective": "EVA01",
@@ -2984,7 +2962,7 @@ def eva01_vitG14_400m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -2994,7 +2972,7 @@ def eva01_vitG14_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 1843,
         "learning_objective": "CLIPA",
@@ -3023,7 +3001,7 @@ def clipa_vitbigG14(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=32,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3033,7 +3011,7 @@ def clipa_vitbigG14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 22,
         "learning_objective": "ViTamin",
@@ -3059,7 +3037,7 @@ def vitamin_s_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3069,7 +3047,7 @@ def vitamin_s_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 22,
         "learning_objective": "ViTamin",
@@ -3095,7 +3073,7 @@ def vitamin_s_ltt_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3105,7 +3083,7 @@ def vitamin_s_ltt_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 87,
         "learning_objective": "ViTamin",
@@ -3131,7 +3109,7 @@ def vitamin_b_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3141,7 +3119,7 @@ def vitamin_b_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 87,
         "learning_objective": "ViTamin",
@@ -3167,7 +3145,7 @@ def vitamin_b_ltt_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3177,7 +3155,7 @@ def vitamin_b_ltt_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3203,7 +3181,7 @@ def vitamin_l_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3213,7 +3191,7 @@ def vitamin_l_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3239,7 +3217,7 @@ def vitamin_l2_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3249,7 +3227,7 @@ def vitamin_l2_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3275,7 +3253,7 @@ def vitamin_l2_256_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3285,7 +3263,7 @@ def vitamin_l2_256_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3311,7 +3289,7 @@ def vitamin_l2_336_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3321,7 +3299,7 @@ def vitamin_l2_336_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 436,
         "learning_objective": "ViTamin",
@@ -3347,7 +3325,7 @@ def vitamin_xl_256_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3357,7 +3335,7 @@ def vitamin_xl_256_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 436,
         "learning_objective": "ViTamin",
@@ -3383,7 +3361,7 @@ def vitamin_xl_336_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3393,7 +3371,7 @@ def vitamin_xl_336_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 436,
         "learning_objective": "ViTamin",
@@ -3419,7 +3397,7 @@ def vitamin_xl_384_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3429,7 +3407,7 @@ def vitamin_xl_384_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3455,7 +3433,7 @@ def vitamin_l_256_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3465,7 +3443,7 @@ def vitamin_l_256_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 333,
         "learning_objective": "ViTamin",
@@ -3491,7 +3469,7 @@ def vitamin_l_336_1b(model_name, **kwargs):
         tokenizer=tokenizer,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3501,7 +3479,7 @@ def vitamin_l_336_1b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 633,
         "learning_objective": "CLIPA",
@@ -3530,7 +3508,7 @@ def clipa_vitH14(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=32,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3540,7 +3518,7 @@ def clipa_vitH14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 307,
         "learning_objective": "CLIPA",
@@ -3569,7 +3547,7 @@ def clipa_vitL14(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=32,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3579,7 +3557,7 @@ def clipa_vitL14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3608,7 +3586,7 @@ def siglip_vitL16(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3618,7 +3596,7 @@ def siglip_vitL16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -3647,7 +3625,7 @@ def roberta_vitB32(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3657,7 +3635,7 @@ def roberta_vitB32(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3686,7 +3664,7 @@ def siglip_vitB16(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3696,7 +3674,7 @@ def siglip_vitB16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3725,7 +3703,7 @@ def siglip_vitB16_256(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3735,7 +3713,7 @@ def siglip_vitB16_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3764,7 +3742,7 @@ def siglip_vitB16_384(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3774,7 +3752,7 @@ def siglip_vitB16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3803,7 +3781,7 @@ def siglip_vitB16_512(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3813,7 +3791,7 @@ def siglip_vitB16_512(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3842,7 +3820,7 @@ def siglip_vitL16_384(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3852,7 +3830,7 @@ def siglip_vitL16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3881,7 +3859,7 @@ def siglip_so400_14(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=16,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3891,7 +3869,7 @@ def siglip_so400_14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3920,7 +3898,7 @@ def siglip_so400_14_378(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=16,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3930,7 +3908,7 @@ def siglip_so400_14_378(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3959,7 +3937,7 @@ def siglip_so400_14_384(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=16,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -3969,7 +3947,7 @@ def siglip_so400_14_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -3998,7 +3976,7 @@ def siglip2_so400_16_512(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4008,7 +3986,7 @@ def siglip2_so400_16_512(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4037,7 +4015,7 @@ def siglip2_so400_16_384(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4047,7 +4025,7 @@ def siglip2_so400_16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4076,7 +4054,7 @@ def siglip2_so400_16_256(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4086,7 +4064,7 @@ def siglip2_so400_16_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4115,7 +4093,7 @@ def siglip2_so400_14_378(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4125,7 +4103,7 @@ def siglip2_so400_14_378(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 400,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4154,7 +4132,7 @@ def siglip2_so400_14(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4164,7 +4142,7 @@ def siglip2_so400_14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4193,7 +4171,7 @@ def siglip2_vitL16_512(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4203,7 +4181,7 @@ def siglip2_vitL16_512(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4232,7 +4210,7 @@ def siglip2_vitL16_384(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4242,7 +4220,7 @@ def siglip2_vitL16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 307,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4271,7 +4249,7 @@ def siglip2_vitL16_256(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4281,7 +4259,7 @@ def siglip2_vitL16_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4310,7 +4288,7 @@ def siglip2_vitB16_512(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4320,7 +4298,7 @@ def siglip2_vitB16_512(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4349,7 +4327,7 @@ def siglip2_vitB16_384(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4359,7 +4337,7 @@ def siglip2_vitB16_384(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4388,7 +4366,7 @@ def siglip2_vitB16_256(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4398,7 +4376,7 @@ def siglip2_vitB16_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4427,7 +4405,7 @@ def siglip2_vitB16(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4437,7 +4415,7 @@ def siglip2_vitB16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 10000,
         "model_size": 86,
         "learning_objective": "Contrastive (sigmoid-based)",
@@ -4466,7 +4444,7 @@ def siglip2_vitB32_256(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=64,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4476,7 +4454,7 @@ def siglip2_vitB32_256(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2500,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4504,7 +4482,7 @@ def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4514,7 +4492,7 @@ def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4542,7 +4520,7 @@ def openclip_vitB16_metaclip_400m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4552,7 +4530,7 @@ def openclip_vitB16_metaclip_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4580,7 +4558,7 @@ def openclip_vitB32_metaclip_400m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4590,7 +4568,7 @@ def openclip_vitB32_metaclip_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4618,7 +4596,7 @@ def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4628,7 +4606,7 @@ def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4656,7 +4634,7 @@ def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4666,7 +4644,7 @@ def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2500,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4694,7 +4672,7 @@ def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4704,7 +4682,7 @@ def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -4732,7 +4710,7 @@ def openclip_vitL14_dfn2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4742,7 +4720,7 @@ def openclip_vitL14_dfn2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -4770,7 +4748,7 @@ def openclip_vitL14_metaclip_400(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4780,7 +4758,7 @@ def openclip_vitL14_metaclip_400(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2500,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -4808,7 +4786,7 @@ def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4818,7 +4796,7 @@ def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2500,
         "model_size": 633,
         "learning_objective": "Contrastive",
@@ -4846,7 +4824,7 @@ def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4856,7 +4834,7 @@ def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 5000,
         "model_size": 633,
         "learning_objective": "Contrastive",
@@ -4884,7 +4862,7 @@ def openclip_vitH14_dfn5b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4894,7 +4872,7 @@ def openclip_vitH14_dfn5b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 88,
         "learning_objective": "Contrastive",
@@ -4922,7 +4900,7 @@ def openclip_convnext_base(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4932,7 +4910,7 @@ def openclip_convnext_base(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4958,7 +4936,7 @@ def clip_vitB32(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -4968,7 +4946,7 @@ def clip_vitB32(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 13,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -4996,7 +4974,7 @@ def openclip_vitB32_datacomp_s(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5006,7 +4984,7 @@ def openclip_vitB32_datacomp_s(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 128,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5034,7 +5012,7 @@ def openclip_vitB32_datacomp_m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5044,7 +5022,7 @@ def openclip_vitB32_datacomp_m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 12800,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5072,7 +5050,7 @@ def openclip_vitB32_datacomp_xl(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5082,7 +5060,7 @@ def openclip_vitB32_datacomp_xl(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 12800,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5110,7 +5088,7 @@ def openclip_vitB16_datacomp_xl(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5120,7 +5098,7 @@ def openclip_vitB16_datacomp_xl(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 1280,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5148,7 +5126,7 @@ def openclip_vitB16_datacomp_l(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5158,7 +5136,7 @@ def openclip_vitB16_datacomp_l(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 633,
         "learning_objective": "Contrastive",
@@ -5186,7 +5164,7 @@ def openclip_vitH14(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5246,7 +5224,7 @@ def openclip_vitH14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 70,
         "model_size": 86,
         "learning_objective": "Other",
@@ -5273,7 +5251,7 @@ def flava_full(model_name, **kwargs):
         norm_mean=OPENAI_CLIP_MEAN,
         norm_std=OPENAI_CLIP_STD,
         input_resolution=processor.size["height"],
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5283,7 +5261,7 @@ def flava_full(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -5311,7 +5289,7 @@ def openclip_vitL14_400m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5321,7 +5299,7 @@ def openclip_vitL14_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 12800,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -5349,7 +5327,7 @@ def openclip_vitL14_datacomp_xl(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5359,7 +5337,7 @@ def openclip_vitL14_datacomp_xl(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -5387,7 +5365,7 @@ def openclip_vitL14_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5397,7 +5375,7 @@ def openclip_vitL14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 307,
         "learning_objective": "Contrastive",
@@ -5423,7 +5401,7 @@ def clip_vitL14(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5483,7 +5461,7 @@ def clip_vitL14(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5511,7 +5489,7 @@ def openclip_vitB32_400m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5521,7 +5499,7 @@ def openclip_vitB32_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5549,7 +5527,7 @@ def openclip_vitB32_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5559,7 +5537,7 @@ def openclip_vitB32_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 1011,
         "learning_objective": "Contrastive",
@@ -5587,7 +5565,7 @@ def openclip_vitG14_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5597,7 +5575,7 @@ def openclip_vitG14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 1843,
         "learning_objective": "Contrastive",
@@ -5625,7 +5603,7 @@ def openclip_vitbigG14_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5635,7 +5613,7 @@ def openclip_vitbigG14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5663,7 +5641,7 @@ def openclip_vitB16_2b(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5673,7 +5651,7 @@ def openclip_vitB16_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5701,7 +5679,7 @@ def openclip_vitB16_400m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5711,7 +5689,7 @@ def openclip_vitB16_400m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 307,
         "learning_objective": "Other",
@@ -5740,7 +5718,7 @@ def opencoca_vitL14_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=76,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5750,7 +5728,7 @@ def opencoca_vitL14_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 2000,
         "model_size": 86,
         "learning_objective": "Other",
@@ -5779,7 +5757,7 @@ def opencoca_vitB32_2b(model_name, **kwargs):
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
         context_length=76,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5789,7 +5767,7 @@ def opencoca_vitB32_2b(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Negative CLIP",
@@ -5823,7 +5801,7 @@ def negclip_vitB32(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size[0],
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5833,7 +5811,7 @@ def negclip_vitB32(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 86,
         "learning_objective": "Contrastive",
@@ -5858,7 +5836,7 @@ def clip_vitB16(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5868,7 +5846,7 @@ def clip_vitB16(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -5892,7 +5870,7 @@ def clip_resnet50(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5902,7 +5880,7 @@ def clip_resnet50(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -5930,7 +5908,7 @@ def clip_resnet50_quickgelu(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5940,7 +5918,7 @@ def clip_resnet50_quickgelu(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 15,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -5968,7 +5946,7 @@ def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -5978,7 +5956,7 @@ def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 12,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -6006,7 +5984,7 @@ def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6016,7 +5994,7 @@ def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 15,
         "model_size": 56,
         "learning_objective": "Contrastive",
@@ -6042,7 +6020,7 @@ def openclip_resnet101_yfcc(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6052,7 +6030,7 @@ def openclip_resnet101_yfcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 15,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -6078,7 +6056,7 @@ def openclip_resnet50_yfcc(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6088,7 +6066,7 @@ def openclip_resnet50_yfcc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 12,
         "model_size": 38,
         "learning_objective": "Contrastive",
@@ -6114,7 +6092,7 @@ def openclip_resnet50_cc(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6124,7 +6102,7 @@ def openclip_resnet50_cc(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 56,
         "learning_objective": "Contrastive",
@@ -6148,7 +6126,7 @@ def clip_resnet101(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6158,7 +6136,7 @@ def clip_resnet101(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 56,
         "learning_objective": "Contrastive",
@@ -6186,7 +6164,7 @@ def clip_resnet101_quickgelu(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6196,7 +6174,7 @@ def clip_resnet101_quickgelu(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 15,
         "model_size": 56,
         "learning_objective": "Contrastive",
@@ -6224,7 +6202,7 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.image_size,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6234,7 +6212,7 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 87,
         "learning_objective": "Contrastive",
@@ -6258,7 +6236,7 @@ def clip_resnet50x4(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6268,7 +6246,7 @@ def clip_resnet50x4(model_name, **kwargs):
 @register_model(
     "contrastive",
     {
-"model_type": "contrastive",
+        "model_type": "contrastive",
         "dataset_size": 400,
         "model_size": 167,
         "learning_objective": "Contrastive",
@@ -6292,7 +6270,7 @@ def clip_resnet50x16(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
@@ -6326,7 +6304,7 @@ def clip_resnet50x64(model_name, **kwargs):
         norm_std=OPENAI_CLIP_STD,
         input_resolution=model.visual.input_resolution,
         logit_scale=model.logit_scale,
-        **kwargs
+        **kwargs,
     ), [
         "zeroshot_classification",
         "zeroshot_relation",

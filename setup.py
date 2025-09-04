@@ -30,7 +30,7 @@ complete_requirements = [
     "openai-clip",
     "timm",
     "opencv-python",
-    "transformers>=4.52.0,<4.53",
+    "transformers",
     "GitPython",
     "fairscale",
     "gdown",
