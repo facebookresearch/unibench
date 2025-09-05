@@ -148,7 +148,7 @@ def qwen_2_5_3b(model_name, **kwargs):
         low_cpu_mem_usage=True,
         torch_dtype=torch.bfloat16,
         device_map="balanced",
-        attn_implementation="flash_attention_2",
+        # attn_implementation="flash_attention_2",
         trust_remote_code=True,
     )
     processor = AutoProcessor.from_pretrained(
@@ -200,7 +200,7 @@ def qwen_2_5_7b(model_name, **kwargs):
         low_cpu_mem_usage=True,
         torch_dtype=torch.bfloat16,
         device_map="balanced",
-        attn_implementation="flash_attention_2",
+        # attn_implementation="flash_attention_2",
         trust_remote_code=True,
     )
     processor = AutoProcessor.from_pretrained(
@@ -252,7 +252,7 @@ def qwen_2_5_32b(model_name, **kwargs):
         low_cpu_mem_usage=True,
         torch_dtype=torch.bfloat16,
         device_map="balanced",
-        attn_implementation="flash_attention_2",
+        # attn_implementation="flash_attention_2",
         trust_remote_code=True,
     )
     processor = AutoProcessor.from_pretrained(
@@ -304,7 +304,7 @@ def qwen_2_5_72b(model_name, **kwargs):
         low_cpu_mem_usage=True,
         torch_dtype=torch.bfloat16,
         device_map="balanced",
-        attn_implementation="flash_attention_2",
+        # attn_implementation="flash_attention_2",
         trust_remote_code=True,
     )
     processor = AutoProcessor.from_pretrained(
