@@ -42,7 +42,6 @@ complete_requirements = [
     "protobuf",
     "google",
     "einops",
-    "flash-attn",
     "peft"
 ]
 
