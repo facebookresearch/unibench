@@ -168,9 +168,9 @@ class MultiChoiceClassificationBenchmarkHandler(VLLMBenchmarkHandler):
             images, targets = batch
 
         if len(targets.shape) > 1:
-            targets_names = [self.class_names[i.argmax() - 1].lower() for i in targets]
+            targets_names = [self.class_names[i.argmax()].lower() for i in targets]
         else:
-            targets_names = [self.class_names[i - 1].lower() for i in targets]
+            targets_names = [self.class_names[i].lower() for i in targets]
         prompts, prompt_classes, target_letters = self.get_prompts(targets_names)
         text_outputs = model.get_text_from_image(images, prompts)
 

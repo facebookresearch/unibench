@@ -78,6 +78,7 @@ class HuggingFaceDataset(Dataset):
                 k,v = d.values()
                 self.dataset = self.dataset.filter(partial(fil, key=k, val=v), num_proc=self.download_num_workers)
         
+        self.dataset = self.dataset.shuffle(seed=42)
         if self.max_num_samples is not None and len(self.dataset) > self.max_num_samples:
             self.dataset = self.dataset.select(range(self.max_num_samples))
 

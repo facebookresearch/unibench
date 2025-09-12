@@ -23,7 +23,12 @@ def main(output_dir=OUTPUT_DIR, num_workers=8, idx=1, model_name=None):
     else:
         evaluator = Evaluator(
             download_aggregate_precomputed=False,
-            models="vllm",
+            models=['llama_3_2_11b_vision_instruct', 'llava_1_5_13b', 'llava_1_5_7b', 
+                 'llava_1_6_mistral_7b',
+                 'llava_1_6_vicuna_13b', 'llava_1_6_vicuna_7b', 'llava_next_llama_8b', 'aya_vision_32b', 'aya_vision_8b', 'gemma3_27b', 'gemma3_4b', 'gemma3_12b', 'gemma3_1b', 'gemma3_270m', 
+                 'paligemma2_10b_mix_224', 'paligemma2_10b_mix_448', 'paligemma2_28b_mix_224', 
+                 'paligemma2_28b_mix_448', 'paligemma2_3b_mix_224', 'paligemma2_3b_mix_448', 
+                 'paligemma_3b_224', 'paligemma_3b_448', 'paligemma_3b_mix_224', 'paligemma_3b_mix_448'],
             model_id=idx,
             num_workers=num_workers,
             output_dir=output_dir,
