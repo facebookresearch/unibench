@@ -20,6 +20,7 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
         templates,
         task_name="zeroshot_classification",
         topk=1,
+        num_classes=-1,
         **kwargs,
     ):
         BenchmarkHandler.__init__(self, task_name=task_name, **kwargs)
@@ -32,6 +33,7 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
         self.class_names = class_names
         self.templates = templates
         self.topk = topk
+        self.num_classes = num_classes
 
     def on_validation_start(self, model):
         model.set_classes(self.class_names)
@@ -84,9 +86,22 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
             pred = softmax(logits, dim=-1)
             confidence = pred.max(1)[0].squeeze()
             entropy = Categorical(probs=pred).entropy()
-            _, pred = pred.topk(self.topk, 1, True, True)
-            pred = pred.t()
-            correct = pred.eq(targets.view(1, -1).expand_as(pred)).int().sum(0)
+            if self.num_classes != -1 and self.num_classes < len(self.class_names):
+                selected_targets = logits.gather(1, targets.unsqueeze(1))
+                batch_size, num_classes = logits.shape
+                mask = torch.ones_like(logits, dtype=torch.bool)
+                mask[torch.arange(batch_size), targets] = False
+                pred_without_targets = logits[mask].view(batch_size, num_classes - 1)
+                pred_without_targets = pred_without_targets.gather(1, torch.randint(0, num_classes - 1, (batch_size, self.num_classes - 1), device=logits.device))
+                logits_ = torch.cat([selected_targets, pred_without_targets], axis=1)
+                pred = softmax(logits_, dim=-1)
+                _, pred = pred.topk(self.topk, 1, True, True)
+                pred = pred.squeeze()
+                correct = (pred == 0).int()
+            else:
+                _, pred = pred.topk(self.topk, 1, True, True)
+                pred = pred.t()
+                correct = pred.eq(targets.view(1, -1).expand_as(pred)).int().sum(0)
 
             if len(self.class_names) < 5:
                 top5 = targets

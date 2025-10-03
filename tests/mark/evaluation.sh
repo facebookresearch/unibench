@@ -16,4 +16,5 @@ export HUGGINGFACE_HUB_CACHE=/fsx-robust/marksibrahim/datasets/hf
 export UNIBENCH_HUB=/fsx-robust/marksibrahim/datasets/unibench
 export TORCH_HOME=/fsx-robust/marksibrahim/datasets/torch
 
-python main.py --output_dir=$1 --idx=$SLURM_ARRAY_TASK_ID --num_workers=96
+# python main.py --output_dir=$1 --idx=$SLURM_ARRAY_TASK_ID --num_workers=96
+python imagenet_main.py --output_dir=$1 --idx=$2 --num_workers=96 --benchmark_id=$3

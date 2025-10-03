@@ -13,11 +13,18 @@ mkdir -p "${LOG_DIR}" "${OUT_DIR}"
 # === Define output file for SLURM ===
 LOG_FILE=${LOG_DIR}/slurm_%A_%a.out  # %A: job ID, %a: array index
 
+cd /fsx-robust/marksibrahim/tmp/UniBench/unibench
+git pull
+
 source /fsx-robust/marksibrahim/tmp/UniBench/unibench/.venv/bin/activate
 pip install -U /fsx-robust/marksibrahim/tmp/UniBench/unibench[all]
 cd /fsx-robust/marksibrahim/tmp/UniBench/unibench/tests/mark
 
 unibench version
 
-# === Submit the job ===
-sbatch --output="${LOG_FILE}" --array=0-48 evaluation.sh "${OUT_DIR}"
+for num_idx in {0..8}; do
+    for num_benchmarks in {0..45}; do
+        # === Submit the job ===
+        sbatch --output="${LOG_FILE}" evaluation.sh "${OUT_DIR}" ${num_idx} ${num_benchmarks}
+    done
+done

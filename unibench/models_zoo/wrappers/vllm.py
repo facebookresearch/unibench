@@ -93,6 +93,8 @@ class VLLModels(AbstractVLLM):
         
         if "image_sizes" in inputs and not self.use_img_size:
             del inputs["image_sizes"]
+        if 'token_type_ids' in inputs:
+            del inputs['token_type_ids']
         output = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens, do_sample=False, temperature=None, top_p=None, top_k=None, **self.gen_kwargs)
         output = [
             out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, output)

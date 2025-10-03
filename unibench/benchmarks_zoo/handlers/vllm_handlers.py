@@ -146,11 +146,20 @@ class MultiChoiceClassificationBenchmarkHandler(VLLMBenchmarkHandler):
 
             # Find the correct answer letter
             target_index = class_list.index(target)
-            target_letter = chr(65 + target_index)  # A, B, C, etc.
+            # Generate letter(s): A-Z, then AA, AB, AC, etc.
+            def index_to_letters(idx):
+                letters = ""
+                while True:
+                    letters = chr(65 + (idx % 26)) + letters
+                    idx = idx // 26 - 1
+                    if idx < 0:
+                        break
+                return letters
+            target_letter = index_to_letters(target_index)
             target_letters.append(target_letter)
 
-            # Multiple choice formatting: A. class1 B. class2 ...
-            choices = [f"({chr(65+i)}) {name}" for i, name in enumerate(class_list)]
+            # Multiple choice formatting: (A) class1 (B) class2 ...
+            choices = [f"({index_to_letters(i)}) {name}" for i, name in enumerate(class_list)]
             prompt_text = self.prompt.replace(
                 "{class_names}", f"\n" + " ".join(choices)
             )
