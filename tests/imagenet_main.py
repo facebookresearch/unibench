@@ -1,6 +1,6 @@
 from functools import partial
-from build.lib.unibench.benchmarks_zoo.handlers.vllm_handlers import MultiChoiceClassificationBenchmarkHandler
-from build.lib.unibench.benchmarks_zoo.handlers.clip_handlers import ZeroShotBenchmarkHandler
+from unibench.benchmarks_zoo.handlers.vllm_handlers import MultiChoiceClassificationBenchmarkHandler
+from unibench.benchmarks_zoo.handlers.clip_handlers import ZeroShotBenchmarkHandler
 from unibench import Evaluator
 import fire
 
