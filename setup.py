@@ -47,7 +47,7 @@ complete_requirements = [
 
 setuptools.setup(
     name="unibench",
-    version="0.4.4",
+    version="0.4.5",
     author="Haider Al-Tahan",
     author_email="haideraltahan@meta.com",
     description="This repository is designed to simplify the evaluation process of vision-language models. It provides a comprehensive set of tools and scripts for evaluating VLM models and benchmarks.",
