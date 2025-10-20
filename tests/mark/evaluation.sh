@@ -11,10 +11,10 @@ source /fsx-robust/marksibrahim/tmp/UniBench/unibench/.venv/bin/activate
 which python
 cd /fsx-robust/marksibrahim/tmp/UniBench/unibench/tests
 
-# export HF_HOME=/fsx-robust/marksibrahim/datasets/hf_home
-# export HUGGINGFACE_HUB_CACHE=/fsx-robust/marksibrahim/datasets/hf
-# export UNIBENCH_HUB=/fsx-robust/marksibrahim/datasets/unibench
-# export TORCH_HOME=/fsx-robust/marksibrahim/datasets/torch
+export HF_HOME=/checkpoint/memorization/marksibrahim/datasets/UniBench/hf_home
+export HUGGINGFACE_HUB_CACHE=/checkpoint/memorization/marksibrahim/datasets/UniBench/hf
+export UNIBENCH_HUB=/checkpoint/memorization/marksibrahim/datasets/UniBench/unibench
+export TORCH_HOME=/checkpoint/memorization/marksibrahim/datasets/UniBench/torch
 
 # python main.py --output_dir=$1 --idx=$SLURM_ARRAY_TASK_ID --num_workers=96
 python imagenet_main.py --output_dir=$1 --idx=$2 --num_workers=96 --benchmark_id=$3
