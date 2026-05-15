@@ -1,0 +1,1682 @@
+[
+  {
+    "question": "Looking at the visible todo list, how many items are checked (marked as done)?",
+    "choices": {
+      "A": "2",
+      "B": "1",
+      "C": "3",
+      "D": "4"
+    },
+    "correct": "C",
+    "category": "element_counting",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Looking at the visible todo list, how many items are checked (marked as done)?\n  A) 2\n  B) 1\n  C) 3\n  D) 4",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Looking at the visible todo list, how many items are unchecked (not done)?",
+    "choices": {
+      "A": "10",
+      "B": "7",
+      "C": "8",
+      "D": "9"
+    },
+    "correct": "D",
+    "category": "element_counting",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Looking at the visible todo list, how many items are unchecked (not done)?\n  A) 10\n  B) 7\n  C) 8\n  D) 9",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox checked?",
+    "choices": {
+      "A": "Buy groceries",
+      "B": "Check budget",
+      "C": "Answer emails",
+      "D": "Book doctor appointment."
+    },
+    "correct": "D",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox checked?\n  A) Buy groceries\n  B) Check budget\n  C) Answer emails\n  D) Book doctor appointment.",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox checked?",
+    "choices": {
+      "A": "Call Aunt Lisa",
+      "B": "Answer emails",
+      "C": "Meditate for 30",
+      "D": "Sort medical papers"
+    },
+    "correct": "A",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox checked?\n  A) Call Aunt Lisa\n  B) Answer emails\n  C) Meditate for 30\n  D) Sort medical papers",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox checked?",
+    "choices": {
+      "A": "Tidy living room",
+      "B": "Plan weekly meals",
+      "C": "Visit grandma",
+      "D": "Walk for 20 minutes"
+    },
+    "correct": "A",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox checked?\n  A) Tidy living room\n  B) Plan weekly meals\n  C) Visit grandma\n  D) Walk for 20 minutes",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Tidy living room",
+      "B": "Book doctor appointment.",
+      "C": "Call Aunt Lisa",
+      "D": "Visit grandma"
+    },
+    "correct": "D",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Tidy living room\n  B) Book doctor appointment.\n  C) Call Aunt Lisa\n  D) Visit grandma",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Tidy living room",
+      "B": "Book doctor appointment.",
+      "C": "Sort medical papers",
+      "D": "Call Aunt Lisa"
+    },
+    "correct": "C",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Tidy living room\n  B) Book doctor appointment.\n  C) Sort medical papers\n  D) Call Aunt Lisa",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Call Aunt Lisa",
+      "B": "Tidy living room",
+      "C": "Book doctor appointment.",
+      "D": "Plan weekly meals"
+    },
+    "correct": "D",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Call Aunt Lisa\n  B) Tidy living room\n  C) Book doctor appointment.\n  D) Plan weekly meals",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Tidy living room",
+      "B": "Call Aunt Lisa",
+      "C": "Book doctor appointment.",
+      "D": "Buy groceries"
+    },
+    "correct": "D",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Tidy living room\n  B) Call Aunt Lisa\n  C) Book doctor appointment.\n  D) Buy groceries",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Tidy living room",
+      "B": "Book doctor appointment.",
+      "C": "Call Aunt Lisa",
+      "D": "Check budget"
+    },
+    "correct": "D",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Tidy living room\n  B) Book doctor appointment.\n  C) Call Aunt Lisa\n  D) Check budget",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Book doctor appointment.",
+      "B": "Walk for 20 minutes",
+      "C": "Call Aunt Lisa",
+      "D": "Tidy living room"
+    },
+    "correct": "B",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Book doctor appointment.\n  B) Walk for 20 minutes\n  C) Call Aunt Lisa\n  D) Tidy living room",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Book doctor appointment.",
+      "B": "Meditate for 30",
+      "C": "Call Aunt Lisa",
+      "D": "Tidy living room"
+    },
+    "correct": "B",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Book doctor appointment.\n  B) Meditate for 30\n  C) Call Aunt Lisa\n  D) Tidy living room",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Book doctor appointment.",
+      "B": "Update calendar",
+      "C": "Tidy living room",
+      "D": "Call Aunt Lisa"
+    },
+    "correct": "B",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Book doctor appointment.\n  B) Update calendar\n  C) Tidy living room\n  D) Call Aunt Lisa",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which of the following visible todo items is shown with its checkbox unchecked?",
+    "choices": {
+      "A": "Call Aunt Lisa",
+      "B": "Book doctor appointment.",
+      "C": "Answer emails",
+      "D": "Tidy living room"
+    },
+    "correct": "C",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "Which of the following visible todo items is shown with its checkbox unchecked?\n  A) Call Aunt Lisa\n  B) Book doctor appointment.\n  C) Answer emails\n  D) Tidy living room",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Visit grandma'?",
+    "choices": {
+      "A": "The item is shown in red",
+      "B": "Checkbox is unchecked",
+      "C": "Checkbox is checked",
+      "D": "The item is struck through"
+    },
+    "correct": "B",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Visit grandma'?\n  A) The item is shown in red\n  B) Checkbox is unchecked\n  C) Checkbox is checked\n  D) The item is struck through",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Sort medical papers'?",
+    "choices": {
+      "A": "Checkbox is unchecked",
+      "B": "The item is struck through",
+      "C": "The item is shown in red",
+      "D": "Checkbox is checked"
+    },
+    "correct": "A",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Sort medical papers'?\n  A) Checkbox is unchecked\n  B) The item is struck through\n  C) The item is shown in red\n  D) Checkbox is checked",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Plan weekly meals'?",
+    "choices": {
+      "A": "Checkbox is unchecked",
+      "B": "The item is struck through",
+      "C": "The item is shown in red",
+      "D": "Checkbox is checked"
+    },
+    "correct": "A",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Plan weekly meals'?\n  A) Checkbox is unchecked\n  B) The item is struck through\n  C) The item is shown in red\n  D) Checkbox is checked",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Book doctor appointment.'?",
+    "choices": {
+      "A": "Checkbox is checked",
+      "B": "Checkbox is unchecked",
+      "C": "The item is shown in red",
+      "D": "The item is struck through"
+    },
+    "correct": "A",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Book doctor appointment.'?\n  A) Checkbox is checked\n  B) Checkbox is unchecked\n  C) The item is shown in red\n  D) The item is struck through",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Buy groceries'?",
+    "choices": {
+      "A": "The item is shown in red",
+      "B": "Checkbox is unchecked",
+      "C": "The item is struck through",
+      "D": "Checkbox is checked"
+    },
+    "correct": "B",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Buy groceries'?\n  A) The item is shown in red\n  B) Checkbox is unchecked\n  C) The item is struck through\n  D) Checkbox is checked",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Call Aunt Lisa'?",
+    "choices": {
+      "A": "Checkbox is checked",
+      "B": "The item is struck through",
+      "C": "The item is shown in red",
+      "D": "Checkbox is unchecked"
+    },
+    "correct": "A",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Call Aunt Lisa'?\n  A) Checkbox is checked\n  B) The item is struck through\n  C) The item is shown in red\n  D) Checkbox is unchecked",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Check budget'?",
+    "choices": {
+      "A": "Checkbox is unchecked",
+      "B": "Checkbox is checked",
+      "C": "The item is shown in red",
+      "D": "The item is struck through"
+    },
+    "correct": "A",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Check budget'?\n  A) Checkbox is unchecked\n  B) Checkbox is checked\n  C) The item is shown in red\n  D) The item is struck through",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Tidy living room'?",
+    "choices": {
+      "A": "Checkbox is unchecked",
+      "B": "The item is struck through",
+      "C": "Checkbox is checked",
+      "D": "The item is shown in red"
+    },
+    "correct": "C",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Tidy living room'?\n  A) Checkbox is unchecked\n  B) The item is struck through\n  C) Checkbox is checked\n  D) The item is shown in red",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Walk for 20 minutes'?",
+    "choices": {
+      "A": "Checkbox is checked",
+      "B": "The item is shown in red",
+      "C": "Checkbox is unchecked",
+      "D": "The item is struck through"
+    },
+    "correct": "C",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Walk for 20 minutes'?\n  A) Checkbox is checked\n  B) The item is shown in red\n  C) Checkbox is unchecked\n  D) The item is struck through",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Meditate for 30'?",
+    "choices": {
+      "A": "Checkbox is checked",
+      "B": "The item is shown in red",
+      "C": "The item is struck through",
+      "D": "Checkbox is unchecked"
+    },
+    "correct": "D",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Meditate for 30'?\n  A) Checkbox is checked\n  B) The item is shown in red\n  C) The item is struck through\n  D) Checkbox is unchecked",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Update calendar'?",
+    "choices": {
+      "A": "Checkbox is checked",
+      "B": "Checkbox is unchecked",
+      "C": "The item is shown in red",
+      "D": "The item is struck through"
+    },
+    "correct": "B",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Update calendar'?\n  A) Checkbox is checked\n  B) Checkbox is unchecked\n  C) The item is shown in red\n  D) The item is struck through",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, what is the state of the checkbox next to 'Answer emails'?",
+    "choices": {
+      "A": "Checkbox is unchecked",
+      "B": "The item is shown in red",
+      "C": "Checkbox is checked",
+      "D": "The item is struck through"
+    },
+    "correct": "A",
+    "category": "element_state",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, what is the state of the checkbox next to 'Answer emails'?\n  A) Checkbox is unchecked\n  B) The item is shown in red\n  C) Checkbox is checked\n  D) The item is struck through",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the first todo item shown at the top of the list?",
+    "choices": {
+      "A": "Meditate for 30",
+      "B": "Answer emails",
+      "C": "Call Aunt Lisa",
+      "D": "Visit grandma"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "What is the first todo item shown at the top of the list?\n  A) Meditate for 30\n  B) Answer emails\n  C) Call Aunt Lisa\n  D) Visit grandma",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 2nd todo item shown in the visible list?",
+    "choices": {
+      "A": "Call Aunt Lisa",
+      "B": "Answer emails",
+      "C": "Sort medical papers",
+      "D": "Meditate for 30"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 2nd todo item shown in the visible list?\n  A) Call Aunt Lisa\n  B) Answer emails\n  C) Sort medical papers\n  D) Meditate for 30",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 3rd todo item shown in the visible list?",
+    "choices": {
+      "A": "Walk for 20 minutes",
+      "B": "Tidy living room",
+      "C": "Book doctor appointment.",
+      "D": "Plan weekly meals"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 3rd todo item shown in the visible list?\n  A) Walk for 20 minutes\n  B) Tidy living room\n  C) Book doctor appointment.\n  D) Plan weekly meals",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 4th todo item shown in the visible list?",
+    "choices": {
+      "A": "Answer emails",
+      "B": "Meditate for 30",
+      "C": "Plan weekly meals",
+      "D": "Book doctor appointment."
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 4th todo item shown in the visible list?\n  A) Answer emails\n  B) Meditate for 30\n  C) Plan weekly meals\n  D) Book doctor appointment.",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 5th todo item shown in the visible list?",
+    "choices": {
+      "A": "Meditate for 30",
+      "B": "Buy groceries",
+      "C": "Book doctor appointment.",
+      "D": "Answer emails"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 5th todo item shown in the visible list?\n  A) Meditate for 30\n  B) Buy groceries\n  C) Book doctor appointment.\n  D) Answer emails",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 6th todo item shown in the visible list?",
+    "choices": {
+      "A": "Visit grandma",
+      "B": "Call Aunt Lisa",
+      "C": "Meditate for 30",
+      "D": "Answer emails"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 6th todo item shown in the visible list?\n  A) Visit grandma\n  B) Call Aunt Lisa\n  C) Meditate for 30\n  D) Answer emails",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 7th todo item shown in the visible list?",
+    "choices": {
+      "A": "Buy groceries",
+      "B": "Call Aunt Lisa",
+      "C": "Check budget",
+      "D": "Sort medical papers"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 7th todo item shown in the visible list?\n  A) Buy groceries\n  B) Call Aunt Lisa\n  C) Check budget\n  D) Sort medical papers",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 8th todo item shown in the visible list?",
+    "choices": {
+      "A": "Update calendar",
+      "B": "Sort medical papers",
+      "C": "Tidy living room",
+      "D": "Answer emails"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 8th todo item shown in the visible list?\n  A) Update calendar\n  B) Sort medical papers\n  C) Tidy living room\n  D) Answer emails",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 9th todo item shown in the visible list?",
+    "choices": {
+      "A": "Walk for 20 minutes",
+      "B": "Tidy living room",
+      "C": "Meditate for 30",
+      "D": "Plan weekly meals"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 9th todo item shown in the visible list?\n  A) Walk for 20 minutes\n  B) Tidy living room\n  C) Meditate for 30\n  D) Plan weekly meals",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 10th todo item shown in the visible list?",
+    "choices": {
+      "A": "Meditate for 30",
+      "B": "Answer emails",
+      "C": "Book doctor appointment.",
+      "D": "Walk for 20 minutes"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 10th todo item shown in the visible list?\n  A) Meditate for 30\n  B) Answer emails\n  C) Book doctor appointment.\n  D) Walk for 20 minutes",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 11th todo item shown in the visible list?",
+    "choices": {
+      "A": "Tidy living room",
+      "B": "Walk for 20 minutes",
+      "C": "Answer emails",
+      "D": "Update calendar"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 11th todo item shown in the visible list?\n  A) Tidy living room\n  B) Walk for 20 minutes\n  C) Answer emails\n  D) Update calendar",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the 12th todo item shown in the visible list?",
+    "choices": {
+      "A": "Visit grandma",
+      "B": "Answer emails",
+      "C": "Call Aunt Lisa",
+      "D": "Sort medical papers"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "What is the 12th todo item shown in the visible list?\n  A) Visit grandma\n  B) Answer emails\n  C) Call Aunt Lisa\n  D) Sort medical papers",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, which item appears directly below 'Meditate for 30'?",
+    "choices": {
+      "A": "Update calendar",
+      "B": "Book doctor appointment.",
+      "C": "Tidy living room",
+      "D": "Buy groceries"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, which item appears directly below 'Meditate for 30'?\n  A) Update calendar\n  B) Book doctor appointment.\n  C) Tidy living room\n  D) Buy groceries",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, which item appears directly below 'Tidy living room'?",
+    "choices": {
+      "A": "Check budget",
+      "B": "Meditate for 30",
+      "C": "Walk for 20 minutes",
+      "D": "Book doctor appointment."
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, which item appears directly below 'Tidy living room'?\n  A) Check budget\n  B) Meditate for 30\n  C) Walk for 20 minutes\n  D) Book doctor appointment.",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, which item appears directly below 'Buy groceries'?",
+    "choices": {
+      "A": "Tidy living room",
+      "B": "Call Aunt Lisa",
+      "C": "Walk for 20 minutes",
+      "D": "Answer emails"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, which item appears directly below 'Buy groceries'?\n  A) Tidy living room\n  B) Call Aunt Lisa\n  C) Walk for 20 minutes\n  D) Answer emails",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, which item appears directly below 'Call Aunt Lisa'?",
+    "choices": {
+      "A": "Sort medical papers",
+      "B": "Walk for 20 minutes",
+      "C": "Check budget",
+      "D": "Visit grandma"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, which item appears directly below 'Call Aunt Lisa'?\n  A) Sort medical papers\n  B) Walk for 20 minutes\n  C) Check budget\n  D) Visit grandma",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "In the visible todo list, which item appears directly below 'Plan weekly meals'?",
+    "choices": {
+      "A": "Answer emails",
+      "B": "Book doctor appointment.",
+      "C": "Meditate for 30",
+      "D": "Call Aunt Lisa"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "medium",
+    "formatted": "In the visible todo list, which item appears directly below 'Plan weekly meals'?\n  A) Answer emails\n  B) Book doctor appointment.\n  C) Meditate for 30\n  D) Call Aunt Lisa",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What type of UI element appears to the left of each todo item title?",
+    "choices": {
+      "A": "Star icon",
+      "B": "Checkbox",
+      "C": "Toggle switch",
+      "D": "Radio button"
+    },
+    "correct": "B",
+    "category": "element_identification",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "What type of UI element appears to the left of each todo item title?\n  A) Star icon\n  B) Checkbox\n  C) Toggle switch\n  D) Radio button",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What two button labels are shown beneath each todo item?",
+    "choices": {
+      "A": "Save and Cancel",
+      "B": "Complete and Skip",
+      "C": "Delete and Archive",
+      "D": "Edit and Remove"
+    },
+    "correct": "D",
+    "category": "element_identification",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "What two button labels are shown beneath each todo item?\n  A) Save and Cancel\n  B) Complete and Skip\n  C) Delete and Archive\n  D) Edit and Remove",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What placeholder text is shown in the input field at the top of the todo app?",
+    "choices": {
+      "A": "Add a task",
+      "B": "Type a new item",
+      "C": "Enter todo here",
+      "D": "New Todo"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "What placeholder text is shown in the input field at the top of the todo app?\n  A) Add a task\n  B) Type a new item\n  C) Enter todo here\n  D) New Todo",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What is the label on the button to the right of the new-todo input field?",
+    "choices": {
+      "A": "Submit",
+      "B": "Create",
+      "C": "Save",
+      "D": "Add"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "What is the label on the button to the right of the new-todo input field?\n  A) Submit\n  B) Create\n  C) Save\n  D) Add",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "What title is displayed at the top of the todo app page?",
+    "choices": {
+      "A": "OpenTodos",
+      "B": "Todo List",
+      "C": "My Tasks",
+      "D": "Task Manager"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "todo",
+    "difficulty": "easy",
+    "formatted": "What title is displayed at the top of the todo app page?\n  A) OpenTodos\n  B) Todo List\n  C) My Tasks\n  D) Task Manager",
+    "screenshot_path": "tests/generated_screenshots/default/todo.png"
+  },
+  {
+    "question": "Which month and year does the calendar currently display?",
+    "choices": {
+      "A": "May 2026",
+      "B": "July 2026",
+      "C": "June 2026",
+      "D": "February 2026"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "Which month and year does the calendar currently display?\n  A) May 2026\n  B) July 2026\n  C) June 2026\n  D) February 2026",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "How many events are shown on the calendar grid for the displayed month?",
+    "choices": {
+      "A": "3",
+      "B": "4",
+      "C": "0",
+      "D": "2"
+    },
+    "correct": "D",
+    "category": "element_counting",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "How many events are shown on the calendar grid for the displayed month?\n  A) 3\n  B) 4\n  C) 0\n  D) 2",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "Which of the following events appears on the displayed calendar month?",
+    "choices": {
+      "A": "Sprint Planning",
+      "B": "Greta's Birthday",
+      "C": "NeurIPS 2026 Deadline",
+      "D": "Guitar Lesson"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "Which of the following events appears on the displayed calendar month?\n  A) Sprint Planning\n  B) Greta's Birthday\n  C) NeurIPS 2026 Deadline\n  D) Guitar Lesson",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "Which of the following events appears on the displayed calendar month?",
+    "choices": {
+      "A": "Yoga Class",
+      "B": "Team Standup Meeting",
+      "C": "Granni's Birthday",
+      "D": "NeurIPS 2026 Deadline"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "Which of the following events appears on the displayed calendar month?\n  A) Yoga Class\n  B) Team Standup Meeting\n  C) Granni's Birthday\n  D) NeurIPS 2026 Deadline",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "On which day of the displayed month is the event 'Greta's Birthday' shown?",
+    "choices": {
+      "A": "23",
+      "B": "29",
+      "C": "10",
+      "D": "8"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "calendar",
+    "difficulty": "medium",
+    "formatted": "On which day of the displayed month is the event 'Greta's Birthday' shown?\n  A) 23\n  B) 29\n  C) 10\n  D) 8",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "On which day of the displayed month is the event 'Granni's Birthday' shown?",
+    "choices": {
+      "A": "2",
+      "B": "21",
+      "C": "20",
+      "D": "18"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "calendar",
+    "difficulty": "medium",
+    "formatted": "On which day of the displayed month is the event 'Granni's Birthday' shown?\n  A) 2\n  B) 21\n  C) 20\n  D) 18",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "What two view-toggle buttons are shown above the calendar grid?",
+    "choices": {
+      "A": "Timeline and Board",
+      "B": "Day and Week",
+      "C": "Calendar and Agenda",
+      "D": "Month and Year"
+    },
+    "correct": "C",
+    "category": "element_identification",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "What two view-toggle buttons are shown above the calendar grid?\n  A) Timeline and Board\n  B) Day and Week\n  C) Calendar and Agenda\n  D) Month and Year",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "What controls are shown for navigating between months on the calendar?",
+    "choices": {
+      "A": "'< Prev' on the left and 'Next >' on the right of the month name",
+      "B": "Up and down arrow keys",
+      "C": "A search box for jumping to a date",
+      "D": "A dropdown to select the month"
+    },
+    "correct": "A",
+    "category": "navigation",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "What controls are shown for navigating between months on the calendar?\n  A) '< Prev' on the left and 'Next >' on the right of the month name\n  B) Up and down arrow keys\n  C) A search box for jumping to a date\n  D) A dropdown to select the month",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "What weekday header labels appear across the top of the calendar grid?",
+    "choices": {
+      "A": "Mon, Tue, Wed, Thu, Fri, Sat, Sun",
+      "B": "Monday through Friday only",
+      "C": "M, T, W, T, F, S, S",
+      "D": "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "What weekday header labels appear across the top of the calendar grid?\n  A) Mon, Tue, Wed, Thu, Fri, Sat, Sun\n  B) Monday through Friday only\n  C) M, T, W, T, F, S, S\n  D) Sun, Mon, Tue, Wed, Thu, Fri, Sat",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "What title is displayed at the top of the calendar app page?",
+    "choices": {
+      "A": "Schedule",
+      "B": "OpenCalendar",
+      "C": "My Calendar",
+      "D": "Events"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "What title is displayed at the top of the calendar app page?\n  A) Schedule\n  B) OpenCalendar\n  C) My Calendar\n  D) Events",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "What is the label on the button at the bottom-left of the calendar page?",
+    "choices": {
+      "A": "Create Event",
+      "B": "+ Event",
+      "C": "New Event",
+      "D": "Add Event"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "What is the label on the button at the bottom-left of the calendar page?\n  A) Create Event\n  B) + Event\n  C) New Event\n  D) Add Event",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "What is the label on the button at the bottom-right of the calendar page?",
+    "choices": {
+      "A": "Back to Home",
+      "B": "All Apps",
+      "C": "Main Menu",
+      "D": "Return to List of Apps"
+    },
+    "correct": "D",
+    "category": "navigation",
+    "app": "calendar",
+    "difficulty": "easy",
+    "formatted": "What is the label on the button at the bottom-right of the calendar page?\n  A) Back to Home\n  B) All Apps\n  C) Main Menu\n  D) Return to List of Apps",
+    "screenshot_path": "tests/generated_screenshots/default/calendar.png"
+  },
+  {
+    "question": "How many conversation rows are shown in the messenger conversation list?",
+    "choices": {
+      "A": "4",
+      "B": "1",
+      "C": "5",
+      "D": "7"
+    },
+    "correct": "A",
+    "category": "element_counting",
+    "app": "messenger",
+    "difficulty": "easy",
+    "formatted": "How many conversation rows are shown in the messenger conversation list?\n  A) 4\n  B) 1\n  C) 5\n  D) 7",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "Which of the following contact names is shown in the messenger conversation list?",
+    "choices": {
+      "A": "Eve",
+      "B": "Alice",
+      "C": "Henry",
+      "D": "Grace"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "easy",
+    "formatted": "Which of the following contact names is shown in the messenger conversation list?\n  A) Eve\n  B) Alice\n  C) Henry\n  D) Grace",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "Which of the following contact names is shown in the messenger conversation list?",
+    "choices": {
+      "A": "Henry",
+      "B": "Ivan",
+      "C": "Frank",
+      "D": "Bob"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "easy",
+    "formatted": "Which of the following contact names is shown in the messenger conversation list?\n  A) Henry\n  B) Ivan\n  C) Frank\n  D) Bob",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "Which of the following contact names is shown in the messenger conversation list?",
+    "choices": {
+      "A": "Charlie",
+      "B": "Julia",
+      "C": "Henry",
+      "D": "Diana"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "easy",
+    "formatted": "Which of the following contact names is shown in the messenger conversation list?\n  A) Charlie\n  B) Julia\n  C) Henry\n  D) Diana",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "Which of the following contact names is shown in the messenger conversation list?",
+    "choices": {
+      "A": "Fantastic4GroupChat",
+      "B": "Frank",
+      "C": "Eve",
+      "D": "Henry"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "easy",
+    "formatted": "Which of the following contact names is shown in the messenger conversation list?\n  A) Fantastic4GroupChat\n  B) Frank\n  C) Eve\n  D) Henry",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "Which of the following contact names does NOT appear in the messenger conversation list?",
+    "choices": {
+      "A": "Alice",
+      "B": "Fantastic4GroupChat",
+      "C": "Bob",
+      "D": "Diana"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "medium",
+    "formatted": "Which of the following contact names does NOT appear in the messenger conversation list?\n  A) Alice\n  B) Fantastic4GroupChat\n  C) Bob\n  D) Diana",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "Which of the following contact names does NOT appear in the messenger conversation list?",
+    "choices": {
+      "A": "Fantastic4GroupChat",
+      "B": "Charlie",
+      "C": "Eve",
+      "D": "Alice"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "medium",
+    "formatted": "Which of the following contact names does NOT appear in the messenger conversation list?\n  A) Fantastic4GroupChat\n  B) Charlie\n  C) Eve\n  D) Alice",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "Which of the following contact names does NOT appear in the messenger conversation list?",
+    "choices": {
+      "A": "Bob",
+      "B": "Frank",
+      "C": "Charlie",
+      "D": "Fantastic4GroupChat"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "medium",
+    "formatted": "Which of the following contact names does NOT appear in the messenger conversation list?\n  A) Bob\n  B) Frank\n  C) Charlie\n  D) Fantastic4GroupChat",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "Is a group chat row visible in the messenger conversation list?",
+    "choices": {
+      "A": "No, only individual conversations",
+      "B": "Yes \u2014 'Team Chat'",
+      "C": "Yes \u2014 'General Channel'",
+      "D": "Yes \u2014 'Fantastic4GroupChat'"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "easy",
+    "formatted": "Is a group chat row visible in the messenger conversation list?\n  A) No, only individual conversations\n  B) Yes \u2014 'Team Chat'\n  C) Yes \u2014 'General Channel'\n  D) Yes \u2014 'Fantastic4GroupChat'",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "What title is displayed at the top of the messenger page?",
+    "choices": {
+      "A": "Chats",
+      "B": "Inbox",
+      "C": "My Messages",
+      "D": "OpenMessages"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "messenger",
+    "difficulty": "easy",
+    "formatted": "What title is displayed at the top of the messenger page?\n  A) Chats\n  B) Inbox\n  C) My Messages\n  D) OpenMessages",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "What is the label on the button at the bottom of the messenger page?",
+    "choices": {
+      "A": "Back",
+      "B": "Home",
+      "C": "Return to List of Apps",
+      "D": "Main Menu"
+    },
+    "correct": "C",
+    "category": "navigation",
+    "app": "messenger",
+    "difficulty": "easy",
+    "formatted": "What is the label on the button at the bottom of the messenger page?\n  A) Back\n  B) Home\n  C) Return to List of Apps\n  D) Main Menu",
+    "screenshot_path": "tests/generated_screenshots/default/messages.png"
+  },
+  {
+    "question": "How many entries are listed under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "3",
+      "B": "5",
+      "C": "6",
+      "D": "7"
+    },
+    "correct": "B",
+    "category": "element_counting",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "How many entries are listed under 'Saved Locations' in the map sidebar?\n  A) 3\n  B) 5\n  C) 6\n  D) 7",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Which of the following appears under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "Sydney Opera House",
+      "B": "Big Ben",
+      "C": "Statue of Liberty",
+      "D": "Buckingham Palace"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "Which of the following appears under 'Saved Locations' in the map sidebar?\n  A) Sydney Opera House\n  B) Big Ben\n  C) Statue of Liberty\n  D) Buckingham Palace",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Which of the following appears under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "Eiffel Tower",
+      "B": "Taj Mahal",
+      "C": "Sydney Opera House",
+      "D": "Central Park"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "Which of the following appears under 'Saved Locations' in the map sidebar?\n  A) Eiffel Tower\n  B) Taj Mahal\n  C) Sydney Opera House\n  D) Central Park",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Which of the following appears under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "Taj Mahal",
+      "B": "Eiffel Tower",
+      "C": "Brooklyn Bridge",
+      "D": "Sydney Opera House"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "Which of the following appears under 'Saved Locations' in the map sidebar?\n  A) Taj Mahal\n  B) Eiffel Tower\n  C) Brooklyn Bridge\n  D) Sydney Opera House",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Which of the following appears under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "Golden Gate Bridge",
+      "B": "Taj Mahal",
+      "C": "Times Square",
+      "D": "Sydney Opera House"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "Which of the following appears under 'Saved Locations' in the map sidebar?\n  A) Golden Gate Bridge\n  B) Taj Mahal\n  C) Times Square\n  D) Sydney Opera House",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Which of the following appears under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "Eiffel Tower",
+      "B": "Taj Mahal",
+      "C": "Empire State Building",
+      "D": "Buckingham Palace"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "Which of the following appears under 'Saved Locations' in the map sidebar?\n  A) Eiffel Tower\n  B) Taj Mahal\n  C) Empire State Building\n  D) Buckingham Palace",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Which of the following is NOT listed under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "Central Park",
+      "B": "Brooklyn Bridge",
+      "C": "Times Square",
+      "D": "Golden Gate Bridge"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "medium",
+    "formatted": "Which of the following is NOT listed under 'Saved Locations' in the map sidebar?\n  A) Central Park\n  B) Brooklyn Bridge\n  C) Times Square\n  D) Golden Gate Bridge",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Which of the following is NOT listed under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "Empire State Building",
+      "B": "Brooklyn Bridge",
+      "C": "Eiffel Tower",
+      "D": "Times Square"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "medium",
+    "formatted": "Which of the following is NOT listed under 'Saved Locations' in the map sidebar?\n  A) Empire State Building\n  B) Brooklyn Bridge\n  C) Eiffel Tower\n  D) Times Square",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Which of the following is NOT listed under 'Saved Locations' in the map sidebar?",
+    "choices": {
+      "A": "Brooklyn Bridge",
+      "B": "Empire State Building",
+      "C": "Buckingham Palace",
+      "D": "Central Park"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "medium",
+    "formatted": "Which of the following is NOT listed under 'Saved Locations' in the map sidebar?\n  A) Brooklyn Bridge\n  B) Empire State Building\n  C) Buckingham Palace\n  D) Central Park",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "What control is shown next to each saved location row in the map sidebar?",
+    "choices": {
+      "A": "An 'x' button next to each saved location in the sidebar",
+      "B": "A 'Delete' button below the map",
+      "C": "A trash-can icon at the bottom of the sidebar",
+      "D": "There is no visible delete control"
+    },
+    "correct": "A",
+    "category": "element_interaction",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "What control is shown next to each saved location row in the map sidebar?\n  A) An 'x' button next to each saved location in the sidebar\n  B) A 'Delete' button below the map\n  C) A trash-can icon at the bottom of the sidebar\n  D) There is no visible delete control",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Where is the sidebar containing search and saved locations positioned?",
+    "choices": {
+      "A": "On the left side of the page",
+      "B": "On the right side of the page, next to the map",
+      "C": "At the bottom of the page, below the map",
+      "D": "In a floating overlay on top of the map"
+    },
+    "correct": "B",
+    "category": "element_location",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "Where is the sidebar containing search and saved locations positioned?\n  A) On the left side of the page\n  B) On the right side of the page, next to the map\n  C) At the bottom of the page, below the map\n  D) In a floating overlay on top of the map",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "What placeholder text is shown inside the search input in the map sidebar?",
+    "choices": {
+      "A": "Find a place",
+      "B": "Search location...",
+      "C": "Where to?",
+      "D": "Enter address"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "What placeholder text is shown inside the search input in the map sidebar?\n  A) Find a place\n  B) Search location...\n  C) Where to?\n  D) Enter address",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "What is the label on the button to the right of the search input in the map sidebar?",
+    "choices": {
+      "A": "Lookup",
+      "B": "Go",
+      "C": "Search",
+      "D": "Find"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "What is the label on the button to the right of the search input in the map sidebar?\n  A) Lookup\n  B) Go\n  C) Search\n  D) Find",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "What is the label on the button at the top-right of the map page?",
+    "choices": {
+      "A": "Back to Home",
+      "B": "Main Menu",
+      "C": "Go Home",
+      "D": "Return to List of Apps"
+    },
+    "correct": "D",
+    "category": "navigation",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "What is the label on the button at the top-right of the map page?\n  A) Back to Home\n  B) Main Menu\n  C) Go Home\n  D) Return to List of Apps",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "What heading appears in the map sidebar above the list of saved places?",
+    "choices": {
+      "A": "Pinned Locations",
+      "B": "Saved Locations",
+      "C": "My Bookmarks",
+      "D": "Favorite Places"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "What heading appears in the map sidebar above the list of saved places?\n  A) Pinned Locations\n  B) Saved Locations\n  C) My Bookmarks\n  D) Favorite Places",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "What heading appears in the map sidebar between the search input and 'Saved Locations'?",
+    "choices": {
+      "A": "Current Location Info",
+      "B": "Selected Point Details",
+      "C": "Coordinates",
+      "D": "Location Data"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "What heading appears in the map sidebar between the search input and 'Saved Locations'?\n  A) Current Location Info\n  B) Selected Point Details\n  C) Coordinates\n  D) Location Data",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "What title is displayed at the top of the map sidebar?",
+    "choices": {
+      "A": "Locations",
+      "B": "My Maps",
+      "C": "Map App",
+      "D": "OpenMaps"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "What title is displayed at the top of the map sidebar?\n  A) Locations\n  B) My Maps\n  C) Map App\n  D) OpenMaps",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "What set of map tile-provider radio options is shown at the top-right of the map?",
+    "choices": {
+      "A": "OpenStreetMap, OpenStreetMap HOT, OpenTopoMap, ESRI Satellite, ESRI Terrain, CartoDB Dark, CartoDB Voyager, OpenStreetMap Transport",
+      "B": "Google Maps, Apple Maps, Bing Maps",
+      "C": "Only OpenStreetMap is offered",
+      "D": "Mapbox Streets, Mapbox Satellite, Mapbox Outdoors"
+    },
+    "correct": "A",
+    "category": "element_identification",
+    "app": "map",
+    "difficulty": "easy",
+    "formatted": "What set of map tile-provider radio options is shown at the top-right of the map?\n  A) OpenStreetMap, OpenStreetMap HOT, OpenTopoMap, ESRI Satellite, ESRI Terrain, CartoDB Dark, CartoDB Voyager, OpenStreetMap Transport\n  B) Google Maps, Apple Maps, Bing Maps\n  C) Only OpenStreetMap is offered\n  D) Mapbox Streets, Mapbox Satellite, Mapbox Outdoors",
+    "screenshot_path": "tests/generated_screenshots/default/maps.png"
+  },
+  {
+    "question": "Where is the file tree positioned in the code editor?",
+    "choices": {
+      "A": "On the left side of the page, in a narrow column",
+      "B": "Hidden behind a hamburger menu",
+      "C": "Across the top of the page as a horizontal list",
+      "D": "On the right side of the page"
+    },
+    "correct": "A",
+    "category": "element_location",
+    "app": "codeeditor",
+    "difficulty": "easy",
+    "formatted": "Where is the file tree positioned in the code editor?\n  A) On the left side of the page, in a narrow column\n  B) Hidden behind a hamburger menu\n  C) Across the top of the page as a horizontal list\n  D) On the right side of the page",
+    "screenshot_path": "tests/generated_screenshots/default/codeeditor.png"
+  },
+  {
+    "question": "What buttons are shown at the top of the code editor's file tree sidebar?",
+    "choices": {
+      "A": "A 'File' menu in a top menu bar",
+      "B": "Right-click the file tree to open a context menu",
+      "C": "Two buttons labeled 'New File' and 'New Folder' at the top of the sidebar",
+      "D": "A single '+' button at the top of the sidebar"
+    },
+    "correct": "C",
+    "category": "element_identification",
+    "app": "codeeditor",
+    "difficulty": "easy",
+    "formatted": "What buttons are shown at the top of the code editor's file tree sidebar?\n  A) A 'File' menu in a top menu bar\n  B) Right-click the file tree to open a context menu\n  C) Two buttons labeled 'New File' and 'New Folder' at the top of the sidebar\n  D) A single '+' button at the top of the sidebar",
+    "screenshot_path": "tests/generated_screenshots/default/codeeditor.png"
+  },
+  {
+    "question": "How is the syntax language selected in the top-right of the code editor?",
+    "choices": {
+      "A": "A row of language icon buttons",
+      "B": "A 'Language:' dropdown",
+      "C": "A text input where you type the language",
+      "D": "Radio buttons for each language"
+    },
+    "correct": "B",
+    "category": "element_identification",
+    "app": "codeeditor",
+    "difficulty": "easy",
+    "formatted": "How is the syntax language selected in the top-right of the code editor?\n  A) A row of language icon buttons\n  B) A 'Language:' dropdown\n  C) A text input where you type the language\n  D) Radio buttons for each language",
+    "screenshot_path": "tests/generated_screenshots/default/codeeditor.png"
+  },
+  {
+    "question": "How is the editor theme selected in the top-right of the code editor?",
+    "choices": {
+      "A": "There is no theme selector",
+      "B": "A 'Theme:' dropdown",
+      "C": "A toggle between light and dark mode only",
+      "D": "A color-swatch picker"
+    },
+    "correct": "B",
+    "category": "element_identification",
+    "app": "codeeditor",
+    "difficulty": "easy",
+    "formatted": "How is the editor theme selected in the top-right of the code editor?\n  A) There is no theme selector\n  B) A 'Theme:' dropdown\n  C) A toggle between light and dark mode only\n  D) A color-swatch picker",
+    "screenshot_path": "tests/generated_screenshots/default/codeeditor.png"
+  },
+  {
+    "question": "What title is displayed at the top-left of the code editor page?",
+    "choices": {
+      "A": "Editor",
+      "B": "OpenCodeEditor",
+      "C": "My Editor",
+      "D": "CodeApp"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "codeeditor",
+    "difficulty": "easy",
+    "formatted": "What title is displayed at the top-left of the code editor page?\n  A) Editor\n  B) OpenCodeEditor\n  C) My Editor\n  D) CodeApp",
+    "screenshot_path": "tests/generated_screenshots/default/codeeditor.png"
+  },
+  {
+    "question": "What message is shown in the code editor's main pane header when no file is open?",
+    "choices": {
+      "A": "No file selected",
+      "B": "Open a file to begin",
+      "C": "Choose a file from the sidebar",
+      "D": "Welcome"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "codeeditor",
+    "difficulty": "easy",
+    "formatted": "What message is shown in the code editor's main pane header when no file is open?\n  A) No file selected\n  B) Open a file to begin\n  C) Choose a file from the sidebar\n  D) Welcome",
+    "screenshot_path": "tests/generated_screenshots/default/codeeditor.png"
+  },
+  {
+    "question": "How many app tiles are shown in the grid on the start page?",
+    "choices": {
+      "A": "3",
+      "B": "5",
+      "C": "2",
+      "D": "4"
+    },
+    "correct": "B",
+    "category": "element_counting",
+    "app": "start_page",
+    "difficulty": "easy",
+    "formatted": "How many app tiles are shown in the grid on the start page?\n  A) 3\n  B) 5\n  C) 2\n  D) 4",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is shown on a tile on the start page?",
+    "choices": {
+      "A": "OpenTravel",
+      "B": "OpenMusic",
+      "C": "OpenTodos",
+      "D": "OpenNotes"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "easy",
+    "formatted": "Which of the following app names is shown on a tile on the start page?\n  A) OpenTravel\n  B) OpenMusic\n  C) OpenTodos\n  D) OpenNotes",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is shown on a tile on the start page?",
+    "choices": {
+      "A": "OpenWeather",
+      "B": "OpenMusic",
+      "C": "OpenCalendar",
+      "D": "OpenTravel"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "easy",
+    "formatted": "Which of the following app names is shown on a tile on the start page?\n  A) OpenWeather\n  B) OpenMusic\n  C) OpenCalendar\n  D) OpenTravel",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is shown on a tile on the start page?",
+    "choices": {
+      "A": "OpenFitness",
+      "B": "OpenWeather",
+      "C": "OpenNotes",
+      "D": "OpenMessages"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "easy",
+    "formatted": "Which of the following app names is shown on a tile on the start page?\n  A) OpenFitness\n  B) OpenWeather\n  C) OpenNotes\n  D) OpenMessages",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is shown on a tile on the start page?",
+    "choices": {
+      "A": "OpenMaps",
+      "B": "OpenBanking",
+      "C": "OpenTravel",
+      "D": "OpenWeather"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "easy",
+    "formatted": "Which of the following app names is shown on a tile on the start page?\n  A) OpenMaps\n  B) OpenBanking\n  C) OpenTravel\n  D) OpenWeather",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is shown on a tile on the start page?",
+    "choices": {
+      "A": "OpenShop",
+      "B": "OpenNotes",
+      "C": "OpenWeather",
+      "D": "OpenCodeEditor"
+    },
+    "correct": "D",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "easy",
+    "formatted": "Which of the following app names is shown on a tile on the start page?\n  A) OpenShop\n  B) OpenNotes\n  C) OpenWeather\n  D) OpenCodeEditor",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is NOT shown on any tile on the start page?",
+    "choices": {
+      "A": "OpenMaps",
+      "B": "OpenTodos",
+      "C": "OpenNotes",
+      "D": "OpenCalendar"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "Which of the following app names is NOT shown on any tile on the start page?\n  A) OpenMaps\n  B) OpenTodos\n  C) OpenNotes\n  D) OpenCalendar",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is NOT shown on any tile on the start page?",
+    "choices": {
+      "A": "OpenWeather",
+      "B": "OpenMessages",
+      "C": "OpenCalendar",
+      "D": "OpenMaps"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "Which of the following app names is NOT shown on any tile on the start page?\n  A) OpenWeather\n  B) OpenMessages\n  C) OpenCalendar\n  D) OpenMaps",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is NOT shown on any tile on the start page?",
+    "choices": {
+      "A": "OpenMusic",
+      "B": "OpenMaps",
+      "C": "OpenCodeEditor",
+      "D": "OpenTodos"
+    },
+    "correct": "A",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "Which of the following app names is NOT shown on any tile on the start page?\n  A) OpenMusic\n  B) OpenMaps\n  C) OpenCodeEditor\n  D) OpenTodos",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "Which of the following app names is NOT shown on any tile on the start page?",
+    "choices": {
+      "A": "OpenCalendar",
+      "B": "OpenFitness",
+      "C": "OpenMessages",
+      "D": "OpenMaps"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "Which of the following app names is NOT shown on any tile on the start page?\n  A) OpenCalendar\n  B) OpenFitness\n  C) OpenMessages\n  D) OpenMaps",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "What headline text is displayed at the top of the start page?",
+    "choices": {
+      "A": "Home",
+      "B": "Welcome to OpenApps!",
+      "C": "My Apps",
+      "D": "App Dashboard"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "easy",
+    "formatted": "What headline text is displayed at the top of the start page?\n  A) Home\n  B) Welcome to OpenApps!\n  C) My Apps\n  D) App Dashboard",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "How are the apps presented visually on the start page?",
+    "choices": {
+      "A": "A sidebar with collapsible sections",
+      "B": "A vertical list of plain text links",
+      "C": "Colored rounded tiles arranged in a grid, each containing an icon and the app name",
+      "D": "A horizontal carousel of screenshots"
+    },
+    "correct": "C",
+    "category": "element_identification",
+    "app": "start_page",
+    "difficulty": "easy",
+    "formatted": "How are the apps presented visually on the start page?\n  A) A sidebar with collapsible sections\n  B) A vertical list of plain text links\n  C) Colored rounded tiles arranged in a grid, each containing an icon and the app name\n  D) A horizontal carousel of screenshots",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "What is the 1st app tile shown on the start page (left-to-right, top-to-bottom)?",
+    "choices": {
+      "A": "OpenMessages",
+      "B": "OpenCalendar",
+      "C": "OpenTodos",
+      "D": "OpenCodeEditor"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "What is the 1st app tile shown on the start page (left-to-right, top-to-bottom)?\n  A) OpenMessages\n  B) OpenCalendar\n  C) OpenTodos\n  D) OpenCodeEditor",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "What is the 2nd app tile shown on the start page (left-to-right, top-to-bottom)?",
+    "choices": {
+      "A": "OpenTodos",
+      "B": "OpenMaps",
+      "C": "OpenCalendar",
+      "D": "OpenMessages"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "What is the 2nd app tile shown on the start page (left-to-right, top-to-bottom)?\n  A) OpenTodos\n  B) OpenMaps\n  C) OpenCalendar\n  D) OpenMessages",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "What is the 3rd app tile shown on the start page (left-to-right, top-to-bottom)?",
+    "choices": {
+      "A": "OpenTodos",
+      "B": "OpenMaps",
+      "C": "OpenMessages",
+      "D": "OpenCalendar"
+    },
+    "correct": "C",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "What is the 3rd app tile shown on the start page (left-to-right, top-to-bottom)?\n  A) OpenTodos\n  B) OpenMaps\n  C) OpenMessages\n  D) OpenCalendar",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "What is the 4th app tile shown on the start page (left-to-right, top-to-bottom)?",
+    "choices": {
+      "A": "OpenTodos",
+      "B": "OpenMaps",
+      "C": "OpenMessages",
+      "D": "OpenCalendar"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "What is the 4th app tile shown on the start page (left-to-right, top-to-bottom)?\n  A) OpenTodos\n  B) OpenMaps\n  C) OpenMessages\n  D) OpenCalendar",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  },
+  {
+    "question": "What is the 5th app tile shown on the start page (left-to-right, top-to-bottom)?",
+    "choices": {
+      "A": "OpenTodos",
+      "B": "OpenCodeEditor",
+      "C": "OpenMaps",
+      "D": "OpenCalendar"
+    },
+    "correct": "B",
+    "category": "element_content",
+    "app": "start_page",
+    "difficulty": "medium",
+    "formatted": "What is the 5th app tile shown on the start page (left-to-right, top-to-bottom)?\n  A) OpenTodos\n  B) OpenCodeEditor\n  C) OpenMaps\n  D) OpenCalendar",
+    "screenshot_path": "tests/generated_screenshots/default/start_page.png"
+  }
+]

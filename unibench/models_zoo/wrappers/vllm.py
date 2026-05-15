@@ -9,6 +9,9 @@ import torch
 from .base import AbstractModel
 import torch._dynamo
 from torchvision.transforms import functional as F
+from openai import OpenAI
+import base64
+from io import BytesIO
 
 class AbstractVLLM(AbstractModel):
     def __init__(
@@ -37,7 +40,8 @@ class AbstractVLLM(AbstractModel):
         self.generation_config=generation_config
         self.output_func = output_func
         self.image_token = image_token
-        self.model = torch.compile(self.model, dynamic=False)
+        if self.model is not None:
+            self.model = torch.compile(self.model, dynamic=False)
         torch._dynamo.config.recompile_limit = 64 
 
     def get_text_from_image(self, images, prompts):
@@ -129,6 +133,110 @@ class InternVLModels(VLLModels):
             res.append(self.output_func(text.split(p)[-1]))
         return res
     
+class Qwen35VLModels(AbstractVLLM):
+    """Qwen3.5 VL models via OpenAI-compatible API (e.g. vLLM server)."""
+
+    def __init__(self, model_name, api_model_id, base_url=None, api_key="EMPTY", output_func=None, max_new_tokens=32, **kwargs):
+        super(Qwen35VLModels, self).__init__(model=None, model_name=model_name, output_func=output_func or (lambda x: x), max_new_tokens=max_new_tokens, **kwargs)
+        self.api_model_id = api_model_id
+        self.client = OpenAI(base_url=base_url, api_key=api_key)
+
+    def _image_to_data_url(self, image_tensor):
+        pil_image = F.to_pil_image(image_tensor.clamp(0, 1))
+        buf = BytesIO()
+        pil_image.save(buf, format="PNG")
+        b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+        return f"data:image/png;base64,{b64}"
+
+    def get_text_from_image(self, images, prompts):
+        prompts = list(prompts)
+        images = images.clone()
+        res = []
+        for image, prompt in zip(images, prompts):
+            data_url = self._image_to_data_url(image)
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "image_url", "image_url": {"url": data_url}},
+                        {"type": "text", "text": prompt},
+                    ],
+                }
+            ]
+            response = self.client.chat.completions.create(
+                model=self.api_model_id,
+                messages=messages,
+                max_tokens=self.max_new_tokens,
+                temperature=0,
+                top_p=None,
+            )
+            text = response.choices[0].message.content or ""
+            res.append(self.output_func(text))
+        return res
+
+
+class ChatGPTModels(AbstractVLLM):
+    """GPT-4o / ChatGPT models via the OpenAI Chat Completions API."""
+
+    def __init__(
+        self,
+        model_name,
+        api_model_id,
+        api_key=None,
+        output_func=None,
+        max_new_tokens=32,
+        system_prompt=None,
+        **kwargs,
+    ):
+        super(ChatGPTModels, self).__init__(
+            model=None,
+            model_name=model_name,
+            output_func=output_func or (lambda x: x),
+            max_new_tokens=max_new_tokens,
+            **kwargs,
+        )
+        self.api_model_id = api_model_id
+        self.system_prompt = system_prompt
+        # api_key defaults to None; the OpenAI client will automatically
+        # read OPENAI_API_KEY from the environment when no key is supplied.
+        self.client = OpenAI(api_key=api_key)
+
+    def _image_to_data_url(self, image_tensor):
+        pil_image = F.to_pil_image(image_tensor.clamp(0, 1))
+        buf = BytesIO()
+        pil_image.save(buf, format="PNG")
+        b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+        return f"data:image/png;base64,{b64}"
+
+    def get_text_from_image(self, images, prompts):
+        prompts = list(prompts)
+        images = images.clone()
+        res = []
+        for image, prompt in zip(images, prompts):
+            data_url = self._image_to_data_url(image)
+            messages = []
+            if self.system_prompt:
+                messages.append({"role": "system", "content": self.system_prompt})
+            messages.append(
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "image_url", "image_url": {"url": data_url}},
+                        {"type": "text", "text": prompt},
+                    ],
+                }
+            )
+            response = self.client.chat.completions.create(
+                model=self.api_model_id,
+                messages=messages,
+                max_tokens=self.max_new_tokens,
+                temperature=0,
+            )
+            text = response.choices[0].message.content or ""
+            res.append(self.output_func(text))
+        return res
+
+
 class PHIModels(VLLModels):
     @torch.no_grad()
     def get_text_from_image(self, images, prompts):

@@ -103,21 +103,20 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
                 pred = pred.t()
                 correct = pred.eq(targets.view(1, -1).expand_as(pred)).int().sum(0)
 
-            if len(self.class_names) < 5:
-                top5 = targets
-                correct_top5 = [1] * len(targets)
-            else:
-                pred = softmax(logits, dim=-1)
-                _, top5 = pred.topk(5, 1, True, True)
-                correct_top5 = (
-                    torch.bitwise_and(
-                        torch.nn.functional.one_hot(top5, len(self.class_names)).sum(1),
-                        torch.nn.functional.one_hot(targets, len(self.class_names)),
-                    )
-                    .sum(1)
-                    .int()
-                )
-            pred = pred.topk(1, 1, True, True)[1].squeeze()
+            # if len(self.class_names) < 5:
+            #     top5 = targets
+            #     correct_top5 = [1] * len(targets)
+            # else:
+            #     pred = softmax(logits, dim=-1)
+            #     _, top5 = pred.topk(5, 1, True, True)
+            #     correct_top5 = (
+            #         torch.bitwise_and(
+            #             torch.nn.functional.one_hot(top5, len(self.class_names)).sum(1),
+            #             torch.nn.functional.one_hot(targets, len(self.class_names)),
+            #         )
+            #         .sum(1)
+            #         .int()
+            #     )
 
         res = {
             "entropy": entropy,
@@ -125,13 +124,107 @@ class ZeroShotBenchmarkHandler(BenchmarkHandler):
             "split": split,
             "benchmark_name": self.benchmark_name,
             "correctness": correct,
-            "correctness_top5": correct_top5,
+            # "correctness_top5": correct_top5,
             "predictions": pred,
-            "predictions_top5": top5,
+            # "predictions_top5": top5,
             "confidence": confidence,
         }
 
         if len(batch) > 2:
+            res["image_name"] = sample_id
+
+        res["task_name"] = self.task_name
+
+        return res
+
+
+class VQABenchmarkHandler(BenchmarkHandler):
+    """
+    Handler for VQA datasets with multiple-choice questions using CLIP models.
+    For each answer option, the caption is formed as: "<question> <option>".
+    The image is compared against all such captions and the highest similarity
+    caption index is used as the prediction.
+    """
+
+    def __init__(self, task_name="vqa_multiple_choice", **kwargs):
+        BenchmarkHandler.__init__(self, task_name=task_name, **kwargs)
+
+    def get_similarity(self, model, images, captions):
+        """
+        captions: list of strings of length batch_size, each already formatted
+                  as "question option_i".
+        Returns similarity scores of shape (batch_size,).
+        """
+        image_features = model.get_image_embeddings(images)
+        text_features = model.get_text_embeddings(captions)
+        logit_scale = (
+            model.logit_scale.exp()
+            if model.logit_scale is not None
+            else torch.tensor(100.0)
+        )
+        scores = logit_scale * (image_features * text_features).sum(dim=-1)
+        return scores
+
+    def eval_batch(self, model, batch):
+        """
+        Expected batch format:
+          (images, questions, options, targets, sample_id)
+          or
+          (images, questions, options, targets)
+
+        - images: tensor of shape (B, C, H, W)
+        - questions: list of B question strings
+        - options: list of B lists, each containing N answer-option strings
+        - targets: tensor of shape (B,) with the correct option index (0-based)
+        - sample_id: optional list of B sample identifiers
+        """
+        sample_id = None
+        split = None
+        if len(batch) == 6:
+            images, questions, options, targets, sample_id, split = batch
+        else:
+            images, questions, options, targets = batch
+            
+        if isinstance(targets, dict):
+            targets = targets['index']
+            
+        if isinstance(options, dict):
+            options = options['list']
+
+        batch_size = images.shape[0]
+        num_options = len(options)
+
+        # Build per-option scores: shape (B, num_options)
+        option_scores = []
+        for opt_idx in range(num_options):
+            # Build captions: "question option" for every item in the batch
+            captions = [
+                f"{questions[i]} {options[opt_idx][i]}" for i in range(batch_size)
+            ]
+            scores = self.get_similarity(model, images, captions)
+            # scores = torch.diagonal(scores)# (B,)
+            option_scores.append(torch.diagonal(scores))
+
+        logits = torch.stack(option_scores, dim=1).float()   # (B, num_options)
+
+        probs = softmax(logits, dim=-1)
+        confidence, pred = probs.topk(1, dim=1)
+        pred = pred.squeeze(1).cpu()          # (B,)
+        confidence = confidence.squeeze(1).cpu()  # (B,)
+        entropy = Categorical(probs=probs).entropy()  # (B,)
+        correct = pred.eq(targets).int()
+
+        res = {
+            "entropy": entropy,
+            "image_class": targets,
+            "benchmark_name": self.benchmark_name,
+            "correctness": correct,
+            "predictions": pred,
+            "confidence": confidence,
+            "split": split,
+        }
+
+        if sample_id is not None:
             res["image_name"] = sample_id
 
         res["task_name"] = self.task_name
@@ -213,3 +306,5 @@ class RelationBenchmarkHandler(BenchmarkHandler):
         res["task_name"] = self.task_name
 
         return res
+    
+    

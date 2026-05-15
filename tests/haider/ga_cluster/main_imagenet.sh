@@ -18,9 +18,11 @@ LOG_FILE=${LOG_DIR}/slurm_%A_%a.out  # %A: job ID, %a: array index
 # pip install -U /storage/home/hcoda1/6/haltahan6/scratch/unibench[all]
 cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/tests/haider/ga_cluster
 
+echo "Logging to: ${LOG_FILE}"
+echo "Output directory: ${OUT_DIR}"
 # unibench version
 
 # === Submit the job ===
-for num_idx in {0..20}; do
-    sbatch --array=32,36 --output="${LOG_FILE}" evaluation.sh "${OUT_DIR}" "${num_idx}"
+for num_idx in {0..2}; do
+    sbatch --array=0-45 --output="${LOG_FILE}" evaluation.sh "${OUT_DIR}" "${num_idx}"
 done

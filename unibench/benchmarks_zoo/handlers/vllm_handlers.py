@@ -37,6 +37,9 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
         self.num_classes = num_classes
         self.random_seed = random_seed
         random.seed(self.random_seed)
+        # assert len(self.class_names) >= self.num_classes or self.num_classes == -1 or self.num_classes == None, (
+        #     f"Number of classes {self.num_classes} cannot be greater than total classes {len(self.class_names)}"
+        # )
 
     def get_prompts(self, targets_names):
         prompts = []
@@ -53,8 +56,6 @@ class VLLMBenchmarkHandler(BenchmarkHandler):
                     [cls for cls in self.class_names if cls != target],
                     (
                         self.num_classes - 1
-                        if len(self.class_names) > self.num_classes
-                        else len(self.class_names) - 1
                     ),
                 )
                 random.shuffle(random_classes)
@@ -134,12 +135,12 @@ class MultiChoiceClassificationBenchmarkHandler(VLLMBenchmarkHandler):
                 class_list = self.class_names
             else:
                 class_list = [target]
+                class_names = self.class_names.copy()
+                class_names.remove(target)
                 class_list += random.sample(
-                    [cls for cls in self.class_names if cls != target],
+                    class_names,
                     (
                         self.num_classes - 1
-                        if len(self.class_names) > self.num_classes
-                        else len(self.class_names) - 1
                     ),
                 )
                 random.shuffle(class_list)
@@ -210,6 +211,80 @@ class MultiChoiceClassificationBenchmarkHandler(VLLMBenchmarkHandler):
         }
 
         if len(batch) > 2:
+            res["image_name"] = sample_id
+
+        res["task_name"] = self.task_name
+
+        return res
+
+
+class MultiChoiceVQABenchmarkHandler(VLLMBenchmarkHandler):
+    """
+    Handler for VQA datasets where each sample provides its own prompt/question
+    along with multiple choice options and the correct answer letter or text.
+
+    Expected batch format:
+        (images, prompts, choices_list, answers [, sample_id [, split]])
+
+    - prompts:      per-sample question strings (used directly, no template needed)
+    - choices_list: list of choice lists, e.g. [["cat", "dog", "bird"], ...]
+    - answers:      correct answer letter ("A", "B", ...) or answer text
+    """
+
+    def __init__(
+        self,
+        task_name="multi_choice_vqa",
+        postfix="Choose the most accurate option and respond with **only the letter**.",
+        **kwargs,
+    ):
+        self.postfix = postfix
+        VLLMBenchmarkHandler.__init__(
+            self, task_name=task_name, prompt=None, **kwargs
+        )
+
+    def eval_batch(self, model, batch):
+        split = ""
+        sample_id = None
+        if len(batch) == 6:
+            images, prompts, choices_list, answers, sample_id, split = batch
+        elif len(batch) == 5:
+            images, prompts, choices_list, answers, sample_id = batch
+        else:
+            images, prompts, choices_list, answers = batch
+
+        if isinstance(answers, dict):
+            target_letters = answers['letters']
+            
+        if isinstance(choices_list, dict):
+            choices_list = choices_list['letters']
+
+        
+        prompts = [f"Question: {p} {self.postfix}\nOptions: {choices}" for p, choices in zip(prompts, choices_list)]
+        text_outputs = model.get_text_from_image(images, list(prompts))
+
+        correct = []
+        for text_output, target_letter in zip(text_outputs, target_letters):
+            is_correct = (
+                target_letter in text_output
+                or f"({target_letter})" in text_output
+                or f"{target_letter}." in text_output
+                or f"{target_letter}:" in text_output
+            )
+            correct.append(1 if is_correct else 0)
+
+        prompt_classes = [", ".join(choices) for choices in choices_list]
+
+        res = {
+            "target_letters": target_letters,
+            "prompt_classes": prompt_classes,
+            "split": split,
+            "benchmark_name": self.benchmark_name,
+            "correctness": correct,
+            "prompt": list(prompts),
+            "model_output": text_outputs,
+        }
+
+        if sample_id is not None:
             res["image_name"] = sample_id
 
         res["task_name"] = self.task_name

@@ -1,8 +1,22 @@
-from unibench import Evaluator
+from functools import partial
+
 import fire
 
-from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+from unibench import Evaluator
 from unibench.common_utils.constants import OUTPUT_DIR
+
+
+SIGLIP2_MODELS = [
+    # "siglip2_so400_14_378",
+    "siglip2_so400_14",
+    # "siglip2_so400_16_512",
+    # "siglip2_so400_16_384",
+    # "siglip2_so400_16_256",
+    # "siglip2_vitL16_512",
+    # "siglip2_vitL16_384",
+]
+
+THEMES = ["default", "dark_theme", "german", "challenging_font", "long_descriptions"]
 
 
 def main(output_dir=OUTPUT_DIR, num_workers=8, idx=1, model_name=None):
@@ -13,7 +27,7 @@ def main(output_dir=OUTPUT_DIR, num_workers=8, idx=1, model_name=None):
             models=[model_name],
             num_workers=num_workers,
             benchmarks=[
-                'countbench', 'vg_relation', 'flickr30k_order', 'sugarcrepe', 'bivlc', 'winoground', 'vg_attribution', 'coco_order'
+                'openapps'
             ],
             output_dir=output_dir,
         )
@@ -22,6 +36,9 @@ def main(output_dir=OUTPUT_DIR, num_workers=8, idx=1, model_name=None):
             download_aggregate_precomputed=False,
             models="vllm",
             num_workers=num_workers,
+            benchmarks=[
+                'openapps'
+            ],
             output_dir=output_dir,
         )
     else:
@@ -53,19 +70,21 @@ def main(output_dir=OUTPUT_DIR, num_workers=8, idx=1, model_name=None):
                  'paligemma2_10b_mix_448', 
                  'paligemma2_28b_mix_224', 
                  'paligemma2_3b_mix_448', 
-                 'paligemma_3b_mix_448'
+                 'paligemma_3b_mix_448',
+                 'gemma4_e2b',
+                 'gemma4_e4b',
+                 'gemma4_26b_a4b',
+                 'gemma4_31b',
                  ],
-            benchmarks=[
-                'countbench', 'vg_relation', 'flickr30k_order', 'sugarcrepe', 'bivlc', 'winoground', 'vg_attribution', 'coco_order'
-            ],
+            benchmarks=["openapps"],
             model_id=idx,
             num_workers=num_workers,
             output_dir=output_dir,
         )
-    
+
     evaluator.evaluate(
         batch_per_gpu=8,
-        tasks=["multi_choice_classification", "multi_choice_relation", "zeroshot_relation",],
+        tasks=["vqa_multiple_choice", "multi_choice_vqa"],
     )
 
 

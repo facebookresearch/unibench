@@ -12,13 +12,16 @@ from unibench.benchmarks_zoo.handlers.vllm_handlers import MultiChoiceClassifica
 try:
     from unibench.benchmarks_zoo import register_benchmark
     from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
+    from unibench.benchmarks_zoo.wrappers.local import OpenAppsDataset
     from unibench.benchmarks_zoo.handlers import (
         ZeroShotBenchmarkHandler, 
         RelationBenchmarkHandler,
         TextClassificationBenchmarkHandler,
         CLIPJudgeBenchmarkHandler,
         LLMJudgeBenchmarkHandler,
-        CLIPJudgeRelationBenchmarkHandler
+        CLIPJudgeRelationBenchmarkHandler,
+        MultiChoiceVQABenchmarkHandler,
+        VQABenchmarkHandler,
     )
 except ImportError:
     from unibench.benchmarks_zoo import register_benchmark
@@ -2508,6 +2511,34 @@ def coco_order(benchmark_name, transform=None, **kwargs):
             benchmark=benchmark,
         ),
         "multi_choice_relation": MultiChoiceRelationBenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
+
+
+@register_benchmark(
+    "openapps",
+    {
+        "benchmark": "zero-shot",
+        "benchmark_type": "UI understanding",
+        "capability": "UI question answering",
+        "curated": True,
+        "object_centric": False,
+        "image_resolution": [768, 1024],
+        "num_classes": 4,
+        "llama2_ppi": None,
+    },
+)
+def openapps(benchmark_name, transform=None, **kwargs):
+    benchmark = OpenAppsDataset(transform=transform, output_format="vllm", **kwargs)
+    return {
+        "multi_choice_vqa": MultiChoiceVQABenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=None,
+        ),
+        "vqa_multiple_choice": VQABenchmarkHandler(
             benchmark_name=benchmark_name,
             benchmark=benchmark,
         ),

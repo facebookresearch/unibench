@@ -156,3 +156,110 @@ class HuggingFaceDataset(Dataset):
             )
 
         return samples, target, str(item["__key__"])
+
+class ExternalHuggingFaceDataset(HuggingFaceDataset):
+
+    def __init__(
+        self,
+        dataset_url,
+        root: str = DATA_DIR,
+        transform=None,
+        target_transform=None,
+        download_num_workers=40,
+        image_extension="webp",
+        classes=None,
+        templates=None,
+        max_num_samples=None,
+        subset_kwargs=None,
+        *args,
+        **kwargs
+    ):
+        HuggingFaceDataset.__init__(self, *args, **kwargs)
+        assert dataset_url != "", "Please provide a dataset url"
+
+        self.dataset_name = dataset_url.split("/")[-1]
+        self.root_dir = root
+        self.dataset_dir = Path(self.root_dir) / self.dataset_name
+        self.dataset_url = dataset_url
+        self.image_extension = image_extension
+        self.transform = transform
+        self.download_num_workers = download_num_workers
+        self.target_transform = target_transform
+        self.max_num_samples = max_num_samples
+
+        if not self.dataset_dir.exists():
+            self.download_dataset()
+
+        self.dataset = load_from_disk(str(self.dataset_dir))
+        
+        if subset_kwargs is not None:
+            def fil(x, key, val):
+                return val in x[key]
+            for d in subset_kwargs:
+                k,v = d.values()
+                self.dataset = self.dataset.filter(partial(fil, key=k, val=v), num_proc=self.download_num_workers)
+        
+        self.dataset = self.dataset.shuffle(seed=42)
+        if self.max_num_samples is not None and len(self.dataset) > self.max_num_samples:
+            self.dataset = self.dataset.select(range(self.max_num_samples))
+
+    def __len__(self):
+        return len(self.dataset)
+
+    def download_dataset(self):
+        try:
+            self.dataset = load_dataset(
+                self.dataset_url,
+                trust_remote_code=True,
+                split="test",
+                num_proc=self.download_num_workers,
+            )
+        except:
+            self.dataset = load_dataset(
+                self.dataset_url,
+                trust_remote_code=True,
+                split="test",
+            )
+
+        self.dataset.save_to_disk(str(self.dataset_dir))
+
+    def __getitem__(self, index):
+        item = self.dataset[index]
+
+        # Loading Images
+        samples = []
+        for k in item.keys():
+            if self.image_extension in k:
+                img = item[k].convert("RGB")
+                if self.transform is not None:
+                    img = self.transform(img)
+                samples.append(img)
+
+        if len(samples) == 1:
+            samples = samples[0]
+
+        # Loading Labels
+        if "cls" in item.keys():
+            target = item["cls"]
+            if self.target_transform is not None:
+                target = self.target_transform(target)
+        else:
+            target = item["npy"]
+            if all(isinstance(t, int) for t in target):
+                target = torch.nn.functional.one_hot(
+                    torch.tensor(target), len(self.classes)
+                ).sum(0)
+
+            for t in target:
+                if self.target_transform is not None:
+                    t = self.target_transform(t)
+
+        if "split.txt" in item.keys():
+            return (
+                samples,
+                target,
+                str(item["__key__"]),
+                item["split.txt"],
+            )
+
+        return samples, target, str(item["__key__"])

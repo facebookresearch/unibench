@@ -68,6 +68,7 @@ def llava_1_5_7b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -119,8 +120,424 @@ def glm_4_5(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 35000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3.5 35B-A3B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2024,
+        "month": 12,
+    },
+)
+def qwen_3_5_35b_a3b(model_name, **kwargs):
+    from transformers import Qwen3_5MoeForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3.5-35B-A3B"
+    model = Qwen3_5MoeForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 34000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Kimi-K2.5",
+        "vision_encoder": "Custom",
+        "year": 2024,
+        "month": 12,
+    },
+)
+def kimi_k2_5(model_name, **kwargs):
+    from transformers import AutoModel
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "moonshotai/Kimi-K2.5"
+    model = AutoModel.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 122000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3.5 122B-A10B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2024,
+        "month": 12,
+    },
+)
+def qwen_3_5_122b_a10b(model_name, **kwargs):
+    from transformers import Qwen3_5MoeForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3.5-122B-A10B"
+    model = Qwen3_5MoeForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 27000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3.5 27B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2024,
+        "month": 12,
+    },
+)
+def qwen_3_5_27b(model_name, **kwargs):
+    from transformers import Qwen3_5ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3.5-27B"
+    model = Qwen3_5ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 9000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3.5 9B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2024,
+        "month": 12,
+    },
+)
+def qwen_3_5_9b(model_name, **kwargs):
+    from transformers import Qwen3_5ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3.5-9B"
+    model = Qwen3_5ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 4000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3.5 4B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2024,
+        "month": 12,
+    },
+)
+def qwen_3_5_4b(model_name, **kwargs):
+    from transformers import Qwen3_5ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3.5-4B"
+    model = Qwen3_5ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 2000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3.5 2B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2024,
+        "month": 12,
+    },
+)
+def qwen_3_5_2b(model_name, **kwargs):
+    from transformers import Qwen3_5ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3.5-2B"
+    model = Qwen3_5ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 800,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3.5 0.8B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2024,
+        "month": 12,
+    },
+)
+def qwen_3_5_0_8b(model_name, **kwargs):
+    from transformers import Qwen3_5ForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3.5-0.8B"
+    model = Qwen3_5ForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
 
 @register_model(
     "vllm",
@@ -171,8 +588,112 @@ def qwen_2_5_3b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
+    
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3 VL 4B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_3_4b(model_name, **kwargs):
+    from transformers import Qwen3VLForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
 
+    name = "Qwen/Qwen3-VL-4B-Instruct"
+    model = Qwen3VLForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+    
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3 VL 8B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_3_8b(model_name, **kwargs):
+    from transformers import Qwen3VLForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3-VL-8B-Instruct"
+    model = Qwen3VLForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
 
 @register_model(
     "vllm",
@@ -182,7 +703,163 @@ def qwen_2_5_3b(model_name, **kwargs):
         "model_size": 7000,
         "learning_objective": "BLIP",
         "architecture": "vit",
-        "name": "Llava 1.5 7B",
+        "name": "Qwen 3 VL 2B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_3_2b(model_name, **kwargs):
+    from transformers import Qwen3VLForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3-VL-2B-Instruct"
+    model = Qwen3VLForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3 VL 30B-A3B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_3_30b_a3b(model_name, **kwargs):
+    from transformers import Qwen3VLMoeForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3-VL-30B-A3B-Instruct"
+    model = Qwen3VLMoeForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 3 VL 32B",
+        "vision_encoder": "CLIP ViT-L/14",
+        "year": 2023,
+        "month": 10,  # September 2023 release
+    },
+)
+def qwen_3_32b(model_name, **kwargs):
+    from transformers import Qwen3VLForConditionalGeneration
+    from transformers import AutoProcessor
+    import torch
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "Qwen/Qwen3-VL-32B-Instruct"
+    model = Qwen3VLForConditionalGeneration.from_pretrained(
+        name,
+        low_cpu_mem_usage=True,
+        torch_dtype=torch.bfloat16,
+        device_map="balanced",
+        # attn_implementation="flash_attention_2",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left", torch_dtype=torch.bfloat16
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        # input_resolution=processor.image_processor.crop_size["width"],
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 7000,
+        "learning_objective": "BLIP",
+        "architecture": "vit",
+        "name": "Qwen 2.5 VL 7B",
         "vision_encoder": "CLIP ViT-L/14",
         "year": 2023,
         "month": 10,  # September 2023 release
@@ -223,6 +900,7 @@ def qwen_2_5_7b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -275,6 +953,7 @@ def qwen_2_5_32b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -327,6 +1006,7 @@ def qwen_2_5_72b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -382,6 +1062,7 @@ def internvl_3_5_1b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -437,6 +1118,7 @@ def internvl_2_5_1b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -492,6 +1174,7 @@ def internvl_2_5_4b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -547,6 +1230,7 @@ def internvl_3_5_2b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -602,6 +1286,7 @@ def internvl_3_5_4b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -657,6 +1342,7 @@ def internvl_3_5_8b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -712,6 +1398,7 @@ def internvl_3_5_14b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -767,6 +1454,7 @@ def internvl_3_5_38b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -822,6 +1510,7 @@ def internvl_3_5_30b_a3b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -877,6 +1566,7 @@ def internvl_3_5_241b_a28b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -928,6 +1618,7 @@ def llava_1_5_13b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -979,6 +1670,7 @@ def blip2(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1033,6 +1725,7 @@ def aya_vision_8b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1087,6 +1780,7 @@ def aya_vision_32b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1140,6 +1834,7 @@ def llava_next_llama_8b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1191,6 +1886,7 @@ def llama_4_scout_instruct(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1242,6 +1938,7 @@ def llama_4_scout(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1293,6 +1990,7 @@ def llama_3_2_11b_vision_instruct(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1343,6 +2041,7 @@ def llama_3_2_90b_vision_instruct(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1398,6 +2097,7 @@ def pixtral_12b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1449,6 +2149,7 @@ def llava_1_6_34b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1500,6 +2201,7 @@ def gemma3_4b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1551,6 +2253,7 @@ def gemma3_27b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1602,6 +2305,203 @@ def gemma3_12b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 4000,
+        "learning_objective": "Gemma",
+        "architecture": "vit",
+        "name": "Gemma 4 E4B",
+        "vision_encoder": "SigLIP‑So400 m",
+        "year": 2025,
+        "month": 5,
+    },
+)
+def gemma4_e4b(model_name, **kwargs):
+    from transformers import AutoModelForMultimodalLM
+    from transformers import AutoProcessor
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/gemma-4-E4B-it"
+    model = AutoModelForMultimodalLM.from_pretrained(
+        name,
+        torch_dtype="auto",
+        device_map="auto",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left"
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 26000,
+        "learning_objective": "Gemma",
+        "architecture": "vit",
+        "name": "Gemma 4 26B-A4B",
+        "vision_encoder": "SigLIP‑So400 m",
+        "year": 2025,
+        "month": 5,
+    },
+)
+def gemma4_26b_a4b(model_name, **kwargs):
+    from transformers import AutoModelForCausalLM
+    from transformers import AutoProcessor
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/gemma-4-26B-A4B-it"
+    model = AutoModelForCausalLM.from_pretrained(
+        name,
+        torch_dtype="auto",
+        device_map="auto",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left"
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 31000,
+        "learning_objective": "Gemma",
+        "architecture": "vit",
+        "name": "Gemma 4 31B",
+        "vision_encoder": "SigLIP‑So400 m",
+        "year": 2025,
+        "month": 5,
+    },
+)
+def gemma4_31b(model_name, **kwargs):
+    from transformers import AutoModelForCausalLM
+    from transformers import AutoProcessor
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/gemma-4-31B-it"
+    model = AutoModelForCausalLM.from_pretrained(
+        name,
+        torch_dtype="auto",
+        device_map="auto",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left"
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": 14,
+        "model_size": 2000,
+        "learning_objective": "Gemma",
+        "architecture": "vit",
+        "name": "Gemma 4 E2B",
+        "vision_encoder": "SigLIP‑So400 m",
+        "year": 2025,
+        "month": 5,
+    },
+)
+def gemma4_e2b(model_name, **kwargs):
+    from transformers import AutoModelForMultimodalLM
+    from transformers import AutoProcessor
+    from unibench.models_zoo.wrappers.vllm import VLLModels
+
+    name = "google/gemma-4-E2B-it"
+    model = AutoModelForMultimodalLM.from_pretrained(
+        name,
+        torch_dtype="auto",
+        device_map="auto",
+        trust_remote_code=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        name, use_fast=True, padding_side="left"
+    )
+    return VLLModels(
+        model=model,
+        model_name=model_name,
+        processor=processor,
+        norm_mean=processor.image_processor.image_mean,
+        norm_std=processor.image_processor.image_std,
+        output_func=lambda x: x.split("\nmodel\n")[-1].strip().replace("\n", ""),
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1653,6 +2553,7 @@ def llava_1_6_72b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1704,6 +2605,7 @@ def llama_3_2_11b_vision_instruct_cot(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1755,6 +2657,7 @@ def llava_1_6_110b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1809,6 +2712,7 @@ def llava_1_6_mistral_7b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1862,6 +2766,7 @@ def llava_1_6_vicuna_7b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1915,6 +2820,7 @@ def llava_1_6_vicuna_13b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -1973,6 +2879,7 @@ def chameleon_7b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2032,6 +2939,7 @@ def chameleon_30b(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2083,6 +2991,7 @@ def paligemma_3b_224(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2134,6 +3043,7 @@ def paligemma_3b_448(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2185,6 +3095,7 @@ def paligemma_3b_mix_224(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2236,6 +3147,7 @@ def paligemma2_3b_mix_224(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2287,6 +3199,7 @@ def paligemma_3b_mix_448(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2338,6 +3251,7 @@ def paligemma2_3b_mix_448(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2389,6 +3303,7 @@ def paligemma2_10b_mix_224(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2440,6 +3355,7 @@ def paligemma2_10b_mix_448(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2491,6 +3407,7 @@ def paligemma2_28b_mix_448(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2542,6 +3459,7 @@ def paligemma2_28b_mix_224(model_name, **kwargs):
         "llm_judge_classification",
         "clip_judge_relation",
         "in_context_text_classification",
+        "multi_choice_vqa",
     ]
 
 
@@ -2577,6 +3495,7 @@ def load_blip(model_name, model_url, model_size="base", image_size=224, **kwargs
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -2776,6 +3695,7 @@ def eva02_vitE14_plus_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -2814,6 +3734,7 @@ def eva02_vitE14_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -2852,6 +3773,7 @@ def eva02_vitL14_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -2890,6 +3812,7 @@ def eva02_vitB16_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -2928,6 +3851,7 @@ def eva01_vitG14_plus_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -2966,6 +3890,7 @@ def eva01_vitG14_400m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3005,6 +3930,7 @@ def clipa_vitbigG14(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3041,6 +3967,7 @@ def vitamin_s_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3077,6 +4004,7 @@ def vitamin_s_ltt_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3113,6 +4041,7 @@ def vitamin_b_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3149,6 +4078,7 @@ def vitamin_b_ltt_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3185,6 +4115,7 @@ def vitamin_l_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3221,6 +4152,7 @@ def vitamin_l2_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3257,6 +4189,7 @@ def vitamin_l2_256_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3293,6 +4226,7 @@ def vitamin_l2_336_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3329,6 +4263,7 @@ def vitamin_xl_256_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3365,6 +4300,7 @@ def vitamin_xl_336_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3401,6 +4337,7 @@ def vitamin_xl_384_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3437,6 +4374,7 @@ def vitamin_l_256_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3473,6 +4411,7 @@ def vitamin_l_336_1b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3512,6 +4451,7 @@ def clipa_vitH14(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3551,6 +4491,7 @@ def clipa_vitL14(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3590,6 +4531,7 @@ def siglip_vitL16(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3629,6 +4571,7 @@ def roberta_vitB32(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3668,6 +4611,7 @@ def siglip_vitB16(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3707,6 +4651,7 @@ def siglip_vitB16_256(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3746,6 +4691,7 @@ def siglip_vitB16_384(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3785,6 +4731,7 @@ def siglip_vitB16_512(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3824,6 +4771,7 @@ def siglip_vitL16_384(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3863,6 +4811,7 @@ def siglip_so400_14(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3902,6 +4851,7 @@ def siglip_so400_14_378(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3941,6 +4891,7 @@ def siglip_so400_14_384(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -3980,6 +4931,7 @@ def siglip2_so400_16_512(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4019,6 +4971,7 @@ def siglip2_so400_16_384(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4058,6 +5011,7 @@ def siglip2_so400_16_256(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4097,6 +5051,7 @@ def siglip2_so400_14_378(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4136,6 +5091,7 @@ def siglip2_so400_14(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4175,6 +5131,7 @@ def siglip2_vitL16_512(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4214,6 +5171,7 @@ def siglip2_vitL16_384(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4253,6 +5211,7 @@ def siglip2_vitL16_256(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4292,6 +5251,7 @@ def siglip2_vitB16_512(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4331,6 +5291,7 @@ def siglip2_vitB16_384(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4370,6 +5331,7 @@ def siglip2_vitB16_256(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4409,6 +5371,7 @@ def siglip2_vitB16(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4448,6 +5411,7 @@ def siglip2_vitB32_256(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4486,6 +5450,7 @@ def openclip_vitB32_metaclip_fullcc(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4524,6 +5489,7 @@ def openclip_vitB16_metaclip_400m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4562,6 +5528,7 @@ def openclip_vitB32_metaclip_400m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4600,6 +5567,7 @@ def openclip_vitB32_quickgelu_400m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4638,6 +5606,7 @@ def openclip_vitB32_quickgelu_openai(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4676,6 +5645,7 @@ def openclip_vitB16_metaclip_fullcc(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4714,6 +5684,7 @@ def openclip_vitL14_dfn2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4752,6 +5723,7 @@ def openclip_vitL14_metaclip_400(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4790,6 +5762,7 @@ def openclip_vitL14_metaclip_fullcc(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4828,6 +5801,7 @@ def openclip_vitH14_metaclip_fullcc(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4866,6 +5840,7 @@ def openclip_vitH14_dfn5b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4904,6 +5879,7 @@ def openclip_convnext_base(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4940,6 +5916,7 @@ def clip_vitB32(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -4978,6 +5955,7 @@ def openclip_vitB32_datacomp_s(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5016,6 +5994,7 @@ def openclip_vitB32_datacomp_m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5054,6 +6033,7 @@ def openclip_vitB32_datacomp_xl(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5092,6 +6072,7 @@ def openclip_vitB16_datacomp_xl(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5130,6 +6111,7 @@ def openclip_vitB16_datacomp_l(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5168,6 +6150,7 @@ def openclip_vitH14(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5255,6 +6238,7 @@ def flava_full(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5293,6 +6277,7 @@ def openclip_vitL14_400m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5331,6 +6316,7 @@ def openclip_vitL14_datacomp_xl(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5369,6 +6355,7 @@ def openclip_vitL14_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5405,6 +6392,7 @@ def clip_vitL14(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5493,6 +6481,7 @@ def openclip_vitB32_400m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5531,6 +6520,7 @@ def openclip_vitB32_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5569,6 +6559,7 @@ def openclip_vitG14_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5607,6 +6598,7 @@ def openclip_vitbigG14_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5645,6 +6637,7 @@ def openclip_vitB16_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5683,6 +6676,7 @@ def openclip_vitB16_400m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5722,6 +6716,7 @@ def opencoca_vitL14_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5761,6 +6756,7 @@ def opencoca_vitB32_2b(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5805,6 +6801,7 @@ def negclip_vitB32(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5840,6 +6837,7 @@ def clip_vitB16(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5874,6 +6872,7 @@ def clip_resnet50(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5912,6 +6911,7 @@ def clip_resnet50_quickgelu(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5950,6 +6950,7 @@ def clip_resnet50_quickgelu_yfcc15m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -5988,6 +6989,7 @@ def clip_resnet50_quickgelu_cc12m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6024,6 +7026,7 @@ def openclip_resnet101_yfcc(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6060,6 +7063,7 @@ def openclip_resnet50_yfcc(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6096,6 +7100,7 @@ def openclip_resnet50_cc(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6130,6 +7135,7 @@ def clip_resnet101(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6168,6 +7174,7 @@ def clip_resnet101_quickgelu(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6206,6 +7213,7 @@ def clip_resnet101_quickgelu_yfcc15m(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6240,6 +7248,7 @@ def clip_resnet50x4(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6274,6 +7283,7 @@ def clip_resnet50x16(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
     ]
 
 
@@ -6308,4 +7318,107 @@ def clip_resnet50x64(model_name, **kwargs):
     ), [
         "zeroshot_classification",
         "zeroshot_relation",
+        "vqa_multiple_choice",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": None,
+        "model_size": None,
+        "learning_objective": "ChatGPT",
+        "architecture": "vit",
+        "name": "GPT-4o",
+        "vision_encoder": "GPT-4o",
+        "year": 2024,
+        "month": 5,
+    },
+)
+def gpt_4o(model_name, **kwargs):
+    from unibench.models_zoo.wrappers.vllm import ChatGPTModels
+
+    return ChatGPTModels(
+        model_name=model_name,
+        api_model_id="gpt-4o",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": None,
+        "model_size": None,
+        "learning_objective": "ChatGPT",
+        "architecture": "vit",
+        "name": "GPT-4o Mini",
+        "vision_encoder": "GPT-4o Mini",
+        "year": 2024,
+        "month": 7,
+    },
+)
+def gpt_4o_mini(model_name, **kwargs):
+    from unibench.models_zoo.wrappers.vllm import ChatGPTModels
+
+    return ChatGPTModels(
+        model_name=model_name,
+        api_model_id="gpt-4o-mini",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": None,
+        "model_size": None,
+        "learning_objective": "ChatGPT",
+        "architecture": "vit",
+        "name": "GPT-4.1",
+        "vision_encoder": "GPT-4.1",
+        "year": 2025,
+        "month": 4,
+    },
+)
+def gpt_4_1(model_name, **kwargs):
+    from unibench.models_zoo.wrappers.vllm import ChatGPTModels
+
+    return ChatGPTModels(
+        model_name=model_name,
+        api_model_id="gpt-4.1",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
     ]

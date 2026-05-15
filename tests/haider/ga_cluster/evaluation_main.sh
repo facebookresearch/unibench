@@ -18,4 +18,4 @@ export UNIBENCH_HUB=/storage/home/hcoda1/6/haltahan6/scratch/.cache/unibench
 export TORCH_HOME=/storage/home/hcoda1/6/haltahan6/scratch/.cache/torch
 cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/tests
 
-python imagenet_main.py --output_dir=$1 --idx=$2 --num_workers=8 --benchmark_id=$SLURM_ARRAY_TASK_ID
+python main.py --output_dir=$1 --idx=$2 --num_workers=8

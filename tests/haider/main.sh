@@ -13,14 +13,17 @@ mkdir -p "${LOG_DIR}" "${OUT_DIR}"
 # === Define output file for SLURM ===
 LOG_FILE=${LOG_DIR}/slurm_%A_%a.out  # %A: job ID, %a: array index
 
+echo "Logging to: ${LOG_FILE}"
+echo "Output directory: ${OUT_DIR}"
+
 # . "/storage/home/hcoda1/6/haltahan6/p-rmurty7-0/haider/anaconda3/etc/profile.d/conda.sh"
 # conda activate vllm
 # pip install -U /storage/home/hcoda1/6/haltahan6/scratch/unibench[all]
-cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/tests/haider/ga_cluster
+cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/tests/haider
 
 # unibench version
 
 # === Submit the job ===
-for num_idx in {0..20}; do
-    sbatch --array=32,36 --output="${LOG_FILE}" evaluation.sh "${OUT_DIR}" "${num_idx}"
+for num_idx in {0..39}; do
+    sbatch --output="${LOG_FILE}" evaluation.sh "${OUT_DIR}" "${num_idx}"
 done
