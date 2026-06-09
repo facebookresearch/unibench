@@ -7422,3 +7422,105 @@ def gpt_4_1(model_name, **kwargs):
         "in_context_text_classification",
         "multi_choice_vqa",
     ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": None,
+        "model_size": None,
+        "learning_objective": "ChatGPT",
+        "architecture": "vit",
+        "name": "GPT-5-4 (GenAI Responses)",
+        "vision_encoder": "GPT-5-4",
+        "year": 2025,
+        "month": 6,
+    },
+)
+def gpt_5_4_genai_responses(model_name, **kwargs):
+    from unibench.models_zoo.wrappers.vllm import ChatGPTModels
+
+    return ChatGPTModels(
+        model_name=model_name,
+        api_model_id="gpt-5-4",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": None,
+        "model_size": None,
+        "learning_objective": "Anthropic",
+        "architecture": "vit",
+        "name": "Claude 4.6 Opus (Vertex)",
+        "vision_encoder": "Claude 4.6 Opus",
+        "year": 2025,
+        "month": 6,
+    },
+)
+def claude_4_6_opus_genai_vertex(model_name, **kwargs):
+    from unibench.models_zoo.wrappers.vllm import ChatGPTModels
+
+    return ChatGPTModels(
+        model_name=model_name,
+        api_model_id="claude-opus-4-6",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": None,
+        "model_size": None,
+        "learning_objective": "Gemini",
+        "architecture": "vit",
+        "name": "Gemini 3.1 Pro Preview",
+        "vision_encoder": "Gemini 3.1 Pro Preview",
+        "year": 2025,
+        "month": 6,
+    },
+)
+def gemini_3_1_pro_preview_fair(model_name, **kwargs):
+    from unibench.models_zoo.wrappers.vllm import ChatGPTModels
+
+    return ChatGPTModels(
+        model_name=model_name,
+        api_model_id="gemini-3.1-pro-preview",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]

@@ -7,10 +7,97 @@ LICENSE file in the root directory of this source tree.
 
 from typing import List, Union
 import os
+import re
+import sys
 
 import fire
 import pandas as pd
 from rich.progress import Progress
+
+
+class _PlainTask:
+    __slots__ = ("description", "total", "completed", "visible")
+
+    def __init__(self, description, total):
+        self.description = description
+        self.total = total
+        self.completed = 0
+        self.visible = True
+
+
+class _PlainProgress:
+    """Logging-friendly Progress replacement that emits plain-text lines.
+
+    Drop-in replacement for ``rich.progress.Progress`` for use when stdout is
+    not a TTY (e.g. SLURM .out files).  Only prints a new line when the task
+    description actually changes, keeping the log readable without flooding it.
+    """
+
+    _MARKUP_RE = re.compile(r"\[/?[^\[\]]*\]")
+
+    def __init__(self, **kwargs):
+        self._tasks: dict = {}
+        self._next_id = 0
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        pass
+
+    @staticmethod
+    def _strip(text: str) -> str:
+        return _PlainProgress._MARKUP_RE.sub("", text).strip()
+
+    def add_task(self, description, total=None, visible=True, **kwargs):
+        task_id = self._next_id
+        self._next_id += 1
+        task = _PlainTask(description, total)
+        task.visible = visible
+        self._tasks[task_id] = task
+        return task_id
+
+    def update(
+        self,
+        task_id,
+        description=None,
+        advance=None,
+        total=None,
+        completed=None,
+        visible=None,
+        refresh=None,
+        **kwargs,
+    ):
+        task = self._tasks[task_id]
+        desc_changed = description is not None and description != task.description
+
+        if description is not None:
+            task.description = description
+        if total is not None:
+            task.total = total
+        if completed is not None:
+            task.completed = completed
+        if visible is not None:
+            task.visible = visible
+        if advance is not None:
+            task.completed += advance
+
+        if desc_changed and task.visible:
+            label = self._strip(task.description)
+            if label:
+                suffix = (
+                    f" ({task.completed}/{task.total})"
+                    if task.total is not None
+                    else ""
+                )
+                print(f"{label}{suffix}", flush=True)
+
+
+def _make_progress(**kwargs):
+    """Return a rich Progress when connected to a TTY, plain-text otherwise."""
+    if sys.stdout.isatty():
+        return Progress(**kwargs)
+    return _PlainProgress(**kwargs)
 
 
 from unibench.output import OutputHandler
@@ -265,7 +352,7 @@ class Evaluator(object):
         device = "cuda" if torch.cuda.is_available() else "cpu"
         seed_everything(self.seed)
 
-        with Progress(transient=True) as progress:
+        with _make_progress(transient=True) as progress:
             pg_models = progress.add_task(
                 "[green]Processing...", total=len(self.models)
             )

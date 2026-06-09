@@ -5,6 +5,8 @@ This source code is licensed under the license found in the
 LICENSE file in the root directory of this source tree.
 """
 
+import os
+
 import torch
 from .base import AbstractModel
 import torch._dynamo
@@ -182,7 +184,7 @@ class ChatGPTModels(AbstractVLLM):
         self,
         model_name,
         api_model_id,
-        api_key=None,
+        api_key=os.environ.get("OPENAI_API_KEY", "EMPTY"),
         output_func=None,
         max_new_tokens=32,
         system_prompt=None,

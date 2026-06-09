@@ -12,7 +12,7 @@ from unibench.benchmarks_zoo.handlers.vllm_handlers import MultiChoiceClassifica
 try:
     from unibench.benchmarks_zoo import register_benchmark
     from unibench.benchmarks_zoo.wrappers.huggingface import HuggingFaceDataset
-    from unibench.benchmarks_zoo.wrappers.local import OpenAppsDataset
+    from unibench.benchmarks_zoo.wrappers.local import OpenAppsDataset, MMMUProDataset
     from unibench.benchmarks_zoo.handlers import (
         ZeroShotBenchmarkHandler, 
         RelationBenchmarkHandler,
@@ -2532,6 +2532,34 @@ def coco_order(benchmark_name, transform=None, **kwargs):
 )
 def openapps(benchmark_name, transform=None, **kwargs):
     benchmark = OpenAppsDataset(transform=transform, output_format="vllm", **kwargs)
+    return {
+        "multi_choice_vqa": MultiChoiceVQABenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+            class_names=None,
+        ),
+        "vqa_multiple_choice": VQABenchmarkHandler(
+            benchmark_name=benchmark_name,
+            benchmark=benchmark,
+        ),
+    }
+
+
+@register_benchmark(
+    ["mmmu_pro", "vqa"],
+    {
+        "benchmark": "multi-choice-vqa",
+        "benchmark_type": "knowledge & reasoning",
+        "capability": "multi-discipline VQA",
+        "curated": True,
+        "object_centric": False,
+        "image_resolution": [None, None],
+        "num_classes": 4,
+        "llama2_ppi": None,
+    },
+)
+def mmmu_pro(benchmark_name, transform=None, **kwargs):
+    benchmark = MMMUProDataset(transform=transform, output_format="vllm", **kwargs)
     return {
         "multi_choice_vqa": MultiChoiceVQABenchmarkHandler(
             benchmark_name=benchmark_name,

@@ -3,7 +3,7 @@
 
 basic_test.py
 dataset_builder/
-test_*
+# test_*
 *.f
 *.lock
 

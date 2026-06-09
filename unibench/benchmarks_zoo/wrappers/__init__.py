@@ -6,4 +6,4 @@ LICENSE file in the root directory of this source tree.
 """
 from .huggingface import HuggingFaceDataset
 from .llm_judge_models import LlamaJudge
-from .local import OpenAppsDataset
+from .local import OpenAppsDataset, MMMUProDataset
