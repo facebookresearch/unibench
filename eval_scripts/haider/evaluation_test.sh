@@ -23,7 +23,7 @@ export TORCH_HOME=/storage/home/hcoda1/6/haltahan6/scratch/.cache/torch
 #   $3  mode  (relation | classification | all)
 #   $4  benchmark_id  (only used for classification/all)
 
-cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/eval_scripts
+cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/eval_scripts/haider
 
 OUTPUT_DIR=$1
 MODEL=$2

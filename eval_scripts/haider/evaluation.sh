@@ -24,23 +24,30 @@ export TORCH_HOME=/storage/home/hcoda1/6/haltahan6/scratch/.cache/torch
 #
 # When mode includes 'classification', SLURM_ARRAY_TASK_ID is used as benchmark_id.
 
-cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/eval_scripts
+cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/eval_scripts/haider
 
 OUTPUT_DIR=$1
-MODEL_IDX=$2
+MODEL=$2
 MODE=${3:-relation}
+
+# Detect whether $MODEL is a number (index) or a name
+if [[ "$MODEL" =~ ^[0-9]+$ ]]; then
+    MODEL_ARG="--idx=${MODEL}"
+else
+    MODEL_ARG="--model_name=${MODEL}"
+fi
 
 if [[ "$MODE" == "classification" || "$MODE" == "all" ]]; then
     python eval.py \
         --output_dir="$OUTPUT_DIR" \
-        --idx="$MODEL_IDX" \
+        ${MODEL_ARG} \
         --num_workers=8 \
         --mode="$MODE" \
         --benchmark_id="$SLURM_ARRAY_TASK_ID"
 else
     python eval.py \
         --output_dir="$OUTPUT_DIR" \
-        --idx="$MODEL_IDX" \
+        ${MODEL_ARG} \
         --num_workers=8 \
         --mode="$MODE"
 fi

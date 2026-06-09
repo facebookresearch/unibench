@@ -22,7 +22,7 @@ LOG_FILE=${LOG_DIR}/slurm_%A_%a.out
 echo "Logging to:        ${LOG_FILE}"
 echo "Output directory:  ${OUT_DIR}"
 
-cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/eval_scripts
+cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/eval_scripts/haider
 
 echo "Submitting classification jobs for model indices 0-${NUM_MODELS} ..."
 for model_idx in $(seq 0 ${NUM_MODELS}); do

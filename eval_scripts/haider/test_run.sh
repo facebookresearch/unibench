@@ -30,7 +30,7 @@ echo "Logging to:       ${LOG_FILE}"
 echo "Output directory: ${OUT_DIR}"
 echo "Mode:             ${MODE}"
 
-cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/eval_scripts
+cd /storage/home/hcoda1/6/haltahan6/scratch/unibench/eval_scripts/haider
 
 # ── Job 1: CLIP model ─────────────────────────────────────────────────────────
 echo "Submitting CLIP job: ${MODEL_NAME:-idx=${MODEL_IDX}}"
