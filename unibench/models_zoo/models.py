@@ -7443,7 +7443,7 @@ def gpt_5_4_genai_responses(model_name, **kwargs):
 
     return ChatGPTModels(
         model_name=model_name,
-        api_model_id="gpt-5-4",
+        api_model_id="gpt-5-4-genai-responses",
         output_func=lambda x: x,
         **kwargs,
     ), [
@@ -7477,7 +7477,7 @@ def claude_4_6_opus_genai_vertex(model_name, **kwargs):
 
     return ChatGPTModels(
         model_name=model_name,
-        api_model_id="claude-opus-4-6",
+        api_model_id="claude-4-6-opus-genai-vertex",
         output_func=lambda x: x,
         **kwargs,
     ), [
@@ -7511,7 +7511,7 @@ def gemini_3_1_pro_preview_fair(model_name, **kwargs):
 
     return ChatGPTModels(
         model_name=model_name,
-        api_model_id="gemini-3.1-pro-preview",
+        api_model_id="gemini-3-1-pro-preview-fair",
         output_func=lambda x: x,
         **kwargs,
     ), [

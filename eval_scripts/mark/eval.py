@@ -11,9 +11,6 @@ from unibench.common_utils.constants import OUTPUT_DIR
 # ── Model list ────────────────────────────────────────────────────────────────
 # API-based models only — no GPU required.
 MODELS = [
-    "gpt_4o",
-    "gpt_4o_mini",
-    "gpt_4_1",
     "gpt_5_4_genai_responses",
     "claude_4_6_opus_genai_vertex",
     "gemini_3_1_pro_preview_fair",

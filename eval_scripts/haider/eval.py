@@ -176,7 +176,7 @@ def _run_classification(evaluator, benchmark_id, small_set):
 
     # Determine which class-count variants to run
     if small_set:
-        num_classes_list = [c for c in [32] if c <= len(class_names)] or [len(class_names)]
+        num_classes_list = [c for c in [10] if c <= len(class_names)] or [len(class_names)]
     else:
         num_classes_list = [2 ** i for i in range(1, 40) if 2 ** i <= len(class_names)]
         if not num_classes_list or num_classes_list[-1] < len(class_names):
