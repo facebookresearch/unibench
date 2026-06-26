@@ -112,7 +112,7 @@ class AbstractModel(ABC):
 
     def get_batch_size(self) -> int:
         return self.batch_per_gpu * (
-            1 if self.device == "cpu" else torch.cuda.device_count()
+            1 if self.device == "cpu" else max(1, torch.cuda.device_count())
         )
 
     def get_preprocess_transforms(self):
