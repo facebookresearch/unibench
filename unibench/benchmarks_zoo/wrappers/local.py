@@ -7,6 +7,7 @@ LICENSE file in the root directory of this source tree.
 
 import ast
 import json
+import os
 import random
 import urllib.request
 from pathlib import Path
@@ -85,13 +86,31 @@ class OpenAppsDataset(Dataset):
 	def __len__(self):
 		return len(self.dataset)
 
+	@staticmethod
+	def _download_atomic(url, dest):
+		"""Download *url* to *dest* atomically.
+
+		Writes to a temporary file in the same directory and only renames it
+		into place once the download completes, so an interrupted download
+		never leaves a truncated/corrupt file that later runs would mistake
+		for valid cached data.
+		"""
+		dest = Path(dest)
+		dest.parent.mkdir(parents=True, exist_ok=True)
+		tmp = dest.with_name(dest.name + ".part")
+		try:
+			urllib.request.urlretrieve(url, tmp)
+			os.replace(tmp, dest)
+		finally:
+			if tmp.exists():
+				tmp.unlink()
+
 	def _ensure_questions_json(self):
 		"""Download ui_questions.json from GitHub if it is missing."""
 		if self.questions_json.exists():
 			return
-		self.questions_json.parent.mkdir(parents=True, exist_ok=True)
 		print(f"Downloading OpenApps questions JSON to {self.questions_json} …")
-		urllib.request.urlretrieve(_OPENAPPS_QUESTIONS_URL, self.questions_json)
+		self._download_atomic(_OPENAPPS_QUESTIONS_URL, self.questions_json)
 
 	def _ensure_screenshots(self, dataset):
 		"""Download any screenshots that are referenced in *dataset* but missing locally."""
@@ -110,10 +129,9 @@ class OpenAppsDataset(Dataset):
 			if dest.exists():
 				continue
 
-			dest.parent.mkdir(parents=True, exist_ok=True)
 			url = f"{_OPENAPPS_SCREENSHOTS_BASE_URL}/{rel.as_posix()}"
 			print(f"Downloading {dest.name} from {url} …")
-			urllib.request.urlretrieve(url, dest)
+			self._download_atomic(url, dest)
 
 	def _resolve_image_path(self, screenshot_path):
 		screenshot_path = Path(screenshot_path)
