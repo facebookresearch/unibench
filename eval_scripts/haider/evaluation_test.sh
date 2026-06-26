@@ -4,7 +4,7 @@
 #SBATCH --mem-per-gpu=224GB
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:rtx_pro_6000_blackwell:1
-#SBATCH --time=02:00:00
+#SBATCH --time=01:00:00
 #SBATCH --output=./scripts_log/%j.out
 #SBATCH --account=gts-rmurty7-paid
 

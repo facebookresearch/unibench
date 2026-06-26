@@ -20,6 +20,7 @@ minimal_requirements = [
     "huggingface_hub",
     "oslo.concurrency",
     "pyarrow",
+    "openai",
 ]
 
 complete_requirements = [
@@ -36,7 +37,6 @@ complete_requirements = [
     "gdown",
     "scipy",
     "accelerate",
-    "openai",
     "backoff",
     "sentencepiece",
     "protobuf",

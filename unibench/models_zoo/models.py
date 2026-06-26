@@ -190,12 +190,59 @@ def qwen_3_5_35b_a3b(model_name, **kwargs):
     },
 )
 def kimi_k2_5(model_name, **kwargs):
+    import inspect
     from transformers import AutoModel
     from transformers import AutoProcessor
     import torch
     from unibench.models_zoo.wrappers.vllm import VLLModels
 
+    # Compat shim: transformers >=5 removed is_torch_fx_available, but the
+    # Kimi-K2.5 remote modeling code still imports it. torch.fx is always
+    # available in modern torch, so expose a stand-in before the dynamic
+    # module is imported by from_pretrained.
+    import transformers.utils.import_utils as _iu
+    if not hasattr(_iu, "is_torch_fx_available"):
+        _iu.is_torch_fx_available = lambda: True
+
     name = "moonshotai/Kimi-K2.5"
+
+    # Compat shim: transformers >=5 renamed the Flash-Attention-2 capability flag
+    # from `_supports_flash_attn_2` to `_supports_flash_attn`. The remote modeling
+    # code (written for transformers 4.x) still uses the old name, so v5's hard
+    # dispatch check treats the MoonViT3d vision tower as FA2-incapable and refuses
+    # the `flash_attention_2` implementation that config.json requests, even though
+    # the code provides a working FA2 vision path. Re-expose the new flag on every
+    # remote PreTrainedModel subclass that declared legacy FA2 support. Resolving
+    # one class forces the remote module into sys.modules (cached), so the classes
+    # patched here are the same objects from_pretrained instantiates below.
+    import sys
+    from transformers import PreTrainedModel
+    from transformers.dynamic_module_utils import get_class_from_dynamic_module
+
+    _vt_cls = get_class_from_dynamic_module(
+        "modeling_kimi_k25.MoonViT3dPretrainedModel", name
+    )
+    for _obj in vars(sys.modules[_vt_cls.__module__]).values():
+        if (
+            isinstance(_obj, type)
+            and issubclass(_obj, PreTrainedModel)
+            and getattr(_obj, "_supports_flash_attn_2", False)
+        ):
+            _obj._supports_flash_attn = True
+
+    # Compat shim: transformers >=5 calls `self.tie_weights(recompute_mapping=...)`
+    # from init_weights(), but the remote code's override is `def tie_weights(self)`
+    # with no kwargs, raising TypeError. Wrap it to accept and discard the new
+    # arguments while preserving the original delegation to the language model.
+    _gen_cls = get_class_from_dynamic_module(
+        "modeling_kimi_k25.KimiK25ForConditionalGeneration", name
+    )
+    _orig_tie_weights = _gen_cls.tie_weights
+    if "recompute_mapping" not in inspect.signature(_orig_tie_weights).parameters:
+        def _tie_weights_compat(self, *args, **kwargs):
+            return self.language_model.tie_weights()
+        _gen_cls.tie_weights = _tie_weights_compat
+
     model = AutoModel.from_pretrained(
         name,
         low_cpu_mem_usage=True,
@@ -7512,6 +7559,50 @@ def gemini_3_1_pro_preview_fair(model_name, **kwargs):
     return ChatGPTModels(
         model_name=model_name,
         api_model_id="gemini-3-1-pro-preview-fair",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": None,
+        "model_size": None,
+        "learning_objective": "Qwen",
+        "architecture": "vit",
+        "name": "Qwen3-VL-30B-A3B-Instruct (vLLM / ChatGPT API test)",
+        "vision_encoder": "Qwen3-VL-30B-A3B-Instruct",
+        "year": 2025,
+        "month": 6,
+    },
+)
+def qwen_3_vl_30b_a3b_vllm_chatgpt_test(model_name, **kwargs):
+    """Test model: drives the same ChatGPTModels (OpenAI Chat Completions) path
+    as gpt_5_4_genai_responses, but against a local
+    `vllm serve Qwen/Qwen3-VL-30B-A3B-Instruct` OpenAI-compatible server.
+
+    Lets you sanity-check the ChatGPTModels wrapper end-to-end without hitting a
+    paid API. Point it at the server with VLLM_BASE_URL (default
+    http://localhost:8000/v1); vLLM does not require a real API key.
+    """
+    from unibench.models_zoo.wrappers.vllm import ChatGPTModels
+
+    return ChatGPTModels(
+        model_name=model_name,
+        api_model_id="Qwen/Qwen3-VL-30B-A3B-Instruct",
+        base_url=os.environ.get("VLLM_BASE_URL", "http://localhost:8000/v1"),
+        api_key=os.environ.get("OPENAI_API_KEY", "EMPTY"),
         output_func=lambda x: x,
         **kwargs,
     ), [

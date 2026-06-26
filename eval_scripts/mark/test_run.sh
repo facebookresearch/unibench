@@ -6,8 +6,6 @@
 
 # --- API keys ---
 OPENAI_API_KEY=""                   # required for gpt_5_4_genai_responses
-ANTHROPIC_VERTEX_PROJECT_ID=""      # only needed for claude_4_6_opus_genai_vertex
-GOOGLE_API_KEY=""                   # only needed for gemini_3_1_pro_preview_fair
 
 # --- What to run ---
 MODEL_NAME="gpt_5_4_genai_responses"

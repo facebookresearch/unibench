@@ -185,6 +185,7 @@ class ChatGPTModels(AbstractVLLM):
         model_name,
         api_model_id,
         api_key=os.environ.get("OPENAI_API_KEY", "EMPTY"),
+        base_url=None,
         output_func=None,
         max_new_tokens=32,
         system_prompt=None,
@@ -199,9 +200,11 @@ class ChatGPTModels(AbstractVLLM):
         )
         self.api_model_id = api_model_id
         self.system_prompt = system_prompt
-        # api_key defaults to None; the OpenAI client will automatically
-        # read OPENAI_API_KEY from the environment when no key is supplied.
-        self.client = OpenAI(api_key=api_key)
+        # base_url lets the same Chat Completions client target any
+        # OpenAI-compatible endpoint (e.g. a local `vllm serve` server) instead
+        # of the hosted OpenAI API. When None, the OpenAI client falls back to
+        # OPENAI_BASE_URL / the default OpenAI endpoint.
+        self.client = OpenAI(api_key=api_key, base_url=base_url)
 
     def _image_to_data_url(self, image_tensor):
         pil_image = F.to_pil_image(image_tensor.clamp(0, 1))

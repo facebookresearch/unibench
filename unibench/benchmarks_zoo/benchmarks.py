@@ -2554,12 +2554,21 @@ def openapps(benchmark_name, transform=None, **kwargs):
         "curated": True,
         "object_centric": False,
         "image_resolution": [None, None],
-        "num_classes": 4,
+        "num_classes": 10,
         "llama2_ppi": None,
     },
 )
 def mmmu_pro(benchmark_name, transform=None, **kwargs):
-    benchmark = MMMUProDataset(transform=transform, output_format="vllm", **kwargs)
+    # mmmu_pro always runs on the full 10-option subset; ignore any
+    # max_num_samples cap passed in by the evaluator.
+    kwargs.pop("max_num_samples", None)
+    benchmark = MMMUProDataset(
+        transform=transform,
+        output_format="vllm",
+        config_name="standard (10 options)",
+        max_num_samples=None,
+        **kwargs,
+    )
     return {
         "multi_choice_vqa": MultiChoiceVQABenchmarkHandler(
             benchmark_name=benchmark_name,

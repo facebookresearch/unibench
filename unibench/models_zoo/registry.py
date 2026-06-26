@@ -37,7 +37,10 @@ def load_model(model_name, **kwargs):
     if model_name in list_models("all"):
         model = eval(f"models.{model_name}")(model_name, **kwargs)
     else:
-        return None
+        # Return a (model, tasks) shaped tuple so callers that unpack the
+        # result still get a clean `model is None` check instead of a cryptic
+        # "cannot unpack non-iterable NoneType object" TypeError.
+        return None, None
     return model
 
 

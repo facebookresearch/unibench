@@ -8,7 +8,7 @@
 # VQA:            one regular job per model.
 #                 Done marker: <OUT_DIR>/<model>/<bench>.f for each benchmark
 
-NUM_MODELS=34   # last index (0-based)
+NUM_MODELS=33   # last index (0-based)
 
 RUN_DATE=$(date +%Y%m%d_%H%M%S)
 LOG_DIR=./scripts_log/${RUN_DATE}
@@ -73,7 +73,7 @@ for model_idx in $(seq 0 ${NUM_MODELS}); do
     array_spec=$(printf '%s\n' "${todo_ids[@]}" | compact_range)
     echo "  [submit] ${model_name}: ${#todo_ids[@]}/45 benchmarks (array: ${array_spec})"
     sbatch --array="${array_spec}" --output="${LOG_FILE}" \
-        evaluation.sh "${OUT_DIR}" "${model_idx}" "classification"
+        evaluation.sh "${OUT_DIR}" "${model_name}" "classification"
 done
 
 echo "Submitting relation jobs for model indices 0-${NUM_MODELS} ..."
@@ -85,7 +85,7 @@ for model_idx in $(seq 0 ${NUM_MODELS}); do
     fi
     echo "  [submit] ${model_name}: relation"
     sbatch --output="${LOG_FILE}" \
-        evaluation.sh "${OUT_DIR}" "${model_idx}" "relation"
+        evaluation.sh "${OUT_DIR}" "${model_name}" "relation"
 done
 
 echo "Submitting VQA jobs (openapps, mmmu_pro) for model indices 0-${NUM_MODELS} ..."
@@ -97,7 +97,7 @@ for model_idx in $(seq 0 ${NUM_MODELS}); do
     fi
     echo "  [submit] ${model_name}: vqa"
     sbatch --output="${LOG_FILE}" \
-        evaluation.sh "${OUT_DIR}" "${model_idx}" "vqa"
+        evaluation.sh "${OUT_DIR}" "${model_name}" "vqa"
 done
 
 echo "Done submitting."
