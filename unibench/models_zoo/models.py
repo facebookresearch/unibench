@@ -7511,6 +7511,40 @@ def gpt_5_4_genai_responses(model_name, **kwargs):
         "model_type": "vllm",
         "dataset_size": None,
         "model_size": None,
+        "learning_objective": "ChatGPT",
+        "architecture": "vit",
+        "name": "GPT-5-5 (GenAI Responses)",
+        "vision_encoder": "GPT-5-5",
+        "year": 2025,
+        "month": 6,
+    },
+)
+def gpt_5_5_genai_responses(model_name, **kwargs):
+    from unibench.models_zoo.wrappers.vllm import ChatGPTModels
+
+    return ChatGPTModels(
+        model_name=model_name,
+        api_model_id="gpt-5-5-genai-responses",
+        output_func=lambda x: x,
+        **kwargs,
+    ), [
+        "text_classification",
+        "multi_choice_classification",
+        "multi_choice_relation",
+        "clip_judge_classification",
+        "llm_judge_classification",
+        "clip_judge_relation",
+        "in_context_text_classification",
+        "multi_choice_vqa",
+    ]
+
+
+@register_model(
+    "vllm",
+    {
+        "model_type": "vllm",
+        "dataset_size": None,
+        "model_size": None,
         "learning_objective": "Anthropic",
         "architecture": "vit",
         "name": "Claude 4.6 Opus (Vertex)",
